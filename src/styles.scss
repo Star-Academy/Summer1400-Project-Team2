@@ -1,0 +1,14 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sahel", sans-serif;
+  outline: none;
+  border: none;
+}
+
+html {
+  font-size: 62.5%;
+}
