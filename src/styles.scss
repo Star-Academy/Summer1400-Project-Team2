@@ -1,17 +1,59 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Sahel", sans-serif;
-  outline: none;
-  border: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sahel', sans-serif;
+    outline: none;
+    border: none;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+    --clr-gray-95: hsl(0, 0%, 95%);
+    --clr-gray-91: hsl(0, 0%, 91%);
+    --clr-gray-47: hsl(0, 0%, 47%);
+
+    --clr-blue-70: hsl(206, 100%, 70%);
+    --clr-dark-blue-26: hsl(210, 62%, 26%);
+
+    --clr-black: hsl(0, 0%, 0%);
+    --clr-black-13: hsl(0, 0%, 13%);
+
+    --font-size-18: 1.8rem;
+    --font-size-16: 1.6rem;
+    --font-size-14: 1.4rem;
+}
+
+button {
+    background: transparent;
+    cursor: pointer;
+}
+
+.svg-bg-default {
+    filter: invert(51%) sepia(0%) saturate(393%) hue-rotate(177deg) brightness(92%) contrast(85%);
+}
+
+.svg-type-1 {
+    &:hover > img {
+        filter: invert(72%) sepia(11%) saturate(3676%) hue-rotate(178deg) brightness(100%) contrast(103%);
+    }
+}
+
+.svg-type-2 {
+    &:hover > img {
+        filter: invert(19%) sepia(54%) saturate(831%) hue-rotate(171deg) brightness(101%) contrast(94%);
+    }
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+p {
+    color: var(--clr-black-13);
+}
