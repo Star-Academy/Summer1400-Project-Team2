@@ -4,19 +4,27 @@ import {DashboardComponent} from './dashboard.component';
 import {PipelinesComponent} from './pipelines/pipelines.component';
 import {DatasetsComponent} from './datasets/datasets.component';
 import {RouterModule} from "@angular/router";
+import {NavbarComponent} from './navbar/navbar.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PipelinesComponent,
-    DatasetsComponent
+    DatasetsComponent,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
   ],
-  exports:[
+  exports: [
     DashboardComponent,
   ]
 })
