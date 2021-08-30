@@ -8,6 +8,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {MatIconModule} from "@angular/material/icon";
     PipelinesComponent,
     DatasetsComponent,
     NavbarComponent,
+    ToolbarComponent,
   ],
   imports: [
     CommonModule,
