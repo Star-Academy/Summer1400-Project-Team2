@@ -9,6 +9,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
   ],
   exports: [
     DashboardComponent,
