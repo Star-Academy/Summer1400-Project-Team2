@@ -7,6 +7,7 @@ import {OverviewComponent} from './overview/overview.component';
 import {SampleComponent} from './sample/sample.component';
 import {RadarChartComponent} from './overview/radar-chart/radar-chart.component';
 import {ChartsModule} from 'ng2-charts';
+import { DoughnutChartComponent } from './overview/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {ChartsModule} from 'ng2-charts';
         OverviewComponent,
         SampleComponent,
         RadarChartComponent,
+        DoughnutChartComponent,
     ],
     imports: [CommonModule, ChartsModule],
 })
