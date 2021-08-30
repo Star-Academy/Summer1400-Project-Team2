@@ -1,1 +1,98 @@
-<p>overview works!</p>
+<section class="section-1">
+    <div class="card card__large">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+
+        <div class="info-wrapper">
+            <div class="shield-wrapper">
+                <img src="../../../../assets/images/shield.svg" alt="trust" />
+                <p>3.22</p>
+            </div>
+
+            <app-radar-chart></app-radar-chart>
+
+            <div class="info">
+                <div class="title">
+                    <button (click)="infoChanger('next')">
+                        <img src="../../../../assets/images/arrow--right.svg" alt="next button" />
+                    </button>
+
+                    <p class="selected-info-title">{{ radarInfoDescriber[index].title }}</p>
+
+                    <button (click)="infoChanger('pre')">
+                        <img src="../../../../assets/images/arrow--right.svg" id="left-btn" alt="next button" />
+                    </button>
+                </div>
+
+                <p class="selected-info-text">{{ radarInfoDescriber[index].text }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card__small">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+
+        <div class="info-wrapper">
+            <div class="info">
+                <img src="../../../../assets/images/calender.svg" alt="calender" />
+                <div class="wrapper">
+                    <p>ساخته شده در</p>
+                    <p>2021-08-28 01:42:18</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <img src="../../../../assets/images/profile.svg" alt="calender" />
+                <div class="wrapper">
+                    <p>ساخته شده توسط</p>
+                    <p>پارسا اروانه</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <img src="../../../../assets/images/calender.svg" alt="calender" />
+                <div class="wrapper">
+                    <p>آخرین تغییر</p>
+                    <p>2021-08-28 01:42:18</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <img src="../../../../assets/images/profile.svg" alt="calender" />
+                <div class="wrapper">
+                    <p>تغییر داده شده توسط</p>
+                    <p>پارسا اروانه</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-2">
+    <div class="card card__large">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+    </div>
+    <div class="card card__small">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-3">
+    <div class="card card__large">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+    </div>
+    <div class="card card__small">
+        <div class="title-wrapper">
+            <p>اسم بخش</p>
+        </div>
+    </div>
+</section>

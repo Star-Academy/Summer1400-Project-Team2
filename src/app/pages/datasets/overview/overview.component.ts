@@ -1,15 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
+    radarInfoDescriber = [
+        {
+            title: 'اعتبار',
+            text: 'توضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبارتوضیحات بخش اعتبار',
+        },
+        {
+            title: 'محبوبیت',
+            text: 'توضیحات بخش محبوبیتتوضیحات بخش محبوبیتتوضیحات بخش محبوبیتتوضیحات بخش محبوبیتتوضیحات بخش محبوبیتتوضیحات بخش محبوبیت',
+        },
+        {
+            title: 'کامل بودن',
+            text: 'توضیحات بخش کامل بودنتوضیحات بخش کامل بودنتوضیحات بخش کامل بودنتوضیحات بخش کامل بودنتوضیحات بخش کامل بودنتوضیحات بخش کامل بودنتوضیحات بخش کامل بودن',
+        },
+        {
+            title: 'قابل کشف',
+            text: 'توضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشفتوضیحات بخش قابل کشف',
+        },
+        {
+            title: 'میزان کارکرد',
+            text: 'توضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکردتوضیحات بخش میزان کارکرد',
+        },
+    ];
 
-  ngOnInit(): void {
-  }
+    index: number = 0;
 
+    ngOnInit(): void {}
+
+    infoChanger(dir: string) {
+        if (dir === 'next') {
+            this.index++;
+            if (this.index === 5) {
+                this.index = 0;
+            }
+        } else if (dir === 'pre') {
+            this.index--;
+            if (this.index === -1) {
+                this.index = 4;
+            }
+        }
+    }
 }
