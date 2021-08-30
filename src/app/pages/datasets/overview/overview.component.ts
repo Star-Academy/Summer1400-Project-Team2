@@ -33,6 +33,24 @@ export class OverviewComponent implements OnInit {
 
     index: number = 0;
 
+    doughnutColor = {
+        type1: {
+            data: [45.3, 54.7],
+            color: ['hsl(0, 0%, 82%)', 'hsl(89, 49%, 50%)'],
+            label: ['معتبر', 'نامعتبر'],
+        },
+        type2: {
+            data: [55.1, 44.9],
+            color: ['hsl(0, 0%, 82%)', 'hsl(0, 0%, 30%)'],
+            label: ['خالی', 'پر'],
+        },
+        type3: {
+            data: [99.6, 0.4],
+            color: ['hsl(0, 0%, 82%)', 'hsl(358, 76%, 65%)'],
+            label: ['نامعتبر', 'معتبر'],
+        },
+    };
+
     ngOnInit(): void {}
 
     infoChanger(dir: string) {

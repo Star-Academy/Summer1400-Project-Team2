@@ -139,4 +139,15 @@
             }
         }
     }
+
+    .section-2 .card__large {
+        .info-wrapper {
+            display: flex;
+            align-items: center;
+
+            & > * {
+                flex: 1;
+            }
+        }
+    }
 }

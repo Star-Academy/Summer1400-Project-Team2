@@ -76,6 +76,24 @@
         <div class="title-wrapper">
             <p>اسم بخش</p>
         </div>
+
+        <div class="info-wrapper">
+            <app-doughnut-chart
+                [chartData]="doughnutColor.type1.data"
+                [chartColor]="doughnutColor.type1.color"
+                [chartLabel]="doughnutColor.type1.label"
+            ></app-doughnut-chart>
+            <app-doughnut-chart
+                [chartData]="doughnutColor.type2.data"
+                [chartColor]="doughnutColor.type2.color"
+                [chartLabel]="doughnutColor.type2.label"
+            ></app-doughnut-chart>
+            <app-doughnut-chart
+                [chartData]="doughnutColor.type3.data"
+                [chartColor]="doughnutColor.type3.color"
+                [chartLabel]="doughnutColor.type3.label"
+            ></app-doughnut-chart>
+        </div>
     </div>
     <div class="card card__small">
         <div class="title-wrapper">
@@ -87,8 +105,10 @@
 <section class="section-3">
     <div class="card card__large">
         <div class="title-wrapper">
-            <p>اسم بخش</p>
+            <p>توضیحات</p>
         </div>
+
+        <div class="info"></div>
     </div>
     <div class="card card__small">
         <div class="title-wrapper">
