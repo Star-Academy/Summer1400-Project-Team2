@@ -4,19 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PipelineHeaderComponent } from './components/pipeline-header/pipeline-header.component';
+import { PipelineModule } from './pages/pipeline/pipeline.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PipelineHeaderComponent
+    AppComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+     PipelineModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
