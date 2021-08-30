@@ -1,0 +1,30 @@
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.menu_icon {
+  margin: 0 0.5rem 0 1rem;
+}
+
+.profile_menu_icon {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-menu-item .mat-icon {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+.profile{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
