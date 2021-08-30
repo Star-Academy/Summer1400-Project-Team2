@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
     selector: 'app-side-menu',
@@ -6,7 +6,13 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
+    @Output() layoutManager = new EventEmitter();
+
     constructor() {}
 
     ngOnInit(): void {}
+
+    layoutChange(e: any) {
+        this.layoutManager.emit(e.currentTarget.id);
+    }
 }
