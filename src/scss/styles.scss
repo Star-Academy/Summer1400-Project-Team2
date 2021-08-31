@@ -1,25 +1,25 @@
+@use './typo';
+@use './material';
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Sahel", sans-serif;
   outline: none;
   border: none;
 }
 
 html {
   font-size: 62.5%;
-  direction: rtl;
 }
 
-html, body {
-  direction: rtl;
+html,
+body {
   height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: vazir, sans-serif;
 }
