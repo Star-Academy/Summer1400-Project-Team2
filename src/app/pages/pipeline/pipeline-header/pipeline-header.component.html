@@ -1,10 +1,10 @@
 <header id="pipeline-header">
     <div class="pipeline-header__controls">
-        <button id="toggle-detail-button"><img src="../../../assets/images/icons/preview-button.svg" alt=""></button>
-        <button id="toggle-table-button"><img src="../../../assets/images/icons/preview-button.svg" alt=""></button>
-        <button id="back-node-button"><img src="../../../assets/images/icons/next-button.svg" alt=""></button>
-        <button id="next-node-button"><img src="../../../assets/images/icons/previous-button.svg" alt=""></button>
-        <button id="export-file-button"><img src="../../../assets/images/icons/export-button.svg" alt=""></button>
+        <button matTooltip="نمایش/عدم نمایش پنل تنظیمات" id="toggle-detail-button"><img src="../../../assets/images/icons/preview-button.svg" alt=""></button>
+        <button matTooltip="نمایش/عدم نمایش پنل نمونه" id="toggle-table-button"><img src="../../../assets/images/icons/preview-button.svg" alt=""></button>
+        <button [disabled]="true" matTooltip="redo" id="back-node-button"><img src="../../../assets/images/icons/next-button.svg" alt=""></button>
+        <button [disabled]="true" matTooltip="undo" id="next-node-button"><img src="../../../assets/images/icons/previous-button.svg" alt=""></button>
+        <button matTooltip="دانلود فایل پایپلاین" id="export-file-button"><img src="../../../assets/images/icons/export-button.svg" alt=""></button>
     </div>
     <div class="pipeline-header__run">
         <span>اجرا</span>
@@ -16,7 +16,7 @@
 
         <div class="pipeline-info__container">
             <div class="pipeline-info">
-                <button class="pipeline-edit-button" (click)="onEditBtn()">
+                <button matTooltip="تغییر نام" class="pipeline-edit-button" (click)="onEditBtn()">
                     <img src="../../../assets/images/icons/edit-button.svg" alt="">
                 </button>
                 <h4 class="pipeline-name">نام پایپلاین</h4>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="back-button__container">
-            <button class="back-button" (click)="onBackBtn()">
+            <button matTooltip="بازگشت" class="back-button" (click)="onBackBtn()">
                 <img src="../../../assets/images/icons/back-button.svg" alt="">
             </button>
         </div>
