@@ -23,16 +23,6 @@ export class PipelinesComponent {
     console.log(row);
   }
 
-  files: File[] = [];
-
-  onSelect(event: { addedFiles: File }): void {
-    this.files.push(event.addedFiles);
-  }
-
-  onRemove(event: File): void {
-    this.files.splice(this.files.indexOf(event), 1);
-  }
-
   displayedColumns: string[] = ['name', 'connectionName', 'created', 'star'];
   dataSource = DATA;
 }

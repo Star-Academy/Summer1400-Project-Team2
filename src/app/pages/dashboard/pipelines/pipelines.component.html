@@ -4,15 +4,6 @@
       ساخت پایپ لاین جدید
       <mat-icon>add_circle_outline</mat-icon>
     </button>
-    <div class="custom-dropzone" ngx-dropzone (change)="onSelect($event)">
-      <ngx-dropzone-label>
-        آپلود
-        <mat-icon>file_upload</mat-icon>
-      </ngx-dropzone-label>
-      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-        <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
-      </ngx-dropzone-preview>
-    </div>
   </div>
 
   <div class="_left">
