@@ -1,1 +1,67 @@
-<p>pipelines works!</p>
+<div class="top_toolbar">
+  <div class="_right">
+    <button mat-flat-button color="primary">
+      ساخت پایپ لاین جدید
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <div class="custom-dropzone" ngx-dropzone (change)="onSelect($event)">
+      <ngx-dropzone-label>
+        آپلود
+        <mat-icon>file_upload</mat-icon>
+      </ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </div>
+  </div>
+
+  <div class="_left">
+    <button mat-icon-button color="warn" aria-label="heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button disabled aria-label="open in new tab icon">
+      <mat-icon>open_in_new</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>اسم</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="connectionName">
+      <th mat-header-cell *matHeaderCellDef>کانکشن</th>
+      <td mat-cell *matCellDef="let element">{{ element.connectionName }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef>زمان ساخت</th>
+      <td mat-cell *matCellDef="let element">{{ element.created }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="star">
+      <th mat-header-cell *matHeaderCellDef>مهم ؟</th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.star; then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock>
+          <mat-icon style="color: gold">star</mat-icon>
+        </ng-template>
+        <ng-template #elseBlock>
+          <mat-icon>star_outline</mat-icon>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row (click)="rowClick(row)" *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
