@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
@@ -25,7 +24,6 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
-    NgxDropzoneModule,
     MatButtonModule,
     MatTableModule
   ],
