@@ -1,7 +1,7 @@
 <div class="container">
   <app-toolbar></app-toolbar>
   <mat-drawer-container class="dashboard" dir="rtl">
-    <mat-drawer #navSide mode="side" opened>
+    <mat-drawer #sidenav mode="side" [opened]="width()">
       <app-navbar></app-navbar>
     </mat-drawer>
     <mat-drawer-content>
