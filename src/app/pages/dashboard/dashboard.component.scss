@@ -1,14 +1,14 @@
-:host{
+:host {
   font-size: 2rem;
 }
-.container{
+.container {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-mat-drawer-container{
+mat-drawer-container {
   height: 100%;
 }
-mat-drawer-content{
-  padding: 2rem;
+mat-drawer-content {
+  padding: 2rem 2.5rem 2rem 2rem;
 }

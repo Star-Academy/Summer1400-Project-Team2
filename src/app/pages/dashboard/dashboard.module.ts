@@ -1,26 +1,22 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DashboardComponent} from './dashboard.component';
-import {PipelinesComponent} from './pipelines/pipelines.component';
-import {DatasetsComponent} from './datasets/datasets.component';
-import {RouterModule} from "@angular/router";
-import {NavbarComponent} from './navbar/navbar.component';
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatListModule} from "@angular/material/list";
-import {MatIconModule} from "@angular/material/icon";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DashboardComponent } from './dashboard.component';
+import { PipelinesComponent } from './pipelines/pipelines.component';
+import { DatasetsComponent } from './datasets/datasets.component';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatMenuModule} from "@angular/material/menu";
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    PipelinesComponent,
-    DatasetsComponent,
-    NavbarComponent,
-    ToolbarComponent,
-  ],
+  declarations: [DashboardComponent, PipelinesComponent, DatasetsComponent, NavbarComponent, ToolbarComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -29,10 +25,10 @@ import {MatMenuModule} from "@angular/material/menu";
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    NgxDropzoneModule,
+    MatButtonModule,
+    MatTableModule
   ],
-  exports: [
-    DashboardComponent,
-  ]
+  exports: [DashboardComponent]
 })
-export class DashboardModule {
-}
+export class DashboardModule {}

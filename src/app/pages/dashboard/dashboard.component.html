@@ -1,12 +1,10 @@
 <div class="container">
-  <app-toolbar ></app-toolbar>
-
-  <mat-drawer-container class="example-container" dir="rtl">
+  <app-toolbar></app-toolbar>
+  <mat-drawer-container class="dashboard" dir="rtl">
     <mat-drawer #navSide mode="side" opened>
       <app-navbar></app-navbar>
     </mat-drawer>
     <mat-drawer-content>
-      تست
       <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>
