@@ -99,6 +99,34 @@
         <div class="title-wrapper">
             <p>اسم بخش</p>
         </div>
+
+        <div class="info-wrapper">
+            <div class="top">
+                <div class="score-wrapper">
+                    <img src="../../../../assets/images/face--sad.svg" alt="sad face" />
+                    <div class="score">
+                        <p>12%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <mat-slider
+                    [displayWith]="formatLabel"
+                    step="1"
+                    min="0"
+                    max="100"
+                    aria-label="units"
+                    value="1"
+                ></mat-slider>
+                <div class="faces">
+                    <img src="../../../../assets/images/face--very-sad.svg" alt="sad face" />
+                    <img src="../../../../assets/images/face--sad.svg" alt="sad face" />
+                    <img src="../../../../assets/images/face--normal.svg" alt="sad face" />
+                    <img src="../../../../assets/images/face--happy.svg" alt="sad face" />
+                    <img src="../../../../assets/images/face--very-happy.svg" alt="sad face" />
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -106,13 +134,30 @@
     <div class="card card__large">
         <div class="title-wrapper">
             <p>توضیحات</p>
+
+            <div [ngSwitch]="isEditing">
+                <button class="back-btn" *ngSwitchCase="true" (click)="editToggler()">
+                    <img class="svg-bg-default" src="../../../../assets/images/back-arrow.svg" alt="" />
+                </button>
+
+                <button class="enable-edit" *ngSwitchCase="false" (click)="editToggler()">
+                    <img src="../../../../assets/images/setting.svg" alt="setting" />
+                </button>
+            </div>
         </div>
 
-        <div class="info"></div>
-    </div>
-    <div class="card card__small">
-        <div class="title-wrapper">
-            <p>اسم بخش</p>
+        <div class="info" [ngSwitch]="isEditing">
+            <div class="text-wrapper" *ngSwitchCase="true">
+                <textarea name="textarea"
+                    >{{ description }}
+                </textarea>
+                <div class="btn-wrapper">
+                    <button>ذخیره</button>
+                </div>
+            </div>
+            <p *ngSwitchCase="false">
+                {{ description }}
+            </p>
         </div>
     </div>
 </section>

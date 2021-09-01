@@ -33,6 +33,9 @@ export class OverviewComponent implements OnInit {
 
     index: number = 0;
 
+    isEditing: boolean = false;
+    description: string = 'description';
+
     doughnutColor = {
         type1: {
             data: [45.3, 54.7],
@@ -65,5 +68,17 @@ export class OverviewComponent implements OnInit {
                 this.index = 4;
             }
         }
+    }
+
+    formatLabel(value: number) {
+        if (value >= 1000) {
+            return Math.round(value / 1000) + '%';
+        }
+
+        return value;
+    }
+
+    editToggler() {
+        this.isEditing = !this.isEditing;
     }
 }
