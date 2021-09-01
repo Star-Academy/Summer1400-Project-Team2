@@ -7,7 +7,8 @@ import {OverviewComponent} from './overview/overview.component';
 import {SampleComponent} from './sample/sample.component';
 import {RadarChartComponent} from './overview/radar-chart/radar-chart.component';
 import {ChartsModule} from 'ng2-charts';
-import { DoughnutChartComponent } from './overview/doughnut-chart/doughnut-chart.component';
+import {DoughnutChartComponent} from './overview/doughnut-chart/doughnut-chart.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,6 @@ import { DoughnutChartComponent } from './overview/doughnut-chart/doughnut-chart
         RadarChartComponent,
         DoughnutChartComponent,
     ],
-    imports: [CommonModule, ChartsModule],
+    imports: [CommonModule, ChartsModule, MatSliderModule],
 })
 export class DatasetsModule {}
