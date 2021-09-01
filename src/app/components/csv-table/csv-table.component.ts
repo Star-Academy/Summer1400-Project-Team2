@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,12 +9,42 @@ import { parse } from 'papaparse';
   templateUrl: './csv-table.component.html',
   styleUrls: ['./csv-table.component.scss']
 })
-export class CsvTableComponent implements OnInit, AfterViewInit {
+export class CsvTableComponent implements AfterViewInit {
   columns: string[] = [];
   dataSource = new MatTableDataSource<unknown>([]);
 
+  // --------------------------
+  // CSV Parsing
+
   @Input()
   csv = '';
+
+  @Input()
+  header = true;
+
+  @Input()
+  delimiter?: string;
+
+  @Input()
+  endOfLine?: string;
+
+  @Input()
+  escapeChar?: string;
+
+  @Input()
+  quoteChar?: string;
+
+  @Input()
+  comments?: string | boolean;
+
+  // --------------------------
+  // Paginator
+
+  @Input()
+  pageSizeOptions: number[] = [10, 20, 100, 200, 500, 1000];
+
+  @Input()
+  defaultPageSize = 100;
 
   @ViewChild(MatSort)
   private sort!: MatSort;
@@ -22,15 +52,22 @@ export class CsvTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  ngOnInit(): void {
-    const parsedCsv = parse(this.csv, { header: true });
-
-    this.dataSource = new MatTableDataSource(parsedCsv.data);
-    this.columns = parsedCsv.meta.fields ?? [];
-  }
-
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
+    setTimeout(() => {
+      const parsedCsv = parse(this.csv, {
+        header: this.header,
+        delimiter: this.delimiter,
+        newline: this.endOfLine,
+        escapeChar: this.escapeChar,
+        quoteChar: this.quoteChar,
+        comments: this.comments
+      });
+
+      this.dataSource.data = parsedCsv.data;
+      this.columns = parsedCsv.meta.fields ?? [];
+    }, 0);
   }
 }
