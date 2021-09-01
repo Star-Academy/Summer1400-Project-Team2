@@ -1,7 +1,9 @@
-<mat-table [dataSource]="data" matSort>
+<mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="index">
     <mat-header-cell *matHeaderCellDef>ردیف</mat-header-cell>
-    <mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</mat-cell>
+    <mat-cell *matCellDef="let row; let i = index">
+      {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+    </mat-cell>
   </ng-container>
 
   <ng-container *ngFor="let col of columns" [matColumnDef]="col">
@@ -9,6 +11,14 @@
     <mat-cell *matCellDef="let row">{{ row[col] }}</mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="['index'].concat(columns); sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="['index'].concat(columns); sticky: true">
+  </mat-header-row>
   <mat-row *matRowDef="let row; columns: ['index'].concat(columns)"></mat-row>
 </mat-table>
+
+<mat-paginator
+  [pageSizeOptions]="[10, 20, 100, 200, 500, 1000]"
+  [pageSize]="100"
+  showFirstLastButtons
+>
+</mat-paginator>
