@@ -1,24 +1,26 @@
-<mat-table [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef="index">
-    <mat-header-cell *matHeaderCellDef>ردیف</mat-header-cell>
-    <mat-cell *matCellDef="let row; let i = index">
-      {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
-    </mat-cell>
-  </ng-container>
+<div class="table__box">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef>ردیف</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+      </mat-cell>
+    </ng-container>
 
-  <ng-container *ngFor="let col of columns" [matColumnDef]="col">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row[col] }}</mat-cell>
-  </ng-container>
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row[col] }}</mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="['index'].concat(columns); sticky: true">
-  </mat-header-row>
-  <mat-row *matRowDef="let row; columns: ['index'].concat(columns)"></mat-row>
-</mat-table>
+    <mat-header-row *matHeaderRowDef="['index'].concat(columns); sticky: true">
+    </mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['index'].concat(columns)"></mat-row>
+  </mat-table>
 
-<mat-paginator
-  [pageSizeOptions]="pageSizeOptions"
-  [pageSize]="defaultPageSize"
-  showFirstLastButtons
->
-</mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="defaultPageSize"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>
