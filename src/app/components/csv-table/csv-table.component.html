@@ -1,0 +1,28 @@
+<div class="table__box">
+  <mat-table [dataSource]="dataSource" matSort recycleRows>
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef>ردیف</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        {{ bigData ? paginator.pageIndex * paginator.pageSize + i + 1 : i + 1 }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row[col] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['index'].concat(columns); sticky: true">
+    </mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['index'].concat(columns)"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    *ngIf="bigData"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="defaultPageSize"
+    showFirstLastButtons
+    (page)="page.emit($event)"
+  >
+  </mat-paginator>
+</div>
