@@ -7,9 +7,9 @@
         <button matTooltip="دانلود فایل پایپلاین" id="export-file-button"><img src="../../../assets/images/icons/export-button.svg" alt=""></button>
     </div>
     <div class="pipeline-header__run">
-        <span>اجرا</span>
-        <button>
-            <img src="../../../assets/images/icons/play-button.svg" alt="">
+        <span>اجرای پایپلاین</span>
+        <button (click)="onRunBtn()">
+            <img [src]="runImgSrc" alt="">
         </button>
     </div>
     <div class="pipeline-header__details">
@@ -19,10 +19,10 @@
                 <button matTooltip="تغییر نام" class="pipeline-edit-button" (click)="onEditBtn()">
                     <img src="../../../assets/images/icons/edit-button.svg" alt="">
                 </button>
-                <h4 class="pipeline-name">نام پایپلاین</h4>
+                <h4 class="pipeline-name" matTooltip={{pipelineName}}>{{pipelineName}}</h4>
             </div>
             <div class="change-pipeline__container">
-                <input type="text" value="نام پایپلاین">
+                <input type="text" (input)="onUpdatedName($event)" value={{updatedName}}>
                 <button id="save-edit-button" (click)="onSubmitBtn()"><img src="../../../../assets/images/icons/checked.svg" alt=""></button>
                 <button id="cancel-edit-button" (click)="onCancelBtn()"><img src="../../../../assets/images/icons/cancel.svg" alt=""></button>
             </div>

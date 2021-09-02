@@ -7,18 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PipelineHeaderComponent implements OnInit {
   constructor() {}
-
   ngOnInit(): void {}
-  hasClicked = false;
+  pipelineName ='نام پایپلاین';
+  updatedName=this.pipelineName;
+  hasEdited = false;
+  isRunning=false;
+  runImgSrc='../../../assets/images/icons/play-button.svg';
 
   onEditBtn() {
-    this.hasClicked = true;
+    this.hasEdited = true;
     this.toggleEdit();
   }
   toggleEdit() {
     const pipelineInfo = <HTMLElement>document.querySelector('.pipeline-info');
     const changeContainer = <HTMLElement>document.querySelector('.change-pipeline__container');
-    if (this.hasClicked) {
+    if (this.hasEdited) {
       pipelineInfo.style.display = 'none';
       changeContainer.style.display = 'flex';
     } else {
@@ -28,15 +31,29 @@ export class PipelineHeaderComponent implements OnInit {
   }
 
   onCancelBtn() {
-    this.hasClicked = false;
+    this.hasEdited = false;
+    this.updatedName = this.pipelineName;
     this.toggleEdit();
   }
   onSubmitBtn() {
-    this.hasClicked = false;
+    this.hasEdited = false;
+    this.pipelineName = this.updatedName;
     this.toggleEdit();
   }
   onBackBtn(){
     window.history.back();
   }
 
+  onUpdatedName(event:Event){
+    this.updatedName = (<HTMLInputElement>event.target).value;
+  }
+
+  onRunBtn(){
+    this.isRunning = !this.isRunning;
+    if(this.isRunning){
+      this.runImgSrc ='../../../assets/images/icons/stop-button.svg';
+    }else{
+      this.runImgSrc ='../../../assets/images/icons/play-button.svg';
+    }
+  }
 }

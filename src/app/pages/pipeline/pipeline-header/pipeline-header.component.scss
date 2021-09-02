@@ -56,13 +56,21 @@
             align-items: center;
         }
         .pipeline-name {
+            padding: 0.2rem;
             margin-right: 1rem;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .change-pipeline__container {
             width: 100%;
             display: none;
             align-items: center;
             justify-content: space-evenly;
+            input {
+                font-size: 1.3rem;
+            }
         }
     }
 }
