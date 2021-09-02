@@ -1,5 +1,12 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CsvService } from 'src/app/services/csv/csv.service';
@@ -12,6 +19,9 @@ import { CsvService } from 'src/app/services/csv/csv.service';
 export class CsvTableComponent implements AfterViewInit {
   columns: string[] = [];
   dataSource = new MatTableDataSource<unknown>([]);
+
+  @Output()
+  page = new EventEmitter<PageEvent>();
 
   @Input()
   bigData = false;

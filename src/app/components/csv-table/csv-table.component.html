@@ -22,6 +22,7 @@
     [pageSizeOptions]="pageSizeOptions"
     [pageSize]="defaultPageSize"
     showFirstLastButtons
+    (page)="page.emit($event)"
   >
   </mat-paginator>
 </div>
