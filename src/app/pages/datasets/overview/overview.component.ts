@@ -34,7 +34,10 @@ export class OverviewComponent implements OnInit {
     index: number = 0;
 
     isEditing: boolean = false;
-    description: string = 'description';
+    description: string = 'توضیحات';
+    currentTextAreaValue: string = this.description;
+    rateSlideValue: number = 1;
+    rateState!: string;
 
     doughnutColor = {
         type1: {
@@ -54,7 +57,23 @@ export class OverviewComponent implements OnInit {
         },
     };
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.moodChanger();
+    }
+
+    moodChanger() {
+        if (this.rateSlideValue < 25) {
+            this.rateState = 'very-sad';
+        } else if (this.rateSlideValue < 50) {
+            this.rateState = 'sad';
+        } else if (this.rateSlideValue < 75) {
+            this.rateState = 'normal';
+        } else if (this.rateSlideValue < 100) {
+            this.rateState = 'happy';
+        } else if (this.rateSlideValue === 100) {
+            this.rateState = 'very-happy';
+        }
+    }
 
     infoChanger(dir: string) {
         if (dir === 'next') {
@@ -78,7 +97,18 @@ export class OverviewComponent implements OnInit {
         return value;
     }
 
+    textAreaChangeSave() {
+        this.description = this.currentTextAreaValue;
+        this.editToggler();
+    }
+
     editToggler() {
         this.isEditing = !this.isEditing;
+        this.currentTextAreaValue = this.description;
+    }
+
+    slideChangeHandler(e: any) {
+        this.rateSlideValue = e.value;
+        this.moodChanger();
     }
 }

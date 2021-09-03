@@ -14,7 +14,7 @@
 
             <div class="info">
                 <div class="title">
-                    <button (click)="infoChanger('next')">
+                    <button (click)="infoChanger('next')" id="next-btn">
                         <img src="../../../../assets/images/arrow--right.svg" alt="next button" />
                     </button>
 
@@ -103,9 +103,40 @@
         <div class="info-wrapper">
             <div class="top">
                 <div class="score-wrapper">
-                    <img src="../../../../assets/images/face--sad.svg" alt="sad face" />
+                    <span [ngSwitch]="rateState">
+                        <img
+                            *ngSwitchCase="'very-sad'"
+                            src="../../../../assets/images/face--very-sad.svg"
+                            alt="sad face"
+                            id="state-img"
+                        />
+                        <img
+                            *ngSwitchCase="'sad'"
+                            src="../../../../assets/images/face--sad.svg"
+                            alt="very sad face"
+                            id="state-img"
+                        />
+                        <img
+                            *ngSwitchCase="'normal'"
+                            src="../../../../assets/images/face--normal.svg"
+                            alt="normal face"
+                            id="state-img"
+                        />
+                        <img
+                            *ngSwitchCase="'happy'"
+                            src="../../../../assets/images/face--happy.svg"
+                            alt="happy face"
+                            id="state-img"
+                        />
+                        <img
+                            *ngSwitchCase="'very-happy'"
+                            src="../../../../assets/images/face--very-happy.svg"
+                            alt="very happy face"
+                            id="state-img"
+                        />
+                    </span>
                     <div class="score">
-                        <p>12%</p>
+                        <p>{{ rateSlideValue }}%</p>
                     </div>
                 </div>
             </div>
@@ -116,8 +147,11 @@
                     min="0"
                     max="100"
                     aria-label="units"
-                    value="1"
+                    [value]="rateSlideValue"
+                    (input)="slideChangeHandler($event)"
+                    id="mat-slider"
                 ></mat-slider>
+
                 <div class="faces">
                     <img src="../../../../assets/images/face--very-sad.svg" alt="sad face" />
                     <img src="../../../../assets/images/face--sad.svg" alt="sad face" />
@@ -148,14 +182,14 @@
 
         <div class="info" [ngSwitch]="isEditing">
             <div class="text-wrapper" *ngSwitchCase="true">
-                <textarea name="textarea"
+                <textarea name="textarea" [(ngModel)]="currentTextAreaValue"
                     >{{ description }}
                 </textarea>
                 <div class="btn-wrapper">
-                    <button>ذخیره</button>
+                    <button (click)="textAreaChangeSave()" id="save-btn">ذخیره</button>
                 </div>
             </div>
-            <p *ngSwitchCase="false">
+            <p *ngSwitchCase="false" style="white-space: pre-line" id="des-txt">
                 {{ description }}
             </p>
         </div>
