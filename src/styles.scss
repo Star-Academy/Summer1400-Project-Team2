@@ -73,9 +73,10 @@ p {
     color: var(--clr-black-13);
 }
 
-.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
-    // top: 58px;
+img {
+    user-select: none;
 }
+
 .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
     height: 0.7rem;
     border-radius: 999rem;
