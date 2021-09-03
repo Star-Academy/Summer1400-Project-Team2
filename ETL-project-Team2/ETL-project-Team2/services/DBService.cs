@@ -18,9 +18,9 @@ namespace ETL_project_Team2.services
                 return sqlCommand.ExecuteNonQuery();
         }
 
-        public int ExecuteNonQuery(SqlTable dataTable, string queryCommand)
+        public int ExecuteNonQuery(SqlConnection dbConnection, string queryCommand)
         {
-            using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
+            using (var sqlCommand = new SqlCommand(queryCommand, dbConnection))
                 return sqlCommand.ExecuteNonQuery();
         }
 
