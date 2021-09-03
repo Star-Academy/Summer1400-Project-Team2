@@ -1,0 +1,17 @@
+:host {
+    height: 100%;
+    margin-right: 4rem;
+
+    .chart-wrapper {
+        height: 100%;
+        width: auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        canvas {
+            height: 60%;
+        }
+    }
+}

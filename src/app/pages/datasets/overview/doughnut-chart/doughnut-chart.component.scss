@@ -1,0 +1,16 @@
+:host {
+    height: 100%;
+    width: 33%;
+
+    .chart-wrapper {
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        canvas {
+            height: 60%;
+        }
+    }
+}
