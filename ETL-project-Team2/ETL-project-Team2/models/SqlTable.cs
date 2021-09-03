@@ -6,10 +6,10 @@ using System.Data.SqlClient;
 
 namespace ETL_project_Team2.models
 {
-    public class DataTable
+    public class SqlTable
     {
         public SqlConnection DBConnection { get; set; }
         public string TableName { get; set; }
-        public List<string> Coloumns { get; }
+        public Dictionary<string, string> Coloumns { get; }
     }
 }

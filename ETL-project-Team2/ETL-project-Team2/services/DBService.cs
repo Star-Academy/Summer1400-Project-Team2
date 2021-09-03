@@ -9,34 +9,33 @@ namespace ETL_project_Team2.services
 {
     public class DBService : IDBService
     {
-        public int CreateTable(DataTable toBeCreated)
+        public int CreateTable(SqlTable toBeCreated)
         {
             const string commandTemplate = "CREATE TABLE {0} ({1});";
-            string coloumns = string.Join(',', toBeCreated.Coloumns);
-            using (var sqlCommand = new SqlCommand(string.Format(commandTemplate, toBeCreated.TableName, coloumns),
+            string columns = ColoumnPairsToString(toBeCreated.Coloumns);
+            using (var sqlCommand = new SqlCommand(string.Format(commandTemplate, toBeCreated.TableName, columns),
                 toBeCreated.DBConnection))
                 return sqlCommand.ExecuteNonQuery();
         }
 
-        public int ExecuteNonQuery(DataTable dataTable, string queryCommand)
+        public int ExecuteNonQuery(SqlTable dataTable, string queryCommand)
         {
             using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
                 return sqlCommand.ExecuteNonQuery();
         }
 
-        public int ExecuteNonQuery(DataTable dataTable, string queryStatement, params string[] selectedColumns)
-        {
-            const string commandTemplate = "SELECT {0} FROM {1} {2}";
-            string selectClause = string.Join(',', selectedColumns);
-            using (var sqlCommand = new SqlCommand(string.Format(commandTemplate, selectClause, dataTable.TableName, queryStatement),
-                dataTable.DBConnection))
-                return sqlCommand.ExecuteNonQuery();
-
-        }
-
-        public DataTable FecthSample(DataTable dataTable, int sampleSize, int fetchLevel)
+        public SqlTable FecthSample(SqlTable dataTable, int sampleSize, int fetchLevel)
         {
             throw new NotImplementedException();
+        }
+
+        private string ColoumnPairsToString(Dictionary<string, string> columns)
+        {
+            string result = "";
+            foreach (KeyValuePair<string, string> columnPair in columns)
+                result += columnPair.Key + ' ' + columnPair.Value + ',';
+            result.TrimEnd(',', ' ');
+            return result;
         }
     }
 }
