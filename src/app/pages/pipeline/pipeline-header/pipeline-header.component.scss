@@ -9,7 +9,8 @@
 }
 
 #pipeline-header {
-    background-color: #F3F3F3;
+    background-color: rgb(71, 71, 71);
+    color: white;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -36,11 +37,12 @@
         @include flex-evenly();
         img {
             width: 2rem;
+            filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(153deg) brightness(104%) contrast(104%);
         }
     }
     .pipeline-header__details {
         width: 30%;
-        max-width: 350px;
+        max-width: 410px;
         img {
             width: 1.2rem;
         }
@@ -54,11 +56,14 @@
         .pipeline-info {
             display: flex;
             align-items: center;
+            img {
+                filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(153deg) brightness(104%) contrast(104%);
+            }
         }
         .pipeline-name {
             padding: 0.2rem;
             margin-right: 1rem;
-            max-width: 250px;
+            max-width: 300px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -70,6 +75,9 @@
             justify-content: space-evenly;
             input {
                 font-size: 1.3rem;
+                padding: 0.2rem;
+                padding-right: 0.6rem;
+                border-radius: 6px;
             }
         }
     }
@@ -83,4 +91,8 @@ button {
     &:hover {
         transform: scale(1.1);
     }
+}
+
+.svgWhiteColor {
+    filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(153deg) brightness(104%) contrast(104%);
 }
