@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProcessorModalComponent } from './components/modals/processor-modal/processor-modal.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { PipelineModule } from './pages/pipeline/pipeline.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,9 +17,11 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+     PipelineModule, 
+     FormsModule
   ],
   providers: [MatDialog],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
