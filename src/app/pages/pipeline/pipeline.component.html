@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<app-pipeline-header></app-pipeline-header>
+
+<div id="graph-container"></div>
+<!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+<div class="zoomControls">
+    <button (click)="onZoomInBtn()" id="zoomInBtn">
+      <img src="../../../assets/images/icons/zoom-in-button.svg" alt="" class="zoomSvg">
+    </button>
+    <button (click)="onZoomOutBtn()" id="zoomOutBtn">
+    <img src="../../../assets/images/icons/zoom-out-button.svg" alt="" class="zoomSvg">
+    </button>
+</div>
