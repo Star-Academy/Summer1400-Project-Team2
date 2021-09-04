@@ -1,14 +1,12 @@
 <app-pipeline-header></app-pipeline-header>
-<button mat-button (click)="openDialog()">Open dialog</button>
-<div id="graph-container" style="width: 100%; height: 70vh; margin: auto"></div>
-<button id="firstNodeBtn" (click)="onCreateFirstNode()">
-  create first node
-</button>
+
+<div id="graph-container" style="width: 100%; height: 100vh; margin: auto"></div>
+<!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
 <div class="zoomControls">
     <button (click)="onZoomInBtn()" id="zoomInBtn">
-      <img src="../../../assets/images/icons/zoom-in-button.svg" alt="">
+      <img src="../../../assets/images/icons/zoom-in-button.svg" alt="" class="zoomSvg">
     </button>
     <button (click)="onZoomOutBtn()" id="zoomOutBtn">
-    <img src="../../../assets/images/icons/zoom-out-button.svg" alt="">
+    <img src="../../../assets/images/icons/zoom-out-button.svg" alt="" class="zoomSvg">
     </button>
 </div>

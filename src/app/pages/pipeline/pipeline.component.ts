@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProcessorModalComponent } from './processor-modal/processor-modal.component';
 import { OgmaService } from './services/ogma.service';
@@ -7,8 +7,11 @@ import { OgmaService } from './services/ogma.service';
   templateUrl: './pipeline.component.html',
   styleUrls: ['./pipeline.component.scss']
 })
-export class PipelinePage {
+export class PipelinePage implements OnInit {
   constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
+  ngOnInit(){
+    this.onCreateFirstNode();
+  }
   openDialog() {
     const dialogRef = this.dialog.open(ProcessorModalComponent);
 
@@ -20,7 +23,10 @@ export class PipelinePage {
   onCreateFirstNode(){
 
     this.ogmaService.initConfig({
-      container: "graph-container"      
+      container: "graph-container" ,
+      options: {
+        backgroundColor: '#eee'
+      }     
   });
 
   this.ogmaService.ogma.events.onClick((event:any) => {
@@ -31,7 +37,12 @@ export class PipelinePage {
         const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute("shape");
         console.log("clicked on a node with id",nodeId);
         if (shape === "circle") {
-          this.ogmaService.onPluseNode(nodeId);
+          const dialogRef = this.dialog.open(ProcessorModalComponent);
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+            this.ogmaService.onPluseNode(nodeId);
+          });
+          
         }
     } else {
         let edge = event.target;

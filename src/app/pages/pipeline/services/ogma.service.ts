@@ -13,32 +13,37 @@ export class OgmaService {
     this.ogma = new Ogma(configuration);
     this.addEdgeRule();
     this.addNodeRule();
+    this.setHoverStyleNodes();
+    this.setHoverStyleEdges();
+    this.ogma.view.locateGraph();
   }
   public addNode() {
     const id = this.getNodeslength();
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
       attributes: {
-        color: 'gold',
+        color: '#326C99',
         radius: 50,
         shape: 'square',
         text: {
           content: this.textNode,
           position: 'center',
-        },
-      },
+          color: 'white',
+          size: 17
+        }
+      }
     });
     this.setGrid();
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
       attributes: {
-        color: 'gold',
         radius: 20,
+        color: 'transparent',
         image: {
-          url: '../../../../assets/images/icons/plus-button.svg',
-          scale: 1,
-        },
-      },
+          url: '../../../../assets/images/icons/plus-button.png',
+          scale: 1
+        }
+      }
     });
     this.setGrid();
     return id;
@@ -47,12 +52,12 @@ export class OgmaService {
     this.ogma.addEdge({
       id: 'e' + this.getEdgesLength(),
       source: 'n' + idSrc,
-      target: 'n' + (idSrc + 1),
+      target: 'n' + (idSrc + 1)
     });
     this.ogma.addEdge({
       id: 'e' + this.getEdgesLength(),
       source: 'n' + (idSrc + 1),
-      target: 'n' + idTarget,
+      target: 'n' + idTarget
     });
     this.setGrid();
   }
@@ -60,16 +65,16 @@ export class OgmaService {
   public addEdgeRule() {
     this.ogma.styles.addEdgeRule({
       text: {
-        content: (e: any) => 'Edge ' + e.getId(),
+        content: (e: any) => 'Edge ' + e.getId()
       },
-      width: 10,
+      width: 7
     });
   }
   public addNodeRule() {
     this.ogma.styles.addNodeRule({
       text: {
-        content: (e: any) => 'Node ' + e.getId(),
-      },
+        content: (e: any) => 'Node ' + e.getId()
+      }
     });
   }
 
@@ -87,22 +92,25 @@ export class OgmaService {
       duration: 300,
       nodeDistance: 200,
       levelDistance: 200,
-      locate: true,
+      locate: true
     });
+    this.ogma.view.locateGraph();
   }
   public createFirstNode() {
     this.addNode();
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
       attributes: {
-        color: 'gold',
+        color: '#326C99',
         radius: 50,
         shape: 'square',
         text: {
           content: this.textNode,
           position: 'center',
-        },
-      },
+          size: 17,
+          color: 'white'
+        }
+      }
     });
     this.addLink(0, 2);
   }
@@ -128,12 +136,36 @@ export class OgmaService {
   }
 
   public clickOnEdge(edge: any) {
-    console.log(
-      'clicked on an edge between ',
-      this.getEdgeSource(edge),
-      ' and',
-      this.getEdgeTarget(edge)
-    );
+    console.log('clicked on an edge between ', this.getEdgeSource(edge), ' and', this.getEdgeTarget(edge));
+  }
+  public setHoverStyleNodes() {
+    const stylesObj = {
+      text: {
+        color: 'black',
+        backgroundColor: 'transparent'
+      },
+      outline: {
+        enabled: false
+      },
+      outerStroke: { color: 'rgb(75, 75, 75)' }
+    };
+    this.ogma.styles.setHoveredNodeAttributes(stylesObj);
+    this.ogma.styles.setSelectedNodeAttributes(stylesObj);
+  }
+
+  public setHoverStyleEdges() {
+    const stylesObj = {
+      color: 'rgb(75, 75, 75)',
+      text: {
+        color: 'black',
+        backgroundColor: 'transparent'
+      },
+      outline: {
+        enabled: false
+      }
+    };
+    this.ogma.styles.setHoveredEdgeAttributes(stylesObj);
+    this.ogma.styles.setSelectedEdgeAttributes(stylesObj);
   }
 
   public getEdgeTarget(edge: any) {
@@ -150,15 +182,14 @@ export class OgmaService {
     edge.setTarget(targetId);
   }
   public setZoomIn() {
-    this.ogma.view.setZoom(this.zoomInSize).then((res:any) => {
+    this.ogma.view.setZoom(this.zoomInSize).then((res: any) => {
       this.zoomInSize++;
     });
   }
 
   public setZoomOut() {
-    this.ogma.view.zoomOut().then((res:any) => {
+    this.ogma.view.zoomOut().then((res: any) => {
       this.zoomInSize--;
     });
   }
-  
 }
