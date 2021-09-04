@@ -38,6 +38,12 @@ export class PipelinePage implements OnInit {
         const nodeId = event.target.getId();
         const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute("shape");
         console.log("clicked on a node with id",nodeId);
+        if(nodeId=="n0"){
+          alert('دیتاست مبدا را انتخاب کنید.');
+        }
+        if(nodeId =="n2"){
+          alert('دیتاست مقصد را انتخاب کنید.');
+        }
         if (shape === "circle") {
           const dialogRef = this.dialog.open(ProcessorModalComponent);
           dialogRef.afterClosed().subscribe(result => {
