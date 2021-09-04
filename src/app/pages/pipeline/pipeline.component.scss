@@ -1,0 +1,16 @@
+.zoomControls {
+    position: fixed;
+    top: 8rem;
+    left: 2rem;
+    display: flex;
+    flex-flow: column;
+    button {
+        cursor: pointer;
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        img {
+            width: 2rem;
+        }
+    }
+}
