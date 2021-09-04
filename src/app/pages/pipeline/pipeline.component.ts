@@ -7,8 +7,10 @@ import { OgmaService } from './services/ogma.service';
   templateUrl: './pipeline.component.html',
   styleUrls: ['./pipeline.component.scss']
 })
+
 export class PipelinePage implements OnInit {
   constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
+  processor='';
   ngOnInit(){
     this.onCreateFirstNode();
   }
@@ -25,7 +27,7 @@ export class PipelinePage implements OnInit {
     this.ogmaService.initConfig({
       container: "graph-container" ,
       options: {
-        backgroundColor: '#eee'
+        backgroundColor: 'rgb(212, 212, 212)'
       }     
   });
 
@@ -39,8 +41,20 @@ export class PipelinePage implements OnInit {
         if (shape === "circle") {
           const dialogRef = this.dialog.open(ProcessorModalComponent);
           dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-            this.ogmaService.onPluseNode(nodeId);
+            let flag=0;
+            if(result.event =='filter'){
+              this.processor = 'filter';
+              flag=1;
+            }else if(result.event =='aggregate'){
+              this.processor = 'aggregate';
+              flag=1;
+            }else if(result.event =='join'){
+              this.processor = 'join';
+              flag=1;
+            }
+            if(flag){
+              this.ogmaService.onPluseNode(nodeId,this.processor);
+            }
           });
           
         }

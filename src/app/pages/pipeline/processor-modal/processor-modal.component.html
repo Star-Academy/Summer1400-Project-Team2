@@ -8,7 +8,7 @@
     <div class="processor-category">
         <ul class="processor-category__lists">
             <li class="processor-category__list">
-                <button class="processor-category__button">
+                <button class="processor-category__button" (click)="onFilterBtn()">
                     <div class="processor-category__content">
                         <img src="../../../../assets/images/icons/filter-button.svg" alt="" />
                         <div class="processor-info">
@@ -20,7 +20,7 @@
                 </button>
             </li>
             <li class="processor-category__list">
-                <button class="processor-category__button">
+                <button class="processor-category__button" (click)="onAggregateBtn()">
                     <div class="processor-category__content">
                         <img src="../../../../assets/images/icons/merge-button.svg" alt="" />
                         <div class="processor-info">
@@ -31,7 +31,7 @@
                 </button>
             </li>
             <li class="processor-category__list">
-                <button class="processor-category__button">
+                <button class="processor-category__button" (click)="onJoinBtn()">
                     <div class="processor-category__content">
                         <img src="../../../../assets/images/icons/join-button.svg" alt="" />
                         <div class="processor-info">

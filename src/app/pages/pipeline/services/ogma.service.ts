@@ -11,13 +11,12 @@ export class OgmaService {
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
     this.ogma = new Ogma(configuration);
-    this.addEdgeRule();
-    this.addNodeRule();
+    this.addEdgeRule();    
     this.setHoverStyleNodes();
     this.setHoverStyleEdges();
     this.ogma.view.locateGraph();
   }
-  public addNode() {
+  public addNode(type:string) {
     const id = this.getNodeslength();
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
@@ -26,7 +25,7 @@ export class OgmaService {
         radius: 50,
         shape: 'square',
         text: {
-          content: this.textNode,
+          content: type,
           position: 'center',
           color: 'white',
           size: 17
@@ -97,7 +96,7 @@ export class OgmaService {
     this.ogma.view.locateGraph();
   }
   public createFirstNode() {
-    this.addNode();
+    this.addNode('source');
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
       attributes: {
@@ -105,7 +104,7 @@ export class OgmaService {
         radius: 50,
         shape: 'square',
         text: {
-          content: this.textNode,
+          content: 'destination',
           position: 'center',
           size: 17,
           color: 'white'
@@ -125,11 +124,11 @@ export class OgmaService {
     return this.ogma.getEdge(selectedEdgeObj.getId()[0]);
   }
 
-  public onPluseNode(nodeId: string) {
+  public onPluseNode(nodeId: string,processorType:string) {
     const selectedEdge = this.getSelectedEdge(nodeId);
     const selectedEdge_target = this.getEdgeTarget(selectedEdge);
     const selectedEdge_target_id = +selectedEdge_target.match(/(\d+)/)[0];
-    const addedNodeId = this.addNode();
+    const addedNodeId = this.addNode(processorType);
     this.setEdgeTarget(selectedEdge, 'n' + addedNodeId);
     this.addLink(addedNodeId, selectedEdge_target_id);
     this.setGrid();
