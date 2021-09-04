@@ -1,26 +1,31 @@
 <div mat-dialog-title>
     <h2>افزودن پردازشگر</h2>
-    <div class="searchBox">
-        <input type="text" placeholder="جست و جو..." />
-        <button class="searchBox-button" id="searchBtn">
-            <img src="../../../../assets/images/icons/search-button.svg" alt="" />
-        </button>
-    </div>
     <div class="close-modal" mat-button [mat-dialog-close]="true" cdkFocusInitial>
         <button id="close-profile-button">&times;</button>
     </div>
 </div>
 <mat-dialog-content class="mat-typography">
     <div class="processor-category">
-        <h5 class="processor-category__title">عنوان این دسته بندی</h5>
         <ul class="processor-category__lists">
             <li class="processor-category__list">
                 <button class="processor-category__button">
                     <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
+                        <img src="../../../../assets/images/icons/filter-button.svg" alt="" />
                         <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
+                            <span class="processor-info__name">filter</span>
+                            <p>فیلدها را بر اساس یک یا چند شرط فیلتر می کند.
+                                آنها را تقسیم کرده و داده های جدا شده را به مرحله بعدی خط لوله منتقل می کند.</p>
+                        </div>
+                    </div>
+                </button>
+            </li>
+            <li class="processor-category__list">
+                <button class="processor-category__button">
+                    <div class="processor-category__content">
+                        <img src="../../../../assets/images/icons/merge-button.svg" alt="" />
+                        <div class="processor-info">
+                            <span class="processor-info__name">aggregate</span>
+                            <p>طرحواره ورودی را بر اساس یک یا چند ستون جمع می کند ، مجموعه ای از عملیات را انجام می دهد.</p>
                         </div>
                     </div>
                 </button>
@@ -30,135 +35,13 @@
                     <div class="processor-category__content">
                         <img src="../../../../assets/images/icons/join-button.svg" alt="" />
                         <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
+                            <span class="processor-info__name">join</span>
+                            <p>چندین مجموعه داده موجود را به مجموعه جدیدی از رکوردهای ترکیبی تبدیل کنید.</p>
                         </div>
                     </div>
                 </button>
             </li>
         </ul>
     </div>
-    <div class="processor-category">
-        <h5 class="processor-category__title">عنوان این دسته بندی</h5>
-        <ul class="processor-category__lists">
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-        </ul>
-    </div>
-    <div class="processor-category">
-        <h5 class="processor-category__title">عنوان این دسته بندی</h5>
-        <ul class="processor-category__lists">
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-            <li class="processor-category__list">
-                <button class="processor-category__button">
-                    <div class="processor-category__content">
-                        <img src="../../../../assets/images/icons/join-button.svg" alt="" />
-                        <div class="processor-info">
-                            <span class="processor-info__name">نوع عملیات</span>
-                            <p>توضیحات مربوط به این پردازشگر</p>
-                        </div>
-                    </div>
-                </button>
-            </li>
-        </ul>
-    </div>
+
 </mat-dialog-content>
-<!-- <mat-dialog-actions>
-    <button mat-button mat-dialog-close class="close-modal-button">انصراف</button>
-</mat-dialog-actions> -->
