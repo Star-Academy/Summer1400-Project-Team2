@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PipelineModule } from './pages/pipeline/pipeline.module';
 import { DatasetsModule } from './pages/datasets/datasets.module';
+import { LandingModule } from './pages/landing/landing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,8 @@ import { DatasetsModule } from './pages/datasets/datasets.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     PipelineModule,
-    DatasetsModule
+    DatasetsModule,
+    LandingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
