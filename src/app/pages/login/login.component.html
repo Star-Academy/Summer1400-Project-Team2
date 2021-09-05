@@ -5,12 +5,12 @@
       <form>
         <mat-form-field appearance="outline">
           <mat-label>نام کاربری</mat-label>
-          <input matInput />
+          <input matInput required />
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>رمز عبور</mat-label>
-          <input matInput />
+          <input matInput required />
           <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>
         <mat-checkbox class="example-margin" color="primary"
@@ -25,7 +25,7 @@
     <div class="banner">
       <h1>سامانه تحلیل داده ستاره</h1>
       <h4>می خواهید ثبت نام کنید ؟</h4>
-      <button mat-stroked-button color="white">ثبت نام</button>
+      <button mat-stroked-button color="white" routerLink="/register">ثبت نام</button>
     </div>
   </div>
 </section>
