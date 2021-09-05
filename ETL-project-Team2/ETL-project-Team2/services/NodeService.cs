@@ -4,17 +4,22 @@ namespace ETL_project_Team2.services
 {
     public class NodeService
     {
-        private static NodeService _nodeServiceInstance;
+        public IOperation Operator { get; set; }
+        private Node _node; 
 
-        private NodeService(){}
-        public static NodeService GetInstance()
+        public SqlTable Operate(SqlTable table)
         {
-            return _nodeServiceInstance ??= new NodeService();
+            return Operator.Operate(table);
         }
 
-        public void Operate(Node node)
+        public void LoadNode(Node node)
         {
-            node.NodeOperation.Operate();
+            _node = node;
+        }
+
+        public void UpdateCoordinates(double x, double y)
+        {
+            _node.UpdateCoordinates(x, y);
         }
     }
 }

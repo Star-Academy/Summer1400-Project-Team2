@@ -2,6 +2,6 @@
 {
     public interface IOperation
     {
-        public SqlTable Operate();
+        public SqlTable Operate(SqlTable table);
     }
 }
