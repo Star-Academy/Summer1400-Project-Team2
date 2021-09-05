@@ -3,16 +3,92 @@
   place-items: center;
   width: 100vw;
   height: 100vh;
+
   .container {
     display: flex;
-    background-color: red;
+    //background-color: red;
+    //padding: 3rem 2rem;
     width: 90%;
-    max-width: 600px;
+    max-width: 900px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.23), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+
     ._right {
-      width: 50%;
+      padding: 8rem 3rem;
+      alignment: center;
+
+      form {
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
+
+        mat-checkbox {
+          margin-bottom: 1rem;
+        }
+
+        mat-form-field {
+          width: 100%;
+        }
+      }
     }
+
     ._left {
-      width: 50%;
+      background: rgb(129, 0, 234);
+      background: linear-gradient(
+        128deg,
+        rgba(129, 0, 234, 1) 0%,
+        rgba(0, 173, 234, 1) 100%
+      );
+      //padding: 1rem;
+      display: grid;
+      place-items: center;
+
+      .banner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        h4 {
+          margin-bottom: 1rem;
+        }
+        button {
+          border-color: white;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  ._left {
+    width: 50%;
+  }
+
+  ._right {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+
+    ._left {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      padding: 6rem 0;
+    }
+
+    ._right {
+      display: grid;
+      place-items: center;
     }
   }
 }
