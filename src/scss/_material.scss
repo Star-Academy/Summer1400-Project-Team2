@@ -7,7 +7,7 @@ $typography: mat.define-typography-config(
   $font-family: 'vazir'
 );
 
-@include mat.core($typography);
+// @include mat.core($typography);
 
 // ----------------------------
 // Color
