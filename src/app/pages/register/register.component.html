@@ -1,1 +1,33 @@
-<p>register works!</p>
+<section class="container">
+  <div class="_right">
+    <h2>ساخت اکانت جدید</h2>
+    <div class="inputs">
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>نام کاربری</mat-label>
+          <input matInput required />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>ایمیل</mat-label>
+          <input matInput [formControl]="email" required />
+          <mat-icon matSuffix>mail</mat-icon>
+          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>رمز عبور</mat-label>
+          <input matInput required />
+          <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button color="primary">ساخت</button>
+      </form>
+    </div>
+  </div>
+  <div class="_left">
+    <div class="banner">
+      <h1>سامانه تحلیل داده ستاره</h1>
+      <h4>قبلا ثبت نام کرده اید ؟</h4>
+      <button mat-stroked-button color="white" routerLink="/login">ورود</button>
+    </div>
+  </div>
+</section>
