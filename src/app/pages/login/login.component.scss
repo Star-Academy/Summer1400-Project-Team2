@@ -3,11 +3,11 @@
   place-items: center;
   width: 100vw;
   height: 100vh;
+  background-color: rgba(128, 128, 128, 0.09);
 
   .container {
     display: flex;
-    //background-color: red;
-    //padding: 3rem 2rem;
+    background-color: white;
     width: 90%;
     max-width: 900px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.23), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
@@ -40,7 +40,6 @@
         rgba(129, 0, 234, 1) 0%,
         rgba(0, 173, 234, 1) 100%
       );
-      //padding: 1rem;
       display: grid;
       place-items: center;
 
@@ -54,6 +53,7 @@
         h4 {
           margin-bottom: 1rem;
         }
+
         button {
           border-color: white;
         }
