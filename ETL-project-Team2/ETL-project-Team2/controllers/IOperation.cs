@@ -1,4 +1,6 @@
-﻿namespace ETL_project_Team2.models
+﻿using ETL_project_Team2.models;
+
+namespace ETL_project_Team2.controllers
 {
     public interface IOperation
     {
