@@ -15,13 +15,19 @@ namespace ETL_project_Team2.services
             string columns = ColoumnPairsToString(toBeCreated.Coloumns);
             using (var sqlCommand = new SqlCommand(string.Format(commandTemplate, toBeCreated.TableName, columns),
                 toBeCreated.DBConnection))
+            {
+                toBeCreated.DBConnection.Open();
                 return sqlCommand.ExecuteNonQuery();
+            }
         }
 
         public int ExecuteNonQuery(SqlTable dataTable, string queryCommand)
         {
             using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
+            {
+                dataTable.DBConnection.Open();
                 return sqlCommand.ExecuteNonQuery();
+            }
         }
 
         public SqlTable FecthSample(SqlTable dataTable, int sampleSize, int fetchLevel)
