@@ -10,6 +10,6 @@ namespace ETL_project_Team2.models
     {
         public SqlConnection DBConnection { get; set; }
         public string TableName { get; set; }
-        public Dictionary<string, string> Coloumns { get; }
+        public Dictionary<string, string> Coloumns { get; set; }
     }
 }
