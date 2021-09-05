@@ -204,6 +204,55 @@
       background: var(--clr-red-54);
     }
   }
+
+  .section-2 {
+    height: 55rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .chart-wrapper {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .info-wrapper {
+        & > * {
+          width: 20rem;
+          height: 20rem;
+        }
+
+        .chart-percentage {
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          width: 100%;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          font-size: var(--font-size-46);
+        }
+      }
+
+      .chart-info {
+        font-size: var(--font-size-24);
+        width: 24ch;
+      }
+
+      p {
+        color: var(--clr-dark-blue-17);
+
+        text-align: center;
+      }
+    }
+  }
 }
 
 @keyframes chartAnimation {
