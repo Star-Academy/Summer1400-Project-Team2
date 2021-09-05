@@ -1,0 +1,18 @@
+:host {
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  .container {
+    display: flex;
+    background-color: red;
+    width: 90%;
+    max-width: 600px;
+    ._right {
+      width: 50%;
+    }
+    ._left {
+      width: 50%;
+    }
+  }
+}
