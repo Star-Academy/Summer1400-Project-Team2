@@ -1,47 +1,39 @@
 @use '~@angular/material' as mat;
-
 $header-background: #eee;
 $hover-background: #eee;
-
 :host {
-  display: block;
-  border-radius: 2rem;
-
-  @include mat.elevation(6);
+    display: block;
+    border-radius: 2rem;
+    @include mat.elevation(6);
 }
 
-.table__box {
-  // clip-path: inset(0 0 0 0 round 2rem);
-}
-
+// .table__box {
+//     clip-path: inset(0 0 0 0 round 2rem);
+// }
 .mat {
-  &-row {
-    &:hover {
-      background-color: $hover-background;
-    }
-  }
-
-  &-header {
     &-row {
-      background-color: $header-background;
+        &:hover {
+            background-color: $hover-background;
+        }
     }
-
-    &-cell {
-      color: rgba(0, 0, 0, 0.6);
-      font-weight: 700;
+    &-header {
+        &-row {
+            background-color: $header-background;
+        }
+        &-cell {
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 700;
+        }
     }
-  }
-
-  &-paginator {
-    position: sticky;
-    bottom: 0;
-
-    background-color: $header-background;
-  }
+    &-paginator {
+        position: sticky;
+        bottom: 0;
+        background-color: $header-background;
+    }
 }
 
 :host ::ng-deep {
-  .mat-paginator-page-size {
-    margin-left: auto !important;
-  }
+    .mat-paginator-page-size {
+        margin-left: auto !important;
+    }
 }
