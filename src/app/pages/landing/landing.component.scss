@@ -40,7 +40,7 @@
           text-decoration: none;
 
           &:hover {
-            color: var(--clr-red-54);
+            color: var(--clr-red-61);
           }
         }
       }
@@ -201,7 +201,7 @@
 
     .bottom {
       height: 10%;
-      background: var(--clr-red-54);
+      background: var(--clr-red-61);
     }
   }
 
@@ -250,6 +250,126 @@
         color: var(--clr-dark-blue-17);
 
         text-align: center;
+      }
+    }
+  }
+
+  .section-3 {
+    height: 55rem;
+    width: 100%;
+
+    background: var(--clr-dark-blue-48);
+
+    padding: 10rem 15rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12rem;
+
+    & > * {
+      // flex: 1;
+      height: 100%;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h1 {
+        font-size: var(--font-size-46);
+        color: var(--clr-white);
+        font-weight: bold;
+      }
+
+      p {
+        padding-right: 2rem;
+        font-size: var(--font-size-16);
+        width: 70ch;
+        color: var(--clr-blue-89);
+      }
+
+      button {
+        width: fit-content;
+
+        padding: 2rem 7rem;
+        margin-right: auto;
+
+        background: var(--clr-red-61);
+        color: var(--clr-white);
+        font-size: var(--font-size-18);
+
+        border-radius: var(--border-radius-5);
+
+        &:hover {
+          background: var(--clr-red-59);
+        }
+      }
+    }
+
+    .charts {
+      flex: 1;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .chart-wrapper {
+        height: 100%;
+        width: 33.33333%;
+
+        min-width: 17rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 1rem;
+
+        i {
+          width: 95%;
+          height: 100%;
+          background: var(--clr-dark-blue-40);
+          position: relative;
+
+          &::after {
+            content: '';
+            width: 100%;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+          }
+        }
+
+        .first-chart::after {
+          height: 68%;
+          background: var(--clr-white);
+        }
+
+        .second-chart::after {
+          height: 56%;
+          background: var(--clr-blue-64);
+        }
+
+        .third-chart::after {
+          height: 82%;
+          background: var(--clr-red-61);
+        }
+
+        .chart-info {
+          font-size: var(--font-size-16);
+
+          p {
+            color: var(--clr-white);
+          }
+
+          p:first-child {
+            font-weight: bold;
+          }
+        }
       }
     }
   }
