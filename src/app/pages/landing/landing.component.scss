@@ -72,7 +72,8 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: 4rem;
+        right: 15rem;
+        z-index: 100;
 
         .main-title {
           color: var(--clr-white);
@@ -233,6 +234,8 @@
 
           width: 100%;
 
+          user-select: none;
+
           display: flex;
           justify-content: center;
           align-items: center;
@@ -387,8 +390,16 @@
     p {
       font-size: var(--font-size-16);
       color: var(--clr-white);
+
+      &::selection {
+        background: var(--clr-dark-blue-48);
+      }
     }
   }
+}
+
+*::selection {
+  background: var(--clr-red-61);
 }
 
 @keyframes chartAnimation {
