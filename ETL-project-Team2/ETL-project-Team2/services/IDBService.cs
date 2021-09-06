@@ -10,7 +10,7 @@ namespace ETL_project_Team2.services
     public interface IDBService
     {
         int CreateTable(SqlTable toBeCreated);
-        int ExecuteNonQuery(SqlTable dataTable, string queryCommand);
+        int ExecuteNonQuery(SqlConnection dbConnecton, string queryCommand);
         SqlTable FecthSample(SqlTable dataTable, int sampleSize, int fetchLevel);
     }
 }
