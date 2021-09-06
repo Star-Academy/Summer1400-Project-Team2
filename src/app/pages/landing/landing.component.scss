@@ -265,10 +265,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 12rem;
+    gap: min(12rem, 20vw);
 
     & > * {
-      // flex: 1;
       height: 100%;
     }
 
@@ -293,7 +292,7 @@
       button {
         width: fit-content;
 
-        padding: 2rem 7rem;
+        padding: 2rem 6rem;
         margin-right: auto;
 
         background: var(--clr-red-61);
@@ -316,11 +315,14 @@
       align-items: center;
       justify-content: flex-end;
 
+      gap: 1rem;
+
       .chart-wrapper {
         height: 100%;
         width: 33.33333%;
 
-        min-width: 17rem;
+        min-width: 15rem;
+        max-width: 21rem;
 
         display: flex;
         flex-direction: column;
@@ -371,6 +373,20 @@
           }
         }
       }
+    }
+  }
+
+  footer {
+    height: 5vh;
+    background: var(--clr-red-61);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      font-size: var(--font-size-16);
+      color: var(--clr-white);
     }
   }
 }
