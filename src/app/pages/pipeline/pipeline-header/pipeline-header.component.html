@@ -1,0 +1,36 @@
+<header id="pipeline-header">
+    <div class="pipeline-header__controls">
+        <button matTooltip="نمایش/عدم نمایش پنل تنظیمات" id="toggle-detail-button"><img src="../../../assets/images/icons/preview-button.svg" alt="" class="svgWhiteColor"></button>
+        <button matTooltip="نمایش/عدم نمایش پنل نمونه" id="toggle-table-button"><img src="../../../assets/images/icons/preview-button.svg" alt="" class="svgWhiteColor"></button>
+        <button [disabled]="true" matTooltip="redo" id="back-node-button"><img src="../../../assets/images/icons/next-button.svg" alt="" class="svgWhiteColor"></button>
+        <button [disabled]="true" matTooltip="undo" id="next-node-button"><img src="../../../assets/images/icons/previous-button.svg" alt="" class="svgWhiteColor"></button>
+        <button matTooltip="دانلود فایل پایپلاین" id="export-file-button"><img src="../../../assets/images/icons/export-button.svg" alt="" class="svgWhiteColor"></button>
+    </div>
+    <div class="pipeline-header__run">
+        <span>اجرای پایپلاین</span>
+        <button (click)="onRunBtn()">
+            <img [src]="runImgSrc" alt="">
+        </button>
+    </div>
+    <div class="pipeline-header__details">
+
+        <div class="pipeline-info__container">
+            <div class="pipeline-info">
+                <button matTooltip="تغییر نام" class="pipeline-edit-button" (click)="onEditBtn()">
+                    <img src="../../../assets/images/icons/edit-button.svg" alt="" class="svgWhiteColor">
+                </button>
+                <h4 class="pipeline-name" matTooltip={{pipelineName}}>{{pipelineName}}</h4>
+            </div>
+            <div class="change-pipeline__container">
+                <input type="text" (input)="onUpdatedName($event)" value={{updatedName}}>
+                <button id="save-edit-button" (click)="onSubmitBtn()"><img src="../../../../assets/images/icons/checked.svg" alt=""></button>
+                <button id="cancel-edit-button" (click)="onCancelBtn()"><img src="../../../../assets/images/icons/cancel.svg" alt=""></button>
+            </div>
+        </div>
+        <div class="back-button__container">
+            <button matTooltip="بازگشت" class="back-button" (click)="onBackBtn()">
+                <img src="../../../assets/images/icons/back-button.svg" alt="" class="svgWhiteColor">
+            </button>
+        </div>
+    </div>
+</header>

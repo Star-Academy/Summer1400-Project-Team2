@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {PipelinesComponent} from "./pages/dashboard/pipelines/pipelines.component";
 import {DatasetsComponent} from "./pages/dashboard/datasets/datasets.component";
+import { DatasetsComponent } from './pages/datasets/datasets.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [  {path:'dashboard', component:DashboardComponent, children:[
     {path:'pipelines', component:PipelinesComponent},
@@ -10,8 +13,12 @@ const routes: Routes = [  {path:'dashboard', component:DashboardComponent, child
   ]},
   {
     path: 'pipeline',
-    loadChildren: () => import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
-  }
+    loadChildren: () =>
+      import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
+  },
+  { path: 'datasets', component: DatasetsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
