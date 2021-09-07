@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PipelinePage } from './pipeline.component';
+import { ToolbarComponent } from './toolbar.component';
 
-describe('PipelineComponent', () => {
-  let component: PipelinePage;
-  let fixture: ComponentFixture<PipelinePage>;
+describe('ToolbarComponent', () => {
+  let component: ToolbarComponent;
+  let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PipelinePage]
-    }).compileComponents();
+      declarations: [ ToolbarComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PipelinePage);
+    fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

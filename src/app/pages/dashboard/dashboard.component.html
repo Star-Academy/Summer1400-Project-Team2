@@ -1,0 +1,11 @@
+<div class="container">
+  <app-toolbar></app-toolbar>
+  <mat-drawer-container class="dashboard" dir="rtl">
+    <mat-drawer #sidenav mode="side" [opened]="width()">
+      <app-navbar></app-navbar>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
