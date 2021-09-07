@@ -11,6 +11,8 @@ import { DatasetsModule } from './pages/datasets/datasets.module';
 import { LoginModule } from './pages/login/login.module';
 import { RegisterModule } from './pages/register/register.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -25,7 +27,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     MatDialogModule,
     FormsModule,
     DashboardModule,
-    PipelineModule
+    PipelineModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [MatDialog],
   bootstrap: [AppComponent]

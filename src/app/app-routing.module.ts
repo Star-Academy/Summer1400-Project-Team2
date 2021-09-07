@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {DashboardComponent} from "./pages/dashboard/dashboard.component";
-import {PipelinesComponent} from "./pages/dashboard/pipelines/pipelines.component";
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PipelinesComponent } from './pages/dashboard/pipelines/pipelines.component';
 import { DatasetsComponent } from './pages/datasets/datasets.component';
 import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 
-const routes: Routes = [  {path:'dashboard', component:DashboardComponent, children:[
-    {path:'pipelines', component:PipelinesComponent},
-    {path:'datasets', component:DatasetsComponent},
-  ]},
+const routes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: 'pipelines', component: PipelinesComponent },
+      { path: 'datasets', component: DatasetsComponent }
+    ]
+  },
   {
     path: 'pipeline',
     loadChildren: () =>
@@ -17,11 +23,12 @@ const routes: Routes = [  {path:'dashboard', component:DashboardComponent, child
   },
   { path: 'datasets', component: DatasetsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: '404', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
