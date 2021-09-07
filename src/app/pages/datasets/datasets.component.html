@@ -2,6 +2,6 @@
 <app-side-menu (layoutManager)="layoutChanger($event)"></app-side-menu>
 
 <section [ngSwitch]="layout">
-    <app-overview class="main-layout" *ngSwitchCase="'overview'"></app-overview>
-    <app-sample class="main-layout" *ngSwitchCase="'sample'"></app-sample>
+  <app-overview class="main-layout" *ngSwitchCase="'overview'"></app-overview>
+  <app-sample class="main-layout" *ngSwitchCase="'sample'"></app-sample>
 </section>

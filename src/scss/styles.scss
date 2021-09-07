@@ -20,6 +20,9 @@ body {
 }
 
 :root {
+  --clr-primary: hsl(236, 55%, 48%);
+  --clr-secondary: hsl(6, 100%, 61%);
+
   --clr-white: hsl(0, 0%, 100%);
   --clr-gray-95: hsl(0, 0%, 95%);
   --clr-gray-91: hsl(0, 0%, 91%);
@@ -43,6 +46,9 @@ body {
   --clr-green-50: hsl(89, 49%, 50%);
 
   --clr-red-65: hsl(358, 76%, 65%);
+
+  --clr-red-80: hsl(6, 100%, 80%);
+  --clr-red-61-5: hsla(6, 100%, 61%, 0.5);
   --clr-red-61: hsl(6, 100%, 61%);
   --clr-red-59: hsl(6, 100%, 59%);
 
@@ -67,14 +73,19 @@ button {
 }
 
 .svg-bg-default {
-  filter: invert(51%) sepia(0%) saturate(393%) hue-rotate(177deg) brightness(92%)
-    contrast(85%);
+  // filter: invert(51%) sepia(0%) saturate(393%) hue-rotate(177deg) brightness(92%)
+  //   contrast(85%);
+
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(58deg) brightness(104%)
+    contrast(102%);
 }
 
 .svg-type-1 {
   &:hover > img {
-    filter: invert(72%) sepia(11%) saturate(3676%) hue-rotate(178deg) brightness(100%)
-      contrast(103%);
+    // filter: invert(72%) sepia(11%) saturate(3676%) hue-rotate(178deg) brightness(100%)
+    //   contrast(103%);
+    filter: invert(49%) sepia(37%) saturate(6653%) hue-rotate(338deg) brightness(99%)
+      contrast(104%);
   }
 }
 
