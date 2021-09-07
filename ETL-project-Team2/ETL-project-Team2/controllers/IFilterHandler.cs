@@ -1,7 +1,6 @@
 ﻿namespace ETL_project_Team2.controllers
 {
-    public interface IFilterHandler // : IOperator
+    public interface IFilterHandler : IOperation
     {
-        void Operate(string query);
     }
 }

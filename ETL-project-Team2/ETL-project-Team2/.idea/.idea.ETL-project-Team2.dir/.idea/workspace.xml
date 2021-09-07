@@ -9,17 +9,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ee2566d-97e0-46c3-bfe2-ae881a16072e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.idea.ETL-project-Team2/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.idea.ETL-project-Team2/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.idea.ETL-project-Team2/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.idea.ETL-project-Team2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.idea.ETL-project-Team2/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/FilterHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/FilterHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/IFilterHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/IFilterHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/DBService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/services/DBService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/FilterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/services/FilterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/IFilterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/services/IFilterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/NodeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/services/NodeService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +61,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.35064936" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -115,6 +115,7 @@
       <workItem from="1630309945610" duration="7135000" />
       <workItem from="1630385892979" duration="3602000" />
       <workItem from="1630647408785" duration="2342000" />
+      <workItem from="1630927488862" duration="12030000" />
     </task>
     <servers />
   </component>

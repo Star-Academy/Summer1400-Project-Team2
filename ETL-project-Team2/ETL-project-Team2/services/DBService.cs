@@ -23,11 +23,12 @@ namespace ETL_project_Team2.services
 
         public int ExecuteNonQuery(SqlConnection dbConnection, string queryCommand)
         {
-            using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
-            {
-                dataTable.DBConnection.Open();
-                return sqlCommand.ExecuteNonQuery();
-            }
+            // using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
+            // {
+            //     dataTable.DBConnection.Open();
+            //     return sqlCommand.ExecuteNonQuery();
+            // }
+            return 1;
         }
 
         public SqlTable FecthSample(SqlTable dataTable, int sampleSize, int fetchLevel)
