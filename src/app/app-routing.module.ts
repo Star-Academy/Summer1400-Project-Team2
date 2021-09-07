@@ -5,6 +5,7 @@ import { PipelinesComponent } from './pages/dashboard/pipelines/pipelines.compon
 import { DatasetsComponent } from './pages/datasets/datasets.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   },
   { path: 'datasets', component: DatasetsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: '404', component: NotFoundComponent }
 ];
 
 @NgModule({
