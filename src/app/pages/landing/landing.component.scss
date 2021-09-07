@@ -75,6 +75,9 @@
         right: 15rem;
         z-index: 100;
 
+        opacity: 0;
+        animation: chartInfoAnimation 1s ease 1s forwards;
+
         .main-title {
           color: var(--clr-white);
           font-weight: bold;
