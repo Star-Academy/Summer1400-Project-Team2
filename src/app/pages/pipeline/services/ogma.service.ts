@@ -30,32 +30,20 @@ export class OgmaService {
           color: 'white',
           size: 17
         },
-        badges: {
-        },
-        // image:{}
+        badges: {}
       }
-    }
-    if(id !=0){
+    };
+    if (id != 0) {
       node_detail.attributes.badges = {
         bottomRight: {
-          image:{
-            url:`../../../../assets/images/icons/${type}-button.svg`,
-            scale:0.7
-          },
-          // text:{
-          //   content:type,
-          //   scale:0.2
-          // }
+          image: {
+            url: `../../../../assets/images/icons/${type}-button.svg`,
+            scale: 0.7
+          }
         }
-      }
-      // node_detail.attributes.image = {
-      //   url:`../../../../assets/images/icons/${type}-button.svg`,
-      //   scale: 0.6
-      // }
+      };
     }
-    // else{
-    //   node_detail.attributes.text.content =type;
-    // }    
+
     this.ogma.addNode(node_detail);
     this.setGrid();
     this.ogma.addNode({
@@ -74,12 +62,12 @@ export class OgmaService {
   }
   public addLink(idSrc: number, idTarget: number) {
     this.ogma.addEdge({
-      id: 'e' + this.getEdgesLength(),
+      id: 'n' + idSrc + ',' + 'n' + (idSrc + 1),
       source: 'n' + idSrc,
       target: 'n' + (idSrc + 1)
     });
     this.ogma.addEdge({
-      id: 'e' + this.getEdgesLength(),
+      id: 'n' + (idSrc + 1) + ',' + 'n' + idTarget,
       source: 'n' + (idSrc + 1),
       target: 'n' + idTarget
     });
@@ -139,13 +127,13 @@ export class OgmaService {
     this.addLink(0, 2);
   }
 
-  public getSelectedEdge(nodeId: string) {
+  public getSelectedEdge(nodeId: string) {    
     const selectedEdgeObj = this.ogma
       .getNode(nodeId)
       .getAdjacentEdges()
       .filter((edge: any) => {
         return this.getEdgeSource(edge) == nodeId;
-      });
+      });    
     return this.ogma.getEdge(selectedEdgeObj.getId()[0]);
   }
 
@@ -216,4 +204,42 @@ export class OgmaService {
       this.zoomInSize--;
     });
   }
+  public deleteNode = () => {
+    const selectedNodes = this.ogma.getSelectedNodes();
+    if (selectedNodes) {
+      const firstNode = selectedNodes.get(0);
+      if (firstNode.getAttribute('shape') !== 'square') {
+        return;
+      }
+      const selectedEdge = this.getSelectedEdge(firstNode.getId());
+      const adjacentNodes1 = firstNode.getAdjacentNodes();
+      let adjacentNodes2;
+      let secondNode: any;
+      let thirdNode: any;
+      let beginNode: any;
+      let secondNode_id = this.getEdgeTarget(selectedEdge);
+      secondNode = this.ogma.getNode(secondNode_id);
+      adjacentNodes1.forEach((node: any) => {
+        if (node !== secondNode) {
+          beginNode = node.getId();
+        }
+      });
+      if (secondNode) {
+        adjacentNodes2 = secondNode.getAdjacentNodes();
+        adjacentNodes2.forEach((node: any) => {
+          if (node !== firstNode) {
+            thirdNode = node.getId();
+          }
+        });
+      }
+      this.ogma.removeNode(firstNode);
+      this.ogma.removeNode(secondNode);
+      this.ogma.addEdge({
+        id: beginNode + ',' + thirdNode,
+        source: beginNode,
+        target: thirdNode
+      });
+    }
+    this.setGrid();
+  };
 }
