@@ -20,8 +20,8 @@ namespace ETL_project_Team2.services
         {
             var queryUtil = new SqlQueryUtil();
             string joinQuery = string.Format(query, queryUtil.SeperateColumnsByComma(joinModel.LTable),
-                                        joinModel.LTable.TableName, joinModel.Jointype,
-                                        joinModel.RTable.TableName, joinModel.Condition);
+                                        joinModel.LTable.TableName, joinModel.Jointype.Value,
+                                        joinModel.RTable.TableName, MakeCondition(joinModel));
             return queryUtil.InsertIntoTargetTable(joinQuery, joinModel.TargetTable);
         }
 
@@ -41,6 +41,18 @@ namespace ETL_project_Team2.services
             foreach (var column in rTable.Coloumns)
                 targetTable.Coloumns[rTable.TableName + '.' + column.Key] = column.Value;
             return targetTable;
+        }
+
+        private string MakeCondition(JoinModel joinModel)
+        {
+            if (!joinModel.LTable.Coloumns.ContainsKey(joinModel.LTableColumn))
+                throw new Exception(joinModel.LTable.TableName + "doesn't contain " + joinModel.LTableColumn);
+            if (!joinModel.RTable.Coloumns.ContainsKey(joinModel.RTableColumn))
+                throw new Exception(joinModel.LTable.TableName + "doesn't contain " + joinModel.RTableColumn);
+
+            return joinModel.LTable.TableName + '.' + joinModel.LTableColumn +
+                '=' +
+                joinModel.RTable.TableName + '.' + joinModel.RTableColumn;
         }
     }
 }
