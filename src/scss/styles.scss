@@ -120,16 +120,20 @@ img {
   background: var(--clr-gray-82);
   height: 100%;
 }
+
 .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
-  background-color: var(--clr-dark-blue-26);
+  background-color: var(--clr-dark-blue-40);
 }
+
 .mat-accent .mat-slider-thumb {
   height: 2rem;
   width: 2rem;
   border: solid 2px gray;
   bottom: -1.3rem;
   right: -1.3rem;
+  background-color: var(--clr-secondary);
 }
+
 .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
   background-color: white;
 }
