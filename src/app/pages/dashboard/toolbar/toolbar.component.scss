@@ -1,6 +1,6 @@
-
 .mat-icon {
   vertical-align: middle;
+  color: var(--clr-gray-91);
 }
 
 .example-spacer {
@@ -21,10 +21,18 @@
   margin-right: 0;
 }
 
-.profile{
-  &:hover{
+.profile {
+  &:hover {
     cursor: pointer;
   }
 }
 
+mat-toolbar {
+  background: var(--clr-primary);
 
+  span {
+    color: var(--clr-white);
+
+    font-size: var(--font-size-16);
+  }
+}
