@@ -3,11 +3,20 @@
   justify-content: space-between;
   align-items: center;
 
+  padding: 2rem;
+
   ._right {
     display: flex;
 
     button {
       margin: 0.5rem;
+      border-radius: var(--border-radius-3) !important;
+      background: var(--clr-primary) !important;
+    }
+
+    button[disabled='disabled'],
+    button:disabled {
+      background: transparent !important;
     }
 
     .custom-dropzone {
@@ -18,9 +27,6 @@
       ngx-dropzone-label {
         font-weight: bold;
         padding: 1.5rem;
-
-        .mat-icon {
-        }
       }
     }
   }
@@ -31,7 +37,7 @@
 }
 
 mat-divider {
-  margin: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .demo-table {
@@ -45,7 +51,8 @@ mat-divider {
 }
 
 .mat-row:hover .mat-cell {
-  border-color: currentColor;
+  // border-color: var(--clr-secondary);
+  background: var(--clr-red-61-5);
 }
 
 .demo-row-is-clicked {
@@ -63,8 +70,6 @@ mat-divider {
 }
 .mat-column-star {
   width: 2%;
-}
-.header {
 }
 
 @media only screen and (max-width: 600px) {
