@@ -23,9 +23,9 @@ namespace ETL_project_Team2.services
 
         public int ExecuteNonQuery(SqlConnection dbConnection, string queryCommand)
         {
-            using (var sqlCommand = new SqlCommand(queryCommand, dataTable.DBConnection))
+            using (var sqlCommand = new SqlCommand(queryCommand, dbConnection))
             {
-                dataTable.DBConnection.Open();
+                dbConnection.Open();
                 return sqlCommand.ExecuteNonQuery();
             }
         }
