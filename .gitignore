@@ -78,4 +78,5 @@ _[Ss]cripts
 node_modules/
 
 .vs
+
 .idea
