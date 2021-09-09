@@ -15,6 +15,16 @@ namespace ETL_project_Team2.utils
             return string.Format(resultQuery, targetTable.TableName, SeperateColumnsByComma(targetTable));
         }
 
+        public string CreateTable(SqlTable table)
+        {
+            string resultQuery = "CRAETE TABLE {0} ({1});";
+            string columns = "";
+            foreach (var columnPair in table.Coloumns)
+                columns += columnPair.Key + ' ' + columnPair.Value + ", ";
+            columns.TrimEnd(',', ' ');
+            return string.Format(resultQuery, table.TableName, columns);
+        }
+
         public string SeperateColumnsByComma(params SqlTable[] toBeSelected)
         {
             string selectedColumns = "";

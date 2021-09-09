@@ -43,6 +43,23 @@ namespace ETL_project_Team2.services
             return targetTable;
         }
 
+        public JoinModel.Type GetJoinType(string type)
+        {
+            string lowerCaseType = type.ToLower();
+            switch (lowerCaseType)
+            {
+                case ("inner"):
+                    return JoinModel.Type.Inner;
+                case ("outer"):
+                    return JoinModel.Type.Outer;
+                case ("left"):
+                    return JoinModel.Type.Left;
+                case ("right"):
+                    return JoinModel.Type.Rigth;
+            }
+            throw new ArgumentException(type + "is not a join type");
+        }
+
         private string MakeCondition(JoinModel joinModel)
         {
             if (!joinModel.LTable.Coloumns.ContainsKey(joinModel.LTableColumn))
