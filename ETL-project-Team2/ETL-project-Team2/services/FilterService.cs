@@ -19,8 +19,7 @@ namespace ETL_project_Team2.services
             return new FilterModel(sqlTable, conditionQuery);
         }
 
-        // remove public todo
-        public string GetConditionQueryFromTree(string tree)
+        private string GetConditionQueryFromTree(string tree)
         {
             if (StringContainsSqlInjection(tree)) throw new ArgumentException();
             var queries = new List<string>();
