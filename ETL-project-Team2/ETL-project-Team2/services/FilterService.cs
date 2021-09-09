@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using ETL_project_Team2.models;
 
@@ -87,23 +85,5 @@ namespace ETL_project_Team2.services
             };
             return injections.Any(query.Contains);
         }
-
-        //     public void Filter(string query, string currentDbName, string destinationDbName, SqlConnection sqlConnection)
-        //     {
-        //         var command = MakeQuery(query, currentDbName, destinationDbName);
-        //         // var sqlCommand = new SqlCommand(command, sqlConnection);
-        //         // sqlCommand.ExecuteNonQuery();
-        //         // _dbService.ExecuteNonQuery(destinationDbName, command);
-        //     }
-        //
-        //     private string MakeQuery(string query, string currentDbName, string destinationDbName)
-        //     {
-        //         var result = "SELECT * INTO ";
-        //         result += destinationDbName;
-        //         result += " FROM " + currentDbName;
-        //         result += " WHERE " + _ymlFilterParser.ParseQuery(query) + " ;";
-        //         return result;
-        //     }
-        // }
     }
 }
