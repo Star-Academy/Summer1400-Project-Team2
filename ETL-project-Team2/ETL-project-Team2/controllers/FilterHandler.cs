@@ -3,7 +3,7 @@ using ETL_project_Team2.services;
 
 namespace ETL_project_Team2.controllers
 {
-    public class FilterHandler : IFilterHandler
+    public class FilterHandler : IFilterHandler, IOperation
     {
         private readonly IDBService _dbService;
         private FilterModel _filterModel;
