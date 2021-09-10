@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PipelinesComponent } from './pages/dashboard/pipelines/pipelines.component';
-import { DatasetsComponent } from './pages/datasets/datasets.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { DatasetsComponent } from './pages/datasets/datasets.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { DatasetComponent } from './pages/dashboard/datasets/dataset.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -14,8 +15,8 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: 'pipelines', component: PipelinesComponent },
-      { path: 'datasets', component: DatasetsComponent }
+      { path: 'pipeline', component: PipelinesComponent },
+      { path: 'dataset', component: DatasetComponent }
     ]
   },
   {
