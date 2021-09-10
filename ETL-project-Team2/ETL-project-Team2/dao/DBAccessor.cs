@@ -9,7 +9,6 @@ namespace ETL_project_Team2.dao
 {
     public class DBAccessor : IDBAccessor
     {
-        private static SqlConnection tableListDBConnection = new SqlConnection("");
         public int ExecuteNonQuery(string queryCommand, SqlConnection dbConnection)
         {
             using (var sqlCommand = new SqlCommand(queryCommand, dbConnection))

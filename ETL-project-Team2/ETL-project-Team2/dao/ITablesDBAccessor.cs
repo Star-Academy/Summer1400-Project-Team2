@@ -8,6 +8,8 @@ namespace ETL_project_Team2.dao
 {
     public interface ITablesDBAccessor
     {
+        void AddUserDataBase(string userName);
+        void InitTableList(string userName);
         void AddTable(string userName, SqlTable toBeAdded);
         SqlTable FindTable(string tableName, string userName);
     }
