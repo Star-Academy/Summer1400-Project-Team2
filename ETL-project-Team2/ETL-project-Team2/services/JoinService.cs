@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ETL_project_Team2.utils;
 using System.Data.SqlClient;
 
-namespace ETL_project_Team2.services
+namespace ETL_project_Team2.dao
 {
     public class JoinService : IJoinService
     {

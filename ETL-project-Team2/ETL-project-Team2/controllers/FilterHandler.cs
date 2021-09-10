@@ -1,14 +1,14 @@
 ﻿using ETL_project_Team2.models;
-using ETL_project_Team2.services;
+using ETL_project_Team2.dao;
 
 namespace ETL_project_Team2.controllers
 {
     public class FilterHandler : IFilterHandler, IOperation
     {
-        private readonly IDBService _dbService;
+        private readonly IDBAccessor _dbService;
         private FilterModel _filterModel;
         private readonly IFilterService _filterService;
-        public FilterHandler(IDBService dbService, IFilterService filterService)
+        public FilterHandler(IDBAccessor dbService, IFilterService filterService)
         {
             _dbService = dbService;
             _filterService = filterService;

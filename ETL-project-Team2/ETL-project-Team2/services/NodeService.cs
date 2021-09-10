@@ -1,7 +1,7 @@
 ﻿using ETL_project_Team2.controllers;
 using ETL_project_Team2.models;
 
-namespace ETL_project_Team2.services
+namespace ETL_project_Team2.dao
 {
     public class NodeService
     {

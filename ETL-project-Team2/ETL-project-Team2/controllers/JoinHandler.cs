@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ETL_project_Team2.services;
+using ETL_project_Team2.dao;
 using Newtonsoft.Json.Linq;
 
 namespace ETL_project_Team2.controllers
@@ -12,10 +12,10 @@ namespace ETL_project_Team2.controllers
     {
         private JoinModel joinModel;
         private IJoinService joinService;
-        private IDBService dbService;
+        private IDBAccessor dbService;
         private ITableService tableService;
 
-        public JoinHandler(IJoinService joinService, IDBService dbService, ITableService tableService)
+        public JoinHandler(IJoinService joinService, IDBAccessor dbService, ITableService tableService)
         {
             this.joinService = joinService;
             this.dbService = dbService;
