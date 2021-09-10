@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { PipelinesComponent } from './pipelines/pipelines.component';
-import { DatasetsComponent } from './datasets/datasets.component';
+import { DatasetComponent } from './datasets/dataset.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -15,7 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [DashboardComponent, PipelinesComponent, DatasetsComponent, NavbarComponent, ToolbarComponent],
+  declarations: [
+    DashboardComponent,
+    PipelinesComponent,
+    DatasetComponent,
+    NavbarComponent,
+    ToolbarComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

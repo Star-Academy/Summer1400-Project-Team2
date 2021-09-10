@@ -14,10 +14,10 @@ const DATA: DatasetData[] = [
 
 @Component({
   selector: 'app-datasets',
-  templateUrl: './datasets.component.html',
-  styleUrls: ['./datasets.component.scss']
+  templateUrl: './dataset.component.html',
+  styleUrls: ['./dataset.component.scss']
 })
-export class DatasetsComponent {
+export class DatasetComponent {
   rowClick(row: unknown): void {
     console.log(row);
   }
