@@ -15,6 +15,8 @@ export class PipelinePage implements OnInit {
     this.onCreateFirstNode();
   }
   onCreateFirstNode() {
+
+    
     this.ogmaService.initConfig({
       container: 'graph-container',
       options: {
@@ -71,5 +73,8 @@ export class PipelinePage implements OnInit {
   }
   onZoomOutBtn() {
     this.ogmaService.setZoomOut();
+  }
+  onExportBtn(){
+    this.ogmaService.exportGraph();
   }
 }
