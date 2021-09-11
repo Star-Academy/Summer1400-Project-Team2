@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DatasetComponent } from './pages/dashboard/datasets/dataset.component';
+import { PipelinePage } from './pages/pipeline/pipeline.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -20,14 +21,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'pipeline',
-    loadChildren: () =>
-      import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
+    path: 'pipelines',
+    component: PipelinePage
   },
   { path: 'datasets', component: DatasetsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '404', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
