@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ETL_project_Team2.services;
 using ETL_project_Team2.dao;
 using Newtonsoft.Json.Linq;
 
@@ -27,7 +28,7 @@ namespace ETL_project_Team2.controllers
             joinModel.LTable = table;
             joinModel.TargetTable = joinService.MakeTargetTable(joinModel.LTable, joinModel.RTable);
             string queryToBeExecuted = joinService.JoinQuery(joinModel);
-            dbService.ExecuteNonQuery(queryToBeExecuted);
+            dbService.ExecuteNonQuery(queryToBeExecuted, table.DBConnection);
             return joinModel.TargetTable;
         }
 

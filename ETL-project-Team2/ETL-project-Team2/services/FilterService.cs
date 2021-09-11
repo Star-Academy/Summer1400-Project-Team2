@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ETL_project_Team2.models;
 
-namespace ETL_project_Team2.dao
+namespace ETL_project_Team2.services
 {
     public class FilterService : IFilterService
     {
