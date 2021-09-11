@@ -4,7 +4,7 @@ namespace ETL_project_Team2.controllers
 {
     public interface IOperation
     {
-        public SqlTable Operate(SqlTable table);
-        public void SetParameters(string jsonString);
+        public SqlTable Operate(SqlTable table, string userName);
+        public void SetParameters(string jsonString, string userName);
     }
 }

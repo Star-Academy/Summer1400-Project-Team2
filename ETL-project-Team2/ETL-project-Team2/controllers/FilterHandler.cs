@@ -1,5 +1,6 @@
 ﻿using ETL_project_Team2.models;
 using ETL_project_Team2.services;
+using ETL_project_Team2.dao;
 
 namespace ETL_project_Team2.controllers
 {
@@ -14,13 +15,13 @@ namespace ETL_project_Team2.controllers
             _filterService = filterService;
         }
 
-        public SqlTable Operate(SqlTable table)
+        public SqlTable Operate(SqlTable table, string userName)
         {
             _filterModel.CreatedTable.Coloumns = table.Coloumns;
             _filterModel.CreatedTable.DBConnection = table.DBConnection;
 
             var query = CreateQueryFromConditionQuery(table);
-            _dbService.ExecuteNonQuery(_filterModel.CreatedTable.DBConnection, query);
+            _dbService.ExecuteNonQuery(query, _filterModel.CreatedTable.DBConnection);
             
             return _filterModel.CreatedTable;
         }
@@ -32,7 +33,7 @@ namespace ETL_project_Team2.controllers
                    " WHERE " + _filterModel.ConditionQuery + " ;";
         }
 
-        public void SetParameters(string tree)
+        public void SetParameters(string tree, string userName)
         {
             _filterModel = _filterService.GetFilterModel(tree);
         }

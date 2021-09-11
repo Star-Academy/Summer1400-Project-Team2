@@ -11,35 +11,35 @@ namespace ETL_project_Team2.controllers
 {
     public class JoinHandler : IOperation
     {
-        private JoinModel joinModel;
-        private IJoinService joinService;
-        private IDBAccessor dbService;
-        private ITableService tableService;
+        private JoinModel _joinModel;
+        private IJoinService _joinService;
+        private IDBAccessor _dbService;
+        private ITablesDBAccessor _tablesDBAccessor;
 
-        public JoinHandler(IJoinService joinService, IDBAccessor dbService, ITableService tableService)
+        public JoinHandler(IJoinService joinService, IDBAccessor dbService, ITablesDBAccessor tablesDBAccessor)
         {
-            this.joinService = joinService;
-            this.dbService = dbService;
-            this.tableService = tableService;
-            joinModel = new JoinModel();
+            _joinService = joinService;
+            _dbService = dbService;
+            _tablesDBAccessor = tablesDBAccessor;
+            _joinModel = new JoinModel();
         }
-        public SqlTable Operate(SqlTable table)
+        public SqlTable Operate(SqlTable table, string userName)
         {
-            joinModel.LTable = table;
-            joinModel.TargetTable = joinService.MakeTargetTable(joinModel.LTable, joinModel.RTable);
-            string queryToBeExecuted = joinService.JoinQuery(joinModel);
-            dbService.ExecuteNonQuery(queryToBeExecuted, table.DBConnection);
-            return joinModel.TargetTable;
+            _joinModel.LTable = table;
+            _joinModel.TargetTable = _joinService.MakeTargetTable(_joinModel.LTable, _joinModel.RTable);
+            string queryToBeExecuted = _joinService.JoinQuery(_joinModel);
+            _dbService.ExecuteNonQuery(queryToBeExecuted, table.DBConnection);
+            return _joinModel.TargetTable;
         }
 
-        public void SetParameters(string jsonString)
+        public void SetParameters(string jsonString, string userName)
         {
             var parsedObj = JObject.Parse(jsonString);
 
-            joinModel.RTable = tableService.FindTable((string)parsedObj["TableName"]);
-            joinModel.Jointype = joinService.GetJoinType((string)parsedObj["JoinType"]);
-            joinModel.LTableColumn = (string)parsedObj["ColumnLTable"];
-            joinModel.RTableColumn = (string)parsedObj["ColumnRTable"];
+            _joinModel.RTable = _tablesDBAccessor.FindTable((string)parsedObj["TableName"], userName);
+            _joinModel.Jointype = _joinService.GetJoinType((string)parsedObj["JoinType"]);
+            _joinModel.LTableColumn = (string)parsedObj["ColumnLTable"];
+            _joinModel.RTableColumn = (string)parsedObj["ColumnRTable"];
         }
     }
 }
