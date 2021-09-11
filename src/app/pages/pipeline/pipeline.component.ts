@@ -10,19 +10,10 @@ import { OgmaService } from './services/ogma.service';
 export class PipelinePage implements OnInit {
   constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
   processor = '';
-
+  deleteNode = false;
   ngOnInit() {
     this.onCreateFirstNode();
   }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(ProcessorModalComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
   onCreateFirstNode() {
     this.ogmaService.initConfig({
       container: 'graph-container',
@@ -30,6 +21,8 @@ export class PipelinePage implements OnInit {
         backgroundColor: 'rgb(212, 212, 212)'
       }
     });
+
+    this.ogmaService.ogma.events.onKeyPress('del', this.ogmaService.deleteNode);
 
     this.ogmaService.ogma.events.onClick((event: any) => {
       if (event.target === null) {
@@ -43,6 +36,26 @@ export class PipelinePage implements OnInit {
         }
         if (nodeId == 'n2') {
           alert('دیتاست مقصد را انتخاب کنید.');
+        } else {
+          if (shape === 'circle') {
+            const dialogRef = this.dialog.open(ProcessorModalComponent);
+            dialogRef.afterClosed().subscribe(result => {
+              let flag = 0;
+              if (result.event == 'filter') {
+                this.processor = 'filter';
+                flag = 1;
+              } else if (result.event == 'aggregate') {
+                this.processor = 'aggregate';
+                flag = 1;
+              } else if (result.event == 'join') {
+                this.processor = 'join';
+                flag = 1;
+              }
+              if (flag) {
+                this.ogmaService.onPluseNode(nodeId, this.processor);
+              }
+            });
+          }
         }
         if (shape === 'circle') {
           const dialogRef = this.dialog.open(ProcessorModalComponent);
@@ -64,7 +77,7 @@ export class PipelinePage implements OnInit {
           });
         }
       } else {
-        let edge = event.target;
+        const edge = event.target;
         this.ogmaService.clickOnEdge(edge);
       }
     });
@@ -77,5 +90,8 @@ export class PipelinePage implements OnInit {
   }
   onZoomOutBtn() {
     this.ogmaService.setZoomOut();
+  }
+  onExportBtn() {
+    this.ogmaService.exportGraph();
   }
 }

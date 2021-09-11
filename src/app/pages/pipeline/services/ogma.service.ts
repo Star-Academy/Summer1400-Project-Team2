@@ -5,68 +5,38 @@ declare var require: any;
   providedIn: 'root'
 })
 export class OgmaService {
-  public ogma: any;
-  textNode = 'center';
-  zoomInSize = 3;
+  public ogma: any;  
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
     this.ogma = new Ogma(configuration);
+    // this.ogma.parse.jsonFromUrl('../../../assets/graph.json').then((graph: any) => {
+    //   this.ogma.setGraph(graph);
+    //   this.ogma.view.locateGraph();
+    //   console.log('import done');
+    // });
     this.addEdgeRule();
+    this.addNodeRule();
     this.setHoverStyleNodes();
     this.setHoverStyleEdges();
     this.ogma.view.locateGraph();
   }
   public addNode(type: string) {
     const id = this.getNodeslength();
-    let node_detail = {
+    this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
+      data: { type: type },
       attributes: {
-        color: '#326C99',
-        radius: 50,
         shape: 'square',
         text: {
-          content: type,
-          position: 'center',
-          color: 'white',
-          size: 17
-        },
-        badges: {
-        },
-        // image:{}
-      }
-    }
-    if(id !=0){
-      node_detail.attributes.badges = {
-        bottomRight: {
-          image:{
-            url:`../../../../assets/images/icons/${type}-button.svg`,
-            scale:0.7
-          },
-          // text:{
-          //   content:type,
-          //   scale:0.2
-          // }
+          content: type
         }
       }
-      // node_detail.attributes.image = {
-      //   url:`../../../../assets/images/icons/${type}-button.svg`,
-      //   scale: 0.6
-      // }
-    }
-    // else{
-    //   node_detail.attributes.text.content =type;
-    // }    
-    this.ogma.addNode(node_detail);
+    });
     this.setGrid();
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
-      attributes: {
-        radius: 20,
-        color: 'transparent',
-        image: {
-          url: '../../../../assets/images/icons/plus-button.png',
-          scale: 1
-        }
+      data: {
+        type: 'plus'
       }
     });
     this.setGrid();
@@ -74,12 +44,12 @@ export class OgmaService {
   }
   public addLink(idSrc: number, idTarget: number) {
     this.ogma.addEdge({
-      id: 'e' + this.getEdgesLength(),
+      id: 'n' + idSrc + ',' + 'n' + (idSrc + 1),
       source: 'n' + idSrc,
       target: 'n' + (idSrc + 1)
     });
     this.ogma.addEdge({
-      id: 'e' + this.getEdgesLength(),
+      id: 'n' + (idSrc + 1) + ',' + 'n' + idTarget,
       source: 'n' + (idSrc + 1),
       target: 'n' + idTarget
     });
@@ -88,16 +58,59 @@ export class OgmaService {
 
   public addEdgeRule() {
     this.ogma.styles.addEdgeRule({
-      text: {
-        content: (e: any) => 'Edge ' + e.getId()
-      },
-      width: 7
+      width: 7,
+      color: 'grey'
     });
   }
   public addNodeRule() {
-    this.ogma.styles.addNodeRule({
-      text: {
-        content: (e: any) => 'Node ' + e.getId()
+    this.ogma.styles.addRule({
+      nodeAttributes: {
+        color: function (node: any) {
+          if (node.getAttribute('shape') === 'square') {
+            return '#326C99';
+          } else {
+            return 'transparent';
+          }
+        },
+        radius: function (node: any) {
+          if (node.getAttribute('shape') === 'square') {
+            return 50;
+          } else {
+            return 20;
+          }
+        },
+        image: {
+          url: function (node: any) {
+            if (node.getAttribute('shape') === 'circle') {
+              return '../../../../assets/images/icons/plus-button.png';
+            } else {
+              return;
+            }
+          },
+          scale: 1
+        },
+        badges: {
+          bottomRight: {
+            image: {
+              url: function (node: any) {
+                if (node.getData('type') == 'join') {
+                  return '../../../../assets/images/icons/join-button.svg';
+                } else if (node.getData('type') == 'filter') {
+                  return '../../../../assets/images/icons/filter-button.svg';
+                } else if (node.getData('type') == 'aggregate') {
+                  return '../../../../assets/images/icons/aggregate-button.svg';
+                }
+                return;
+              },
+              scale: 0.7
+            }
+          }
+        },
+        text: {
+          position: 'center',
+          color: 'white',
+          size: 17
+        }
       }
     });
   }
@@ -121,15 +134,16 @@ export class OgmaService {
     this.ogma.view.locateGraph();
   }
   public createFirstNode() {
-    this.addNode('choose source');
+    this.addNode('source');
     this.ogma.addNode({
       id: 'n' + this.getNodeslength(),
+      data: { type: 'destination' },
       attributes: {
         color: '#326C99',
         radius: 50,
         shape: 'square',
         text: {
-          content: 'choose destination',
+          content: 'destination',
           position: 'center',
           size: 17,
           color: 'white'
@@ -206,14 +220,62 @@ export class OgmaService {
     edge.setTarget(targetId);
   }
   public setZoomIn() {
-    this.ogma.view.setZoom(this.zoomInSize).then((res: any) => {
-      this.zoomInSize++;
-    });
+    let number = Math.floor(this.ogma.view.getZoom()) + 1;
+    this.ogma.view.setZoom(number).then((res: any) => {});
   }
 
   public setZoomOut() {
-    this.ogma.view.zoomOut().then((res: any) => {
-      this.zoomInSize--;
-    });
+    this.ogma.view.zoomOut().then((res: any) => {});
+  }
+  public deleteNode = () => {
+    const selectedNodes = this.ogma.getSelectedNodes();
+    if (selectedNodes) {
+      const firstNode = selectedNodes.get(0);
+      if (firstNode.getAttribute('shape') !== 'square') {
+        return;
+      }
+      const selectedEdge = this.getSelectedEdge(firstNode.getId());
+      const adjacentNodes1 = firstNode.getAdjacentNodes();
+      let adjacentNodes2;
+      let secondNode: any;
+      let thirdNodeId: any;
+      let beginNodeId: any;
+      let secondNode_id = this.getEdgeTarget(selectedEdge);
+      secondNode = this.ogma.getNode(secondNode_id);
+      adjacentNodes1.forEach((node: any) => {
+        if (node !== secondNode) {
+          beginNodeId = node.getId();
+        }
+      });
+      if (secondNode) {
+        adjacentNodes2 = secondNode.getAdjacentNodes();
+        adjacentNodes2.forEach((node: any) => {
+          if (node !== firstNode) {
+            thirdNodeId = node.getId();
+          }
+        });
+      }
+      this.ogma.removeNode(firstNode);
+      this.ogma.removeNode(secondNode);
+      this.ogma.addEdge({
+        id: beginNodeId + ',' + thirdNodeId,
+        source: beginNodeId,
+        target: thirdNodeId
+      });
+    }
+    this.setGrid();
+  };
+
+  exportGraph() {
+    this.ogma.export
+      .json({
+        download: false,
+        pretty: true,
+        nodeAttributes: ['x', 'y', 'shape', 'text'],
+        edgeAttributes: []
+      })
+      .then((res: any) => {
+        console.log(res);
+      });
   }
 }
