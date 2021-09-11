@@ -7,7 +7,8 @@ namespace ETL_project_Team2.dao
 {
     public interface IPipelineDBAcessor
     {
-        void AddPipelineModel(int modelId, string content);
-        string FetchModel(int modelId);
+        void AddPipelineModel(int modelId, string content, string userName);
+        string FetchModel(int modelId, string userName);
+        int UpdateModel(int modelId, string newContent, string userName);
     }
 }
