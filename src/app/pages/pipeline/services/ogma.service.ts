@@ -5,8 +5,7 @@ declare var require: any;
   providedIn: 'root'
 })
 export class OgmaService {
-  public ogma: any;
-  zoomInSize = 3;
+  public ogma: any;  
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
     this.ogma = new Ogma(configuration);
@@ -221,15 +220,12 @@ export class OgmaService {
     edge.setTarget(targetId);
   }
   public setZoomIn() {
-    this.ogma.view.setZoom(this.zoomInSize).then((res: any) => {
-      this.zoomInSize++;
-    });
+    let number = Math.floor(this.ogma.view.getZoom()) + 1;
+    this.ogma.view.setZoom(number).then((res: any) => {});
   }
 
   public setZoomOut() {
-    this.ogma.view.zoomOut().then((res: any) => {
-      this.zoomInSize--;
-    });
+    this.ogma.view.zoomOut().then((res: any) => {});
   }
   public deleteNode = () => {
     const selectedNodes = this.ogma.getSelectedNodes();
@@ -273,7 +269,7 @@ export class OgmaService {
   exportGraph() {
     this.ogma.export
       .json({
-        download:false,
+        download: false,
         pretty: true,
         nodeAttributes: ['x', 'y', 'shape', 'text'],
         edgeAttributes: []
