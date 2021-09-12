@@ -29,6 +29,7 @@ namespace ETL_project_Team2.controllers
 
         public IActionResult OperatePipeline(int modelId, IPipelineDBAcessor pipelineDB)
         {
+            LoadPipeline(modelId, pipelineDB);
             SqlTable currentTable = _entryTable;
             foreach (var nodePair in _pipeline)
             {
@@ -41,6 +42,7 @@ namespace ETL_project_Team2.controllers
         public IActionResult UpdatePipeline(int modelId, string newContent, IPipelineDBAcessor pipelineDB)
         {
             pipelineDB.UpdateModel(modelId, newContent);
+            LoadPipeline(modelId, pipelineDB);
             return new OkResult();
         }
 
