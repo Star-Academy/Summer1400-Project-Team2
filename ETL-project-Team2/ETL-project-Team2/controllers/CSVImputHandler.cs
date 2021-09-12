@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace simpletesttodelete
 {
-    class CSVImputHandler
+    class CSVImputHandler : ICSVImputHandler
     {
         public static int TableId { get; set; }
         public string ConnectionString { get; set; }
@@ -26,20 +26,21 @@ namespace simpletesttodelete
             TableDatas = new List<string[]>();
             FilePath = filePath;
             Delimeter = delimeter;
-            TableId += 2;
+            TableId += 1;
             CreateTableName();
         }
 
-        public static void Main(string[] args)
-        {
-            CSVImputHandler csvImputHandler =
-                new CSVImputHandler(@"C:\Users\ASUS\RiderProjects\simpletesttodelete\New Microsoft Excel Worksheet.csv",
-                    ",");
-            csvImputHandler.GetDataTabletFromCsvFile();
-            csvImputHandler.CreateTable(true);
-            csvImputHandler.ImportDataInSql(true);
 
+        public void StartCreatingTables()
+        {
+            this.GetDataTabletFromCsvFile();
+            this.CreateTable(true);
+            this.ImportDataInSql(true);
+            this.CreateTable(false);
+            this.ImportDataInSql(false);
         }
+
+      
 
         public void CreateTableName()
         {
@@ -47,13 +48,13 @@ namespace simpletesttodelete
             CopyTableName = OriginalTableName + "Copy";
         }
 
-        private void GetDataTabletFromCsvFile()
+        public void GetDataTabletFromCsvFile()
         {
             try
             {
                 using (TextFieldParser fileReader = new TextFieldParser(FilePath))
                 {
-                    fileReader.SetDelimiters(new string[] {Delimeter}); 
+                    fileReader.SetDelimiters(new string[] {Delimeter});
                     fileReader.HasFieldsEnclosedInQuotes = true;
                     string[] colFields = fileReader.ReadFields();
                     foreach (string column in colFields)
@@ -79,7 +80,6 @@ namespace simpletesttodelete
             {
                 Console.Write(ex.Message);
             }
-            
         }
 
 
@@ -118,7 +118,7 @@ namespace simpletesttodelete
 
             for (var i = 0; i < ColoumnsNames.Count - 1; i++)
             {
-                sqlCommandStart += ColoumnsNames[i] += ",";
+                sqlCommandStart += ColoumnsNames[i].TrimEnd(new char[] {','}) + ",";
             }
 
             sqlCommandStart += ColoumnsNames[ColoumnsNames.Count - 1] + ") VALUES (";
@@ -155,15 +155,15 @@ namespace simpletesttodelete
         }
 
 
-        private SqlConnection CreateSqlConnection()
+        public SqlConnection CreateSqlConnection()
         {
             ConnectionString = @"Server=" + "." + ";Database=" + "CSVTEST" + ";Trusted_Connection=True";
             return new SqlConnection(ConnectionString);
         }
 
-        private string CreateSqlCommand(bool isOriginal)
+        public string CreateSqlCommand(bool isOriginal)
         {
-            string sql; 
+            string sql;
             if (isOriginal)
             {
                 sql = "Create Table " + OriginalTableName + "(";
@@ -174,9 +174,9 @@ namespace simpletesttodelete
             }
 
 
-            for (var i = 0; i < ColoumnsNames.Count ; i++)
+            for (var i = 0; i < ColoumnsNames.Count; i++)
             {
-                sql += ColoumnsNames[i] + " " + ColoumnsTypes[i] + ",";
+                sql += ColoumnsNames[i].TrimEnd(new char[] {','}) + " " + ColoumnsTypes[i] + ",";
             }
 
             sql = sql.TrimEnd(new char[] {Delimeter[0]}) + ");";
