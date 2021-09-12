@@ -22,8 +22,8 @@ export class OgmaService {
   }
   public addNode(type: string) {
     const id = this.getNodeslength();
-    this.ogma.addNode({
-      id: 'n' + this.getNodeslength(),
+    this.ogma.addNode({      
+      id: this.getNodeslength(),
       data: { type: type },
       attributes: {
         shape: 'square',
@@ -33,8 +33,8 @@ export class OgmaService {
       }
     });
     this.setGrid();
-    this.ogma.addNode({
-      id: 'n' + this.getNodeslength(),
+    this.ogma.addNode({      
+      id: this.getNodeslength(),
       data: {
         type: 'plus'
       }
@@ -42,17 +42,17 @@ export class OgmaService {
     this.setGrid();
     return id;
   }
-  public addLink(idSrc: number, idTarget: number) {
-    this.ogma.addEdge({
-      id: 'n' + idSrc + ',' + 'n' + (idSrc + 1),
-      source: 'n' + idSrc,
-      target: 'n' + (idSrc + 1)
+  public addLink(idSrc: number, idTarget: number) {    
+    this.ogma.addEdge({      
+      id: idSrc + ',' + (idSrc + 1),
+      source: idSrc,
+      target: (idSrc + 1)
     });
-    this.ogma.addEdge({
-      id: 'n' + (idSrc + 1) + ',' + 'n' + idTarget,
-      source: 'n' + (idSrc + 1),
-      target: 'n' + idTarget
-    });
+    this.ogma.addEdge({      
+      id: (idSrc + 1) + ',' + idTarget,
+      source: (idSrc + 1),
+      target: idTarget
+    });    
     this.setGrid();
   }
 
@@ -135,18 +135,13 @@ export class OgmaService {
   }
   public createFirstNode() {
     this.addNode('source');
-    this.ogma.addNode({
-      id: 'n' + this.getNodeslength(),
+    this.ogma.addNode({      
+      id: this.getNodeslength(),
       data: { type: 'destination' },
       attributes: {
-        color: '#326C99',
-        radius: 50,
         shape: 'square',
         text: {
-          content: 'destination',
-          position: 'center',
-          size: 17,
-          color: 'white'
+          content: 'destination'
         }
       }
     });
@@ -166,10 +161,9 @@ export class OgmaService {
   public onPluseNode(nodeId: string, processorType: string) {
     const selectedEdge = this.getSelectedEdge(nodeId);
     const selectedEdge_target = this.getEdgeTarget(selectedEdge);
-    const selectedEdge_target_id = +selectedEdge_target.match(/(\d+)/)[0];
-    const addedNodeId = this.addNode(processorType);
-    this.setEdgeTarget(selectedEdge, 'n' + addedNodeId);
-    this.addLink(addedNodeId, selectedEdge_target_id);
+    const addedNodeId = this.addNode(processorType);    
+    this.setEdgeTarget(selectedEdge, addedNodeId);
+    this.addLink(addedNodeId, selectedEdge_target);
     this.setGrid();
   }
 
@@ -256,12 +250,12 @@ export class OgmaService {
         });
       }
       this.ogma.removeNode(firstNode);
-      this.ogma.removeNode(secondNode);
+      this.ogma.removeNode(secondNode);      
       this.ogma.addEdge({
-        id: beginNodeId + ',' + thirdNodeId,
+        id: beginNodeId + ',' + thirdNodeId,        
         source: beginNodeId,
         target: thirdNodeId
-      });
+      });      
     }
     this.setGrid();
   };
