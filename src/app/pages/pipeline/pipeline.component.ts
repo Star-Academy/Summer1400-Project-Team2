@@ -29,12 +29,11 @@ export class PipelinePage implements OnInit {
         console.log('clicked on background at coordinates', event.x, event.y);
       } else if (event.target.isNode) {
         const nodeId = event.target.getId();
-        const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute('shape');
-        console.log('clicked on a node with id', nodeId);
-        if (nodeId == 'n0') {
+        const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute('shape');        
+        if (nodeId === 0) {
           alert('دیتاست مبدا را انتخاب کنید.');
         }
-        if (nodeId == 'n2') {
+        if (nodeId === 2) {
           alert('دیتاست مقصد را انتخاب کنید.');
         } else {
           if (shape === 'circle') {
