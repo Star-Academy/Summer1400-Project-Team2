@@ -10,9 +10,9 @@ namespace ETL_project_Team2.controllers
 {
     public interface IPipelineHandler
     {
-        IActionResult OpertePipeline(int modelId, string userName, IPipelineDBAcessor pipelineDB);
-        IActionResult UpdatePipeline(int modelId, string newContent, string userName, IPipelineDBAcessor pipelineDB);
-        IActionResult GetPipeline(int modelId,string userName, IPipelineDBAcessor pipelineDB);
+        IActionResult OperatePipeline(int modelId, IPipelineDBAcessor pipelineDB);
+        IActionResult UpdatePipeline(int modelId, string newContent, IPipelineDBAcessor pipelineDB);
+        IActionResult GetPipeline(int modelId, IPipelineDBAcessor pipelineDB);
         IActionResult GetPreviewTable(int nodeId);
     }
 }

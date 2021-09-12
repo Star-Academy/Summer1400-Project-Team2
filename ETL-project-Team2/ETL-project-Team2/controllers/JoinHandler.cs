@@ -16,14 +16,15 @@ namespace ETL_project_Team2.controllers
         private IDBAccessor _dbService;
         private ITablesDBAccessor _tablesDBAccessor;
 
-        public JoinHandler(IJoinService joinService, IDBAccessor dbService, ITablesDBAccessor tablesDBAccessor)
+        public JoinHandler(IJoinService joinService, IDBAccessor dbService, 
+            ITablesDBAccessor tablesDBAccessor)
         {
             _joinService = joinService;
             _dbService = dbService;
             _tablesDBAccessor = tablesDBAccessor;
             _joinModel = new JoinModel();
         }
-        public SqlTable Operate(SqlTable table, string userName)
+        public SqlTable Operate(SqlTable table)
         {
             _joinModel.LTable = table;
             _joinModel.TargetTable = _joinService.MakeTargetTable(_joinModel.LTable, _joinModel.RTable);
@@ -32,11 +33,11 @@ namespace ETL_project_Team2.controllers
             return _joinModel.TargetTable;
         }
 
-        public void SetParameters(string jsonString, string userName)
+        public void SetParameters(string jsonString)
         {
             var parsedObj = JObject.Parse(jsonString);
 
-            _joinModel.RTable = _tablesDBAccessor.FindTable((string)parsedObj["TableName"], userName);
+            _joinModel.RTable = _tablesDBAccessor.FindTable((string)parsedObj["TableName"]);
             _joinModel.Jointype = _joinService.GetJoinType((string)parsedObj["JoinType"]);
             _joinModel.LTableColumn = (string)parsedObj["ColumnLTable"];
             _joinModel.RTableColumn = (string)parsedObj["ColumnRTable"];

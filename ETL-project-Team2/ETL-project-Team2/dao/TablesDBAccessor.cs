@@ -10,11 +10,10 @@ namespace ETL_project_Team2.dao
 {
     public class TablesDBAccessor : ITablesDBAccessor
     {
-        private const string dbConnectionStringPattern = "Data Source=localhost;Initial Catalog={0};Integrated Security=True";
-        private const string dbNamePattern = "{0}DB";
+        private const string dbConnectionStringPattern = "Data Source=localhost;Initial Catalog=TheOnlyUserDB;Integrated Security=True";
         private const string tablesListRecordTable = "TablesList";
 
-        public void AddUserDataBase(string userName)
+        public void AddUserDataBase()
         {
             const string dbName = "master";
             string connectionString = string.Format(dbConnectionStringPattern, dbName);
@@ -29,11 +28,9 @@ namespace ETL_project_Team2.dao
             }
         }
 
-        public void InitTableList(string userName)
+        public void InitTableList()
         {
-            string dbName = string.Format(dbNamePattern, userName);
-            string connectionString = string.Format(dbConnectionStringPattern, dbName);
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(dbConnectionStringPattern))
             {
                 const string command = "CREATE TABE @tableName (@tableColumns);";
                 var sqlCommand = new SqlCommand(command, connection);
@@ -45,12 +42,9 @@ namespace ETL_project_Team2.dao
             }
         }
 
-        public void AddTable(string userName, SqlTable toBeAdded)
+        public void AddTable(SqlTable toBeAdded)
         {
-            string connectionString = string.Format(dbConnectionStringPattern,
-                string.Format(dbNamePattern, userName));
-
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(dbConnectionStringPattern))
             {
                 const string commandString = "INSERT INTO @tablesListRecordName (tableName, tableColumns)\n" +
                     "VALUES (@tableName, @tableColumns);";
@@ -65,17 +59,15 @@ namespace ETL_project_Team2.dao
 
         }
 
-        public SqlTable FindTable(string tableName, string userName)
+        public SqlTable FindTable(string tableName)
         {
-            string connectionString = string.Format(dbConnectionStringPattern,
-                    string.Format(dbNamePattern, userName));
             SqlTable resultTable = new SqlTable()
             {
                 TableName = tableName,
-                DBConnection = new SqlConnection(connectionString)
+                DBConnection = new SqlConnection(dbConnectionStringPattern)
             };
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(dbConnectionStringPattern))
             {
                 const string commandString = "SELECT tableName FROM @tableName";
                 var command = new SqlCommand(commandString);

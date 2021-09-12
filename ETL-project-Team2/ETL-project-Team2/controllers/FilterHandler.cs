@@ -15,7 +15,7 @@ namespace ETL_project_Team2.controllers
             _filterService = filterService;
         }
 
-        public SqlTable Operate(SqlTable table, string userName)
+        public SqlTable Operate(SqlTable table)
         {
             _filterModel.CreatedTable.Coloumns = table.Coloumns;
             _filterModel.CreatedTable.DBConnection = table.DBConnection;
@@ -33,7 +33,7 @@ namespace ETL_project_Team2.controllers
                    " WHERE " + _filterModel.ConditionQuery + " ;";
         }
 
-        public void SetParameters(string tree, string userName)
+        public void SetParameters(string tree)
         {
             _filterModel = _filterService.GetFilterModel(tree);
         }
