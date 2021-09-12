@@ -78,6 +78,11 @@ namespace ETL_project_Team2.controllers
             List<IOperation> operationsList = rawOperationsList.Select(operation => MakeOperation(operation)).ToList();
 
             _pipeline.Zip(operationsList, (tuple, operation) => new Tuple<Node, IOperation>(tuple.Item1, operation));
+
+            foreach(var nodePair in _pipeline)
+            {
+                nodePair.Item2.SetParameters(pipelineDB.FetchNodeParameters(modelId, nodePair.Item1.Id));
+            }
         }
 
         private IOperation MakeOperation(string type)
