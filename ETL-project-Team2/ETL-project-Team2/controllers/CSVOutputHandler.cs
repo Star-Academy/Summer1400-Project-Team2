@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
+using ETL_project_Team2.services;
 
 namespace testconverttocsv
 {
-    class CSVOutputHandler
+    class CSVOutputHandler:ICSVOutputHandler
     {
         public string ConnectionString { get; set; }
         public string FileNameToCreate { get; set; }
@@ -41,7 +42,7 @@ namespace testconverttocsv
             sqlCon.Close();
         }
 
-        private void ReadFromSql(SqlDataReader reader, object[] output, StreamWriter sw)
+        public void ReadFromSql(SqlDataReader reader, object[] output, StreamWriter sw)
         {
             for (int i = 0; i < reader.FieldCount; i++)
                 output[i] = reader.GetName(i);
@@ -55,34 +56,6 @@ namespace testconverttocsv
             }
         }
 
-        // static void Main(string[] args)
-        // {
-        //     SqlConnection sqlCon =
-        //         new SqlConnection("Data Source=localhost;Initial Catalog=CSVTEST;Integrated Security=SSPI;");
-        //     sqlCon.Open();
-        //
-        //     SqlCommand sqlCmd = new SqlCommand(
-        //         "Select * from abcd", sqlCon);
-        //     SqlDataReader reader = sqlCmd.ExecuteReader();
-        //
-        //     string fileName = "test2.csv";
-        //     StreamWriter sw = new StreamWriter(fileName);
-        //     object[] output = new object[reader.FieldCount];
-        //
-        //     for (int i = 0; i < reader.FieldCount; i++)
-        //         output[i] = reader.GetName(i);
-        //
-        //     sw.WriteLine(string.Join(",", output));
-        //
-        //     while (reader.Read())
-        //     {
-        //         reader.GetValues(output);
-        //         sw.WriteLine(string.Join(",", output));
-        //     }
-        //
-        //     sw.Close();
-        //     reader.Close();
-        //     sqlCon.Close();
-        // }
+     
     }
 }
