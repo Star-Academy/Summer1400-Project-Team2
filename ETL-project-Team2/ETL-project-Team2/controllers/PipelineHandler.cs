@@ -44,21 +44,19 @@ namespace ETL_project_Team2.controllers
             return new OkResult();
         }
 
-        private void LoadChangesOnCurrentPipeLine(string newContent)
+        public IActionResult SetNodeParams(int modelId, int nodeId, string parameters, IPipelineDBAcessor pipelineDB)
         {
-            var parsedObj = JObject.Parse(newContent);
-            var rawList = (JArray)parsedObj["nodes"];
-            var processedList = new List<Tuple<int, string>>();
-            foreach (JObject element in rawList)
+            LoadPipeline(modelId, pipelineDB);
+            foreach(var nodePair in _pipeline)
             {
-                processedList.Add(new Tuple<int, string>
-                    (Int32.Parse(element["id"].ToString()), element["data"]["type"].ToString()));
+                if (nodePair.Item1.Id == nodeId)
+                {
+                    nodePair.Item2.SetParameters(parameters);
+                    //save in db
+                    return new OkResult();
+                }
             }
-            processedList.RemoveAll(x => { return x.Item2 == "plus" || x.Item2 == "source" || x.Item2 == "target"; });
-            for (var node = _pipeline.First;)
-            {
-                var curNode = _pipeline.First();
-            }
+            return new NotFoundResult();
         }
 
         private void LoadPipeline(int modelId, IPipelineDBAcessor pipelineDB)

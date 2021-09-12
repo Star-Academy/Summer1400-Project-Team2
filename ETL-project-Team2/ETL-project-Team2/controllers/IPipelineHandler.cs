@@ -11,6 +11,7 @@ namespace ETL_project_Team2.controllers
     public interface IPipelineHandler
     {
         IActionResult OperatePipeline(int modelId, IPipelineDBAcessor pipelineDB);
+        IActionResult SetNodeParams(int modelId, int nodeId, string parameters, IPipelineDBAcessor pipelineDB);
         IActionResult UpdatePipeline(int modelId, string newContent, IPipelineDBAcessor pipelineDB);
         IActionResult GetPipeline(int modelId, IPipelineDBAcessor pipelineDB);
         IActionResult GetPreviewTable(int nodeId);
