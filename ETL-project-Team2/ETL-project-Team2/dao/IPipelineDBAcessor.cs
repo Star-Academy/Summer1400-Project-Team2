@@ -10,5 +10,7 @@ namespace ETL_project_Team2.dao
         void AddPipelineModel(int modelId, string content);
         string FetchModel(int modelId);
         int UpdateModel(int modelId, string newContent);
+        void SaveParameters(int modelId, int nodeId, string parameters);
+        string FetchNodeParameters(int modelId, int nodeId);
     }
 }

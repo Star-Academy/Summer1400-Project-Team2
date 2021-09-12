@@ -52,7 +52,7 @@ namespace ETL_project_Team2.controllers
                 if (nodePair.Item1.Id == nodeId)
                 {
                     nodePair.Item2.SetParameters(parameters);
-                    //save in db
+                    pipelineDB.SaveParameters(modelId, nodeId, parameters);
                     return new OkResult();
                 }
             }
