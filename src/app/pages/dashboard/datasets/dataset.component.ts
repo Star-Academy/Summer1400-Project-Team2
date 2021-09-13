@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-export interface DatasetData {
-  id: number;
-  name: string;
-  connectionName: string;
-  created: string;
-  star: boolean;
+
+import { Component, AfterViewInit } from '@angular/core';
+import {DashboardService} from "../../../services/dashboard/dashboard.service";
+
+interface Data {
+  name: string
 }
 
-const DATA: DatasetData[] = [
-  { id: 1, name: 'داده فیک', connectionName: 'دمو', created: 'امروز', star: true },
-  { id: 2, name: 'داده فیک2', connectionName: 'دمو', created: 'ماه پیش', star: false }
+let res: any;
+
+let DATA: Data[] = [
+  { name: 'فیک'},
+  { name: 'فیک2'},
 ];
 
 @Component({
@@ -17,11 +18,18 @@ const DATA: DatasetData[] = [
   templateUrl: './dataset.component.html',
   styleUrls: ['./dataset.component.scss']
 })
-export class DatasetComponent {
+export class DatasetComponent implements AfterViewInit {
+  constructor(private dashboardService: DashboardService) {
+  }
+  ngAfterViewInit() {
+    res = this.dashboardService.tableData('datasets');
+    DATA = res;
+  }
+
   rowClick(row: unknown): void {
     console.log(row);
   }
 
-  displayedColumns: string[] = ['name', 'connectionName', 'created', 'star'];
+  displayedColumns: string[] = ['name'];
   dataSource = DATA;
 }
