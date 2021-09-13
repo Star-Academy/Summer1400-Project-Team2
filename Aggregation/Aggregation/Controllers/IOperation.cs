@@ -1,3 +1,5 @@
+using Aggregation.Models;
+
 namespace Aggregation.Controllers
 {
     public interface IOperation

@@ -22,6 +22,7 @@ namespace ETL_project_Team2.models
 
         public AggregationModel(SqlTable sqlTable, string AggregateQuery)
         {
+
             this.AggregateQuery = AggregateQuery;
             this.SqlTable = sqlTable;
         }
