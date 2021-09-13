@@ -9,7 +9,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ETL_project_Team2.controllers;
+using ETL_project_Team2.dao;
 using ETL_project_Team2.services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ETL_project_Team2
 {
@@ -17,15 +20,25 @@ namespace ETL_project_Team2
     {
         public static void Main(string[] args)
         {
-            var a = new FilterService().GetFilterModel("(a)(b)|(c)&");
-            Console.WriteLine(a.ConditionQuery);
+            CreateHostBuilder(args).Build();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    services.AddSingleton<IFilterService, FilterService>()
+                        .AddSingleton<IJoinService, JoinService>()
+                        .AddSingleton<IDBAccessor, DBAccessor>()
+                        .AddSingleton<IPipelineDBAcessor, PipelineDBAccessor>()
+                        .AddSingleton<ITablesDBAccessor, TablesDBAccessor>()
+                        .AddTransient<IFilterHandler, FilterHandler>()
+                        .AddTransient<IPipelineHandler, PipelineHandler>()
+                        .AddTransient<IOperation, JoinHandler>();
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                                   {
+                                       webBuilder.UseStartup<Startup>();
+                                   });
     }
 }
