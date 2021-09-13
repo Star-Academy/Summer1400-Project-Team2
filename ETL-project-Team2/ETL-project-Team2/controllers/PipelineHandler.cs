@@ -16,12 +16,22 @@ namespace ETL_project_Team2.controllers
         private SqlTable _entryTable;
         private SqlTable _finalTable;
 
-        public IActionResult CreateNewPipeline([FromBody]JObject content, IPipelineDBAcessor pipelineDB)
+        [HttpPost]
+        [Route("pipeline")]
+        public IActionResult CreateNewPipeline([FromBody] JObject content, IPipelineDBAcessor pipelineDB)
         {
             int modelId = pipelineDB.GetModelsCount();
-            pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), "", 
+            pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), "",
                 content["entryDB"].ToString(), content["finalDB"].ToString());
             return new OkObjectResult(modelId);
+        }
+
+        [HttpPut]
+        [Route("pipeline/editName")]
+        public IActionResult EditPipelineName([FromQuery] int modelId, [FromQuery] string name, IPipelineDBAcessor pipelineDB)
+        {
+            pipelineDB.UpdateModelName(modelId, name);
+            return new OkResult();
         }
 
         [HttpGet]
@@ -38,7 +48,7 @@ namespace ETL_project_Team2.controllers
 
         [HttpPost]
         [Route("pipeline/operate")]
-        public IActionResult OperatePipeline([FromQuery] int modelId, 
+        public IActionResult OperatePipeline([FromQuery] int modelId,
             IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
         {
             LoadPipeline(modelId, pipelineDB, tablesDB);
