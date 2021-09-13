@@ -176,5 +176,23 @@ namespace ETL_project_Team2.dao
             }
             return result;
         }
+
+        public List<string> FetchModelsList()
+        {
+            var resultList = new List<string>();
+            using(var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "SELECT name FROM @tableName;";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", _pipelinesTableName);
+
+                using(var reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                        resultList.Add(reader["name"].ToString());
+                }
+            }
+            return resultList;
+        }
     }
 }

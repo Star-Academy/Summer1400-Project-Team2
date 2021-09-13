@@ -10,7 +10,8 @@ namespace ETL_project_Team2.dao
     {
         void AddUserDataBase();
         void InitTableList();
-        void AddTable(SqlTable toBeAdded);
+        void AddTableToRecords(SqlTable toBeAdded);
         SqlTable FindTable(string tableName);
+        List<string> FetchDataSetsList();
     }
 }
