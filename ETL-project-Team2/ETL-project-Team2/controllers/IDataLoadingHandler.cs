@@ -9,7 +9,7 @@ namespace ETL_project_Team2.controllers
 {
     public interface IDataLoadingHandler
     {
-        IActionResult LoadListOfPipelines(IPipelineDBAcessor pipelineDB);
-        IActionResult LoadListtOfDataSets(ITablesDBAccessor tablesDB);
+        IActionResult LoadListOfPipelines();
+        IActionResult LoadListtOfDataSets();
     }
 }
