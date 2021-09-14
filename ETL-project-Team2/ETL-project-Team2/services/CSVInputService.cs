@@ -11,23 +11,27 @@ namespace ETL_project_Team2.services
     class CSVInputService : ICSVInputService
     {
         public static int TableId { get; set; }
+
         public string ConnectionString { get; set; }
-        public List<string> ColoumnsNames { get; set; }
+
+        //  public List<string> ColoumnsNames { get; set; }
         public List<string[]> TableDatas { get; set; }
-        public string[] ColoumnsTypes { get; set; }
+        //    public string[] ColoumnsTypes { get; set; }
 
         public CSVInputService()
         {
-            ColoumnsNames = new List<string>();
+            // ColoumnsNames = new List<string>();
             TableDatas = new List<string[]>();
             TableId += 1;
         }
 
-        public void GetDataTableFromCsvFile(string filePath, string delimeter)
+        public Dictionary<string, string> GetDataTableFromCsvFile(string filePath, string delimeter)
         {
+            List<string> ColoumnsNames = new List<string>();
+            string[] ColoumnsTypes;
             using (TextFieldParser fileReader = new TextFieldParser(filePath))
             {
-                fileReader.SetDelimiters(new string[] { delimeter });
+                fileReader.SetDelimiters(new string[] {delimeter});
                 fileReader.HasFieldsEnclosedInQuotes = true;
                 string[] colFields = fileReader.ReadFields();
                 foreach (string column in colFields)
@@ -48,6 +52,19 @@ namespace ETL_project_Team2.services
                     }
                 }
             }
+
+            return CreateDictionary(ColoumnsNames, ColoumnsTypes);
+        }
+
+        public Dictionary<string, string> CreateDictionary(List<string> coloumnsNames, string[] coloumnsTypes)
+        {
+            Dictionary<string, string> coloumnsData = new Dictionary<string, string>();
+            for (var i = 0; i < coloumnsNames.Count; i++)
+            {
+                coloumnsData.Add(coloumnsNames[i], coloumnsTypes[i]);
+            }
+
+            return coloumnsData;
         }
 
         public void ImportDataToSql(SqlTable table)
@@ -56,7 +73,7 @@ namespace ETL_project_Team2.services
 
             for (var i = 0; i < ColoumnsNames.Count - 1; i++)
             {
-                sqlCommandStart += ColoumnsNames[i].TrimEnd(new char[] { ',' }) + ",";
+                sqlCommandStart += ColoumnsNames[i].TrimEnd(new char[] {','}) + ",";
             }
 
             sqlCommandStart += ColoumnsNames[ColoumnsNames.Count - 1] + ") VALUES (";
