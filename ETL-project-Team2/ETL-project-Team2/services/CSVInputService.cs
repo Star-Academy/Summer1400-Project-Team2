@@ -1,96 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Microsoft.VisualBasic.FileIO;
+using System.IO;
 using ETL_project_Team2.models;
 
 namespace ETL_project_Team2.services
 {
     class CSVInputService : ICSVInputService
     {
-        public List<string[]> TableDatas { get; set; }
-
-        public CSVInputService()
+        public Dictionary<string, string> GetColumnTypesAndNames(string filePath, char delim)
         {
-            TableDatas = new List<string[]>();
-        }
+            var result = new Dictionary<string, string>();
+            var fileReader = new StreamReader(filePath);
+            string headerLine = fileReader.ReadLine();
+            fileReader.Dispose();
 
-        public Dictionary<string, string> GetDataTableFromCsvFile(string filePath, string delimeter)
-        {
-            List<string> ColoumnsNames = new List<string>();
-            string[] ColoumnsTypes;
-            using (TextFieldParser fileReader = new TextFieldParser(filePath))
+            string[] columnNames = headerLine.Split(delim);
+
+            for (int i = 0; i < columnNames.Length; ++i)
             {
-                fileReader.SetDelimiters(new string[] {delimeter});
-                fileReader.HasFieldsEnclosedInQuotes = true;
-                string[] colFields = fileReader.ReadFields();
-                foreach (string column in colFields)
-                {
-                    ColoumnsNames.Add(new string(column));
-                }
-
-                TypeDefinder typeDefinder = new TypeDefinder();
-                ColoumnsTypes = new string[ColoumnsNames.Count];
-                while (!fileReader.EndOfData)
-                {
-                    string[] fieldData = fileReader.ReadFields();
-                    TableDatas.Add(fieldData);
-
-                    for (int i = 0; i < fieldData.Length; i++)
-                    {
-                        ColoumnsTypes[i] = typeDefinder.TypeOfValue(fieldData[i]);
-                    }
-                }
+                result.Add(columnNames[i], "NVARCHAR(MAX)");
             }
-
-            return CreateDictionary(ColoumnsNames, ColoumnsTypes);
+            return result;
         }
 
-        public void ImportDataToSql(SqlTable table)
+        public void ImportDataToSql(SqlTable table, string filePath, char delim, bool hasHeader)
         {
-            string sqlCommandStart = $"INSERT INTO {table.TableName} (";
-
-            foreach (var columnPair in table.Coloumns)
-                sqlCommandStart += columnPair.Key + ", ";
-            sqlCommandStart = sqlCommandStart.TrimEnd(' ', ',');
-
-            sqlCommandStart += ") VALUES (";
-
-            foreach (var tableData in TableDatas)
+            using(table.DBConnection)
             {
-                string sqlCommand = "";
-                sqlCommand += sqlCommandStart;
-                for (var i = 0; i < tableData.Length - 1; i++)
+                var file = new StreamReader(filePath);
+                string commandString = $"INSERT INTO {table.TableName} ({SeperateColumns(table.Coloumns)})\n" +
+                    "VALUES ({0});";
+                string line = string.Empty;
+                if (hasHeader)
+                    file.ReadLine();
+                while((line = file.ReadLine()) != null)
                 {
-                    sqlCommand += "'" + tableData[i] + "' , ";
-                }
-
-                sqlCommand += "'" + tableData[tableData.Length - 1] + "')";
-                using (table.DBConnection)
-                {
-                    using (SqlCommand comm = new SqlCommand())
+                    table.DBConnection.Open();
+                    string processedLine = line.Replace(delim, ',');
+                    processedLine = processedLine.Replace(",,", ",null ,");
+                    using (var sqlCommand = new SqlCommand(string.Format(commandString, processedLine), table.DBConnection))
                     {
-                        comm.Connection = table.DBConnection;
-                        comm.CommandText = sqlCommand;
-
-                        table.DBConnection.Open();
-                        comm.ExecuteNonQuery();
+                        sqlCommand.ExecuteNonQuery();
                     }
                 }
             }
         }
 
-        private Dictionary<string, string> CreateDictionary(List<string> coloumnsNames, string[] coloumnsTypes)
+        private string SeperateColumns(Dictionary<string,string> columns)
         {
-            Dictionary<string, string> coloumnsData = new Dictionary<string, string>();
-            for (var i = 0; i < coloumnsNames.Count; i++)
-            {
-                coloumnsData.Add(coloumnsNames[i], coloumnsTypes[i]);
-            }
-
-            return coloumnsData;
+            var columnsNames = columns.Select(x => x.Key).ToList();
+            string result = string.Empty;
+            foreach (var name in columnsNames)
+                result += name + ", ";
+            result = result.TrimEnd(' ', ',');
+            return result;
         }
     }
 }

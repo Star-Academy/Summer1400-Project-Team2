@@ -14,6 +14,8 @@ namespace ETL_project_Team2.controllers
 {
     public class DataLoadingHandler : Controller, IDataLoadingHandler
     {
+        private const string filesPath = "F:";
+
         [HttpGet]
         [Route("pipeline")]
         public IActionResult LoadListOfPipelines(IPipelineDBAcessor pipelineDB)
@@ -35,8 +37,9 @@ namespace ETL_project_Team2.controllers
         [DisableRequestSizeLimit]
         public IActionResult PutCSVFileOnDB(ICSVInputService csvInputService, ITablesDBAccessor tablesDB)
         {
+            string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
             HttpContext.Request.EnableBuffering();
-            string filePath = $"{Path.GetTempPath()}//{Path.GetTempFileName()}.csv";
+            string filePath = $"{filesPath}//{fileName}.csv";
             using (var fileStream = System.IO.File.Create(filePath))
             {
                 HttpContext.Request.Body.CopyTo(fileStream);
@@ -45,13 +48,13 @@ namespace ETL_project_Team2.controllers
             var sqlTable = new SqlTable()
             {
                 TableName = $"userCSVFile#{DateTime.Now.ToString()}",
-                Coloumns = new Dictionary<string, string>(csvInputService.GetDataTableFromCsvFile(filePath, ","))
+                Coloumns = new Dictionary<string, string>(csvInputService.GetColumnTypesAndNames(filePath, ','))
             };
 
             tablesDB.AddTableToRecords(sqlTable);
             tablesDB.CreateTable(ref sqlTable);
 
-            csvInputService.ImportDataToSql(sqlTable);
+            csvInputService.ImportDataToSql(sqlTable, filePath, ',', true);
             return new OkResult();
         }
     }

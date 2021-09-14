@@ -6,7 +6,7 @@ namespace ETL_project_Team2.services
 {
     public interface ICSVInputService
     {
-        Dictionary<string, string> GetDataTableFromCsvFile(string filePath, string delimeter);
-        void ImportDataToSql(SqlTable table);
+        Dictionary<string, string> GetColumnTypesAndNames(string filePath, char delim);
+        void ImportDataToSql(SqlTable table, string filePath, char delim, bool hasHeader);
     }
 }
