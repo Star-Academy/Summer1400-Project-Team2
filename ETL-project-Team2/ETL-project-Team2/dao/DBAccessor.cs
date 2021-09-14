@@ -10,17 +10,17 @@ namespace ETL_project_Team2.dao
 {
     public class DBAccessor : IDBAccessor
     {
-        private static readonly ConcurrentBag<KeyValuePair<string, SqlCommand>> Commands =
-            new ConcurrentBag<KeyValuePair<string, SqlCommand>>();
+        private static readonly ConcurrentDictionary<string, SqlCommand> Commands =
+            new ConcurrentDictionary<string, SqlCommand>();
         public int ExecuteNonQuery(string cancellationToken, string queryCommand, SqlConnection dbConnection)
         {
             using (var sqlCommand = new SqlCommand(queryCommand, dbConnection))
             {
                 var keyValuePair = new KeyValuePair<string, SqlCommand>(cancellationToken, sqlCommand);
-                Commands.Add(keyValuePair);
+                Commands.TryAdd(cancellationToken, sqlCommand);
                 dbConnection.Open();
                 var temp = sqlCommand.ExecuteNonQuery();
-                Commands.TryTake(out keyValuePair);
+                Commands.TryRemove(cancellationToken, out _);
                 return temp;
             }
         }
@@ -31,7 +31,6 @@ namespace ETL_project_Team2.dao
             {
                 if (pair.Key != cancellationToken) continue;
                 pair.Value.Cancel();
-                
                 return;
             }
 
