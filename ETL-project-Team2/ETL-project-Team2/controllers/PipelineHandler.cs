@@ -13,10 +13,29 @@ namespace ETL_project_Team2.controllers
     public class PipelineHandler : IPipelineHandler
     {
         private LinkedList<Tuple<Node, IOperation>> _pipeline;
-        private string _currentModel;
         private SqlTable _entryTable;
         private SqlTable _finalTable;
 
+        [HttpPost]
+        [Route("pipeline")]
+        public IActionResult CreateNewPipeline([FromBody] JObject content, IPipelineDBAcessor pipelineDB)
+        {
+            int modelId = pipelineDB.GetModelsCount();
+            pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), "",
+                content["entryDB"].ToString(), content["finalDB"].ToString());
+            return new OkObjectResult(modelId);
+        }
+
+        [HttpPut]
+        [Route("pipeline/editName")]
+        public IActionResult EditPipelineName([FromQuery] int modelId, [FromQuery] string name, IPipelineDBAcessor pipelineDB)
+        {
+            pipelineDB.UpdateModelName(modelId, name);
+            return new OkResult();
+        }
+
+        [HttpGet]
+        [Route("pipeline/{modelId}")]
         public IActionResult GetPipeline(int modelId, IPipelineDBAcessor pipeLineDB)
         {
             return new OkObjectResult(pipeLineDB.FetchModel(modelId));
@@ -27,9 +46,12 @@ namespace ETL_project_Team2.controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult OperatePipeline(int modelId, IPipelineDBAcessor pipelineDB)
+        [HttpPost]
+        [Route("pipeline/operate")]
+        public IActionResult OperatePipeline([FromQuery] int modelId,
+            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
         {
-            LoadPipeline(modelId, pipelineDB);
+            LoadPipeline(modelId, pipelineDB, tablesDB);
             SqlTable currentTable = _entryTable;
             foreach (var nodePair in _pipeline)
             {
@@ -39,17 +61,26 @@ namespace ETL_project_Team2.controllers
             return new OkResult();
         }
 
-        public IActionResult UpdatePipeline(int modelId, string newContent, IPipelineDBAcessor pipelineDB)
+        public IActionResult UpdatePipeline([FromQuery] int modelId, [FromBody] JObject content,
+            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
         {
-            pipelineDB.UpdateModel(modelId, newContent);
-            LoadPipeline(modelId, pipelineDB);
+            pipelineDB.UpdateModel(modelId, content["content"].ToString());
+            LoadPipeline(modelId, pipelineDB, tablesDB);
             return new OkResult();
         }
 
-        public IActionResult SetNodeParams(int modelId, int nodeId, string parameters, IPipelineDBAcessor pipelineDB)
+        [HttpPut]
+        [Route("setParams/join/{modelId}")]
+        [Route("setParams/filter/{modelId}")]
+        [Route("setParams/aggregation/{modelId}")]
+        public IActionResult SetNodeParams(int modelId, [FromBody] JObject content,
+            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
         {
-            LoadPipeline(modelId, pipelineDB);
-            foreach(var nodePair in _pipeline)
+            int nodeId = Int32.Parse(content["NodeId"].ToString());
+            string parameters = content["Parameters"].ToString();
+
+            LoadPipeline(modelId, pipelineDB, tablesDB);
+            foreach (var nodePair in _pipeline)
             {
                 if (nodePair.Item1.Id == nodeId)
                 {
@@ -61,8 +92,13 @@ namespace ETL_project_Team2.controllers
             return new NotFoundResult();
         }
 
-        private void LoadPipeline(int modelId, IPipelineDBAcessor pipelineDB)
+        //This method doesn't matter skip it
+        private void LoadPipeline(int modelId, IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
         {
+            var dbSets = pipelineDB.FetchPipelineDBs(modelId);
+            _entryTable = tablesDB.FindTable(dbSets.Item1);
+            _finalTable = tablesDB.FindTable(dbSets.Item2);
+
             string content = pipelineDB.FetchModel(modelId);
             var parsedObj = JObject.Parse(content);
             var idsList = (JArray)parsedObj["nodes"]["id"];
@@ -81,7 +117,7 @@ namespace ETL_project_Team2.controllers
 
             _pipeline.Zip(operationsList, (tuple, operation) => new Tuple<Node, IOperation>(tuple.Item1, operation));
 
-            foreach(var nodePair in _pipeline)
+            foreach (var nodePair in _pipeline)
             {
                 nodePair.Item2.SetParameters(pipelineDB.FetchNodeParameters(modelId, nodePair.Item1.Id));
             }

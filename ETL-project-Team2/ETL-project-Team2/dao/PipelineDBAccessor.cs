@@ -13,18 +13,34 @@ namespace ETL_project_Team2.dao
 
         private const string _nodesTableName = "NodesTable";
 
-        public void AddPipelineModel(int modelId, string content)
+        public int GetModelsCount()
+        {
+            int count = 0;
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "SELECT COUNT(*) FROM @tableName";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", _pipelinesTableName);
+
+                connection.Open();
+                count = (int)sqlCommand.ExecuteScalar();
+            }
+            return count;
+        }
+
+        public void AddPipelineModel(int modelId, string modelName, string content, string entryDB, string finalDB)
         {
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                string commandString = "INSERT INTO @tableName (@modelIdColumn, @contentColumn)\n" +
-                    "VALUES (@modelId, @content);";
+                string commandString = "INSERT INTO @tableName (Id, name, content, entryDB, finalDB)\n" +
+                    "VALUES (@modelId, @modelName, @content, @entryDB, @finalDB);";
                 var sqlCommand = new SqlCommand(commandString, connection);
                 sqlCommand.Parameters.AddWithValue("@tableName", _pipelinesTableName);
-                sqlCommand.Parameters.AddWithValue("@modelIdColumn", "Id");
-                sqlCommand.Parameters.AddWithValue("@contentColumn", "content");
                 sqlCommand.Parameters.AddWithValue("@modelId", modelId);
                 sqlCommand.Parameters.AddWithValue("@content", content);
+                sqlCommand.Parameters.AddWithValue("@modelName", modelName);
+                sqlCommand.Parameters.AddWithValue("@entryDB", entryDB);
+                sqlCommand.Parameters.AddWithValue("@finalDB", finalDB);
 
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
@@ -55,7 +71,7 @@ namespace ETL_project_Team2.dao
 
         public int UpdateModel(int modelId, string newContent)
         {
-            using(var connection = new SqlConnection(_dbConnectionString))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
                 const string commandString = "UPDATE @tableName\n" +
                     "SET @contentColumn='@newContent'\n" +
@@ -72,9 +88,26 @@ namespace ETL_project_Team2.dao
             }
         }
 
+        public int UpdateModelName(int modelId, string newName)
+        {
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "UPDATE @tableName\n" +
+                    "SET name='@newName'\n" +
+                    "WHERE Id='@modelId';";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", _pipelinesTableName);
+                sqlCommand.Parameters.AddWithValue("@newName", newName);
+                sqlCommand.Parameters.AddWithValue("@modelId", modelId);
+
+                connection.Open();
+                return sqlCommand.ExecuteNonQuery();
+            }
+        }
+
         public void SaveParameters(int modelId, int nodeId, string parameters)
         {
-            using(var connection = new SqlConnection(_dbConnectionString))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
                 const string commandString = "IF EXISTS (\n" +
                     "SELECT * FROM NodesTable\n" +
@@ -86,9 +119,9 @@ namespace ETL_project_Team2.dao
                     "BEGIN\n" +
                     "@falseStatement\n" +
                     "END";
-                string trueStatement = string.Format("UPDATE NodesTable SET params='{0}' WHERE nodeId='{1}' AND modelId='{2}';", 
+                string trueStatement = string.Format("UPDATE NodesTable SET params='{0}' WHERE nodeId='{1}' AND modelId='{2}';",
                     parameters, nodeId, modelId);
-                string falseStatement = string.Format("INSERT INTO NodesTable (nodeId, modelId, params) VALUES ({0}, {1}, {2});", 
+                string falseStatement = string.Format("INSERT INTO NodesTable (nodeId, modelId, params) VALUES ({0}, {1}, {2});",
                     nodeId, modelId, parameters);
                 var sqlCommand = new SqlCommand(commandString, connection);
                 sqlCommand.Parameters.AddWithValue("@nodeId", nodeId);
@@ -104,7 +137,7 @@ namespace ETL_project_Team2.dao
         public string FetchNodeParameters(int modelId, int nodeId)
         {
             string result = "";
-            using(var connection = new SqlConnection(_dbConnectionString))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
                 const string commandString = "SELECT params FROM @tableName WHERE modelId='@modelId' AND nodeId='@nodeId';";
                 var sqlCommand = new SqlCommand(commandString, connection);
@@ -113,13 +146,53 @@ namespace ETL_project_Team2.dao
                 sqlCommand.Parameters.AddWithValue("@nodeId", nodeId);
 
                 connection.Open();
-                using(var reader = sqlCommand.ExecuteReader())
+                using (var reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.Read())
                         result = reader["params"].ToString();
                 }
             }
             return result;
+        }
+
+        public Tuple<string, string> FetchPipelineDBs(int modelId)
+        {
+            Tuple<string, string> result = null;
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "SELECT entryDB, finalDB FROM @tableName WHERE Id='@modelId';";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@modelId", modelId);
+
+                using (var reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                        result = new Tuple<string, string>
+                        (
+                            reader["entryDB"].ToString(),
+                            reader["finalDB"].ToString()
+                        );
+                }
+            }
+            return result;
+        }
+
+        public List<string> FetchModelsList()
+        {
+            var resultList = new List<string>();
+            using(var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "SELECT name FROM @tableName;";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", _pipelinesTableName);
+
+                using(var reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                        resultList.Add(reader["name"].ToString());
+                }
+            }
+            return resultList;
         }
     }
 }
