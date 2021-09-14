@@ -9,7 +9,6 @@ namespace ETL_project_Team2.controllers
         [HttpGet]
         public IActionResult ExceptionThrown()
         {
-            Console.WriteLine("aaaaa");
             return BadRequest();
         }
         
