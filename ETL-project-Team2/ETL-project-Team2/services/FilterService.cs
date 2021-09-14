@@ -14,7 +14,7 @@ namespace ETL_project_Team2.services
             var conditionQuery = GetConditionQueryFromTree(postFixTree);
             var sqlTable = new SqlTable
             {
-                TableName = "#Temp_" + new Random().Next(1_000_000_000)
+                TableName = "Temp_" + new Random().Next(1_000_000_000)
             };
             return new FilterModel(sqlTable, conditionQuery);
         }
