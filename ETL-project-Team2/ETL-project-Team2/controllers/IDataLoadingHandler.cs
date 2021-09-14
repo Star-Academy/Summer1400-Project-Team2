@@ -12,5 +12,6 @@ namespace ETL_project_Team2.controllers
     {
         IActionResult LoadListOfPipelines();
         IActionResult LoadListtOfDataSets();
+        public IActionResult PutCSVFileOnDB();
     }
 }

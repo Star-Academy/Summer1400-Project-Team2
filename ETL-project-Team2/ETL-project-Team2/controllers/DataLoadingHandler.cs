@@ -16,11 +16,17 @@ namespace ETL_project_Team2.controllers
     {
         private IPipelineDBAcessor pipelineDB;
         private ITablesDBAccessor tablesDB;
+        private ICSVInputService csvInputService;
+        private ICSVOutputHandler csvOutputHandler;
+        private const string filesPath = "F:";
 
-        public DataLoadingHandler(IPipelineDBAcessor pipelineDBAccessor, ITablesDBAccessor tablesDBAccessor)
+        public DataLoadingHandler(IPipelineDBAcessor pipelineDBAccessor, ITablesDBAccessor tablesDBAccessor,
+            ICSVInputService csvInputService, ICSVOutputHandler csvOutputHandler)
         {
             pipelineDB = pipelineDBAccessor;
             tablesDB = tablesDBAccessor;
+            this.csvInputService = csvInputService;
+            this.csvOutputHandler = csvOutputHandler;
         }
 
         [HttpGet]
@@ -42,7 +48,7 @@ namespace ETL_project_Team2.controllers
         }
 
         [DisableRequestSizeLimit]
-        public IActionResult PutCSVFileOnDB(ICSVInputService csvInputService, ITablesDBAccessor tablesDB)
+        public IActionResult PutCSVFileOnDB()
         {
             string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
             HttpContext.Request.EnableBuffering();
@@ -63,6 +69,15 @@ namespace ETL_project_Team2.controllers
 
             csvInputService.ImportDataToSql(sqlTable, filePath, ',', true);
             return new OkResult();
+        }
+
+        [HttpGet]
+        [Route("dataset/{tableName}")]
+        public IActionResult GetDataSet(string tableName, [FromQuery] char columnDelim, [FromQuery] string newLineChar)
+        {
+            var table = tablesDB.FindTable(tableName);
+            string filePath = csvOutputHandler.MakeCSVFile(table, columnDelim);
+            return File(filePath, "text/csv");
         }
     }
 }
