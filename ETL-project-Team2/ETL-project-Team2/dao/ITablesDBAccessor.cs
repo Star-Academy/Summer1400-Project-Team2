@@ -11,6 +11,7 @@ namespace ETL_project_Team2.dao
         void AddUserDataBase();
         void InitTableList();
         void AddTableToRecords(SqlTable toBeAdded);
+        void CreateTable(ref SqlTable toBeCreated);
         SqlTable FindTable(string tableName);
         List<string> FetchDataSetsList();
     }

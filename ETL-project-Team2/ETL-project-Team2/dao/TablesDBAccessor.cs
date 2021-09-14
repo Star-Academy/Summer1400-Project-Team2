@@ -57,7 +57,7 @@ namespace ETL_project_Team2.dao
             }
         }
 
-        public void CreateTable(SqlTable toBeCreated)
+        public void CreateTable(ref SqlTable toBeCreated)
         {
             using(var connection = new SqlConnection(_dbConnectionString))
             {
@@ -72,6 +72,7 @@ namespace ETL_project_Team2.dao
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
+            toBeCreated.DBConnection = new SqlConnection(_dbConnectionString);
         }
 
         public SqlTable FindTable(string tableName)
