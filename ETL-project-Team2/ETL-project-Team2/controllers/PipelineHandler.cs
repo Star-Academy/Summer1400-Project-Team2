@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ETL_project_Team2.controllers
 {
-    public class PipelineHandler : IPipelineHandler
+    public class PipelineHandler : Controller, IPipelineHandler
     {
         private LinkedList<Tuple<Node, IOperation>> _pipeline;
         private SqlTable _entryTable;

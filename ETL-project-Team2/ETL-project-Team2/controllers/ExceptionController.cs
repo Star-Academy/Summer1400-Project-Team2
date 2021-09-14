@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ETL_project_Team2.controllers
 {
@@ -8,6 +9,7 @@ namespace ETL_project_Team2.controllers
         [HttpGet]
         public IActionResult ExceptionThrown()
         {
+            Console.WriteLine("aaaaa");
             return BadRequest();
         }
         
