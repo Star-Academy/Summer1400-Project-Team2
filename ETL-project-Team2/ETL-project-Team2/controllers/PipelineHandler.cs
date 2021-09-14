@@ -15,10 +15,19 @@ namespace ETL_project_Team2.controllers
         private LinkedList<Tuple<Node, IOperation>> _pipeline;
         private SqlTable _entryTable;
         private SqlTable _finalTable;
+        private IPipelineDBAcessor pipelineDB;
+        private ITablesDBAccessor tablesDB;
+
+        public PipelineHandler(IPipelineDBAcessor pipelineDBAcessor, ITablesDBAccessor tablesDBAccessor)
+        {
+            pipelineDB = pipelineDBAcessor;
+            tablesDB = tablesDBAccessor;
+        }
+
 
         [HttpPost]
         [Route("pipeline")]
-        public IActionResult CreateNewPipeline([FromBody] JObject content, IPipelineDBAcessor pipelineDB)
+        public IActionResult CreateNewPipeline([FromBody] JObject content)
         {
             int modelId = pipelineDB.GetModelsCount();
             pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), "",
@@ -28,7 +37,7 @@ namespace ETL_project_Team2.controllers
 
         [HttpPut]
         [Route("pipeline/editName")]
-        public IActionResult EditPipelineName([FromQuery] int modelId, [FromQuery] string name, IPipelineDBAcessor pipelineDB)
+        public IActionResult EditPipelineName([FromQuery] int modelId, [FromQuery] string name)
         {
             pipelineDB.UpdateModelName(modelId, name);
             return new OkResult();
@@ -36,9 +45,9 @@ namespace ETL_project_Team2.controllers
 
         [HttpGet]
         [Route("pipeline/{modelId}")]
-        public IActionResult GetPipeline(int modelId, IPipelineDBAcessor pipeLineDB)
+        public IActionResult GetPipeline(int modelId)
         {
-            return new OkObjectResult(pipeLineDB.FetchModel(modelId));
+            return new OkObjectResult(pipelineDB.FetchModel(modelId));
         }
 
         public IActionResult GetPreviewTable(int nodeId)
@@ -48,10 +57,9 @@ namespace ETL_project_Team2.controllers
 
         [HttpPost]
         [Route("pipeline/operate")]
-        public IActionResult OperatePipeline([FromQuery] int modelId,
-            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
+        public IActionResult OperatePipeline([FromQuery] int modelId)
         {
-            LoadPipeline(modelId, pipelineDB, tablesDB);
+            LoadPipeline(modelId);
             SqlTable currentTable = _entryTable;
             foreach (var nodePair in _pipeline)
             {
@@ -61,11 +69,10 @@ namespace ETL_project_Team2.controllers
             return new OkResult();
         }
 
-        public IActionResult UpdatePipeline([FromQuery] int modelId, [FromBody] JObject content,
-            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
+        public IActionResult UpdatePipeline([FromQuery] int modelId, [FromBody] JObject content)
         {
             pipelineDB.UpdateModel(modelId, content["content"].ToString());
-            LoadPipeline(modelId, pipelineDB, tablesDB);
+            LoadPipeline(modelId);
             return new OkResult();
         }
 
@@ -73,13 +80,12 @@ namespace ETL_project_Team2.controllers
         [Route("setParams/join/{modelId}")]
         [Route("setParams/filter/{modelId}")]
         [Route("setParams/aggregation/{modelId}")]
-        public IActionResult SetNodeParams(int modelId, [FromBody] JObject content,
-            IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
+        public IActionResult SetNodeParams(int modelId, [FromBody] JObject content)
         {
             int nodeId = Int32.Parse(content["NodeId"].ToString());
             string parameters = content["Parameters"].ToString();
 
-            LoadPipeline(modelId, pipelineDB, tablesDB);
+            LoadPipeline(modelId);
             foreach (var nodePair in _pipeline)
             {
                 if (nodePair.Item1.Id == nodeId)
@@ -93,7 +99,7 @@ namespace ETL_project_Team2.controllers
         }
 
         //This method doesn't matter skip it
-        private void LoadPipeline(int modelId, IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB)
+        private void LoadPipeline(int modelId)
         {
             var dbSets = pipelineDB.FetchPipelineDBs(modelId);
             _entryTable = tablesDB.FindTable(dbSets.Item1);

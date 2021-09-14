@@ -11,10 +11,10 @@ namespace ETL_project_Team2.controllers
 {
     public interface IPipelineHandler
     {
-        IActionResult OperatePipeline(int modelId, IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB);
-        IActionResult SetNodeParams(int modelId, JObject content, IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB);
-        IActionResult UpdatePipeline(int modelId, JObject content, IPipelineDBAcessor pipelineDB, ITablesDBAccessor tablesDB);
-        IActionResult GetPipeline(int modelId, IPipelineDBAcessor pipelineDB);
+        IActionResult OperatePipeline(int modelId);
+        IActionResult SetNodeParams(int modelId, JObject content);
+        IActionResult UpdatePipeline(int modelId, JObject content);
+        IActionResult GetPipeline(int modelId);
         IActionResult GetPreviewTable(int nodeId);
     }
 }

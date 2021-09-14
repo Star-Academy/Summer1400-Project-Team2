@@ -27,14 +27,14 @@ namespace ETL_project_Team2
             Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IFilterService, FilterService>()
-                        .AddSingleton<IJoinService, JoinService>()
-                        .AddSingleton<IDBAccessor, DBAccessor>()
-                        .AddSingleton<IPipelineDBAcessor, PipelineDBAccessor>()
-                        .AddSingleton<ITablesDBAccessor, TablesDBAccessor>()
-                        .AddTransient<IFilterHandler, FilterHandler>()
-                        .AddTransient<IPipelineHandler, PipelineHandler>()
-                        .AddTransient<IOperation, JoinHandler>();
+                    services.AddScoped<IFilterService, FilterService>()
+                        .AddScoped<IJoinService, JoinService>()
+                        .AddScoped<IDBAccessor, DBAccessor>()
+                        .AddScoped<IPipelineDBAcessor, PipelineDBAccessor>()
+                        .AddScoped<ITablesDBAccessor, TablesDBAccessor>()
+                        .AddScoped<IFilterHandler, FilterHandler>()
+                        .AddScoped<IPipelineHandler, PipelineHandler>()
+                        .AddScoped<IOperation, JoinHandler>();
                 })
                 .ConfigureLogging(logging =>
                 {

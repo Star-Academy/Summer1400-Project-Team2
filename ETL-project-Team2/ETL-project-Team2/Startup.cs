@@ -48,10 +48,7 @@ namespace ETL_project_Team2
 
             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapRazorPages();
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Exception}/{action=ExceptionThrown}");
+                endpoints.MapControllers();
             });
         }
     }
