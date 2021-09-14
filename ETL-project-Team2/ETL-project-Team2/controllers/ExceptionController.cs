@@ -3,7 +3,7 @@
 namespace ETL_project_Team2.controllers
 {
     [Route("/[controller]/[action]")]
-    public class ExceptionHandler : Controller
+    public class ExceptionController : Controller
     {
         [HttpGet]
         public IActionResult ExceptionThrown()
