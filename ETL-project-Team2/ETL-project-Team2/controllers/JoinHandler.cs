@@ -29,7 +29,7 @@ namespace ETL_project_Team2.controllers
             _joinModel.LTable = table;
             _joinModel.TargetTable = _joinService.MakeTargetTable(_joinModel.LTable, _joinModel.RTable);
             string queryToBeExecuted = _joinService.JoinQuery(_joinModel);
-            _dbService.ExecuteNonQuery(queryToBeExecuted, table.DBConnection);
+            _dbService.ExecuteNonQuery("", queryToBeExecuted, table.DBConnection);
             return _joinModel.TargetTable;
         }
 

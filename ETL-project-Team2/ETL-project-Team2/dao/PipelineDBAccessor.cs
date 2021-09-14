@@ -64,7 +64,7 @@ namespace ETL_project_Team2.dao
             {
                 string commandString = $"UPDATE {_pipelinesTableName}\n" +
                     $"SET content='{newContent}'\n" +
-                    $"WHERE modelId='{modelId}';";
+                    $"WHERE Id='{modelId}';";
                 var sqlCommand = new SqlCommand(commandString, connection);
 
                 connection.Open();

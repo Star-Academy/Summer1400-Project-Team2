@@ -48,11 +48,16 @@ namespace ETL_project_Team2.controllers
         }
 
         [DisableRequestSizeLimit]
+        [HttpPost]
+        [Route("dataset")]
         public IActionResult PutCSVFileOnDB()
         {
             string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
+            fileName = fileName.Replace('\\', '-');
+            fileName = fileName.Replace('/', '-');
+            fileName = fileName.Replace(' ', '-');
             HttpContext.Request.EnableBuffering();
-            string filePath = $"{filesPath}//{fileName}.csv";
+            string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{fileName}.csv";
             using (var fileStream = System.IO.File.Create(filePath))
             {
                 HttpContext.Request.Body.CopyTo(fileStream);

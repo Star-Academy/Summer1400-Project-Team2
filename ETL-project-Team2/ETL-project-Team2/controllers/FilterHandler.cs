@@ -21,7 +21,7 @@ namespace ETL_project_Team2.controllers
             _filterModel.CreatedTable.DBConnection = table.DBConnection;
 
             var query = CreateQueryFromConditionQuery(table);
-            _dbService.ExecuteNonQuery(query, _filterModel.CreatedTable.DBConnection);
+            _dbService.ExecuteNonQuery("", query, _filterModel.CreatedTable.DBConnection);
             
             return _filterModel.CreatedTable;
         }

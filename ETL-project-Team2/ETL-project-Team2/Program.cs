@@ -32,9 +32,9 @@ namespace ETL_project_Team2
                         .AddScoped<IDBAccessor, DBAccessor>()
                         .AddScoped<IPipelineDBAcessor, PipelineDBAccessor>()
                         .AddScoped<ITablesDBAccessor, TablesDBAccessor>()
-                        .AddScoped<IFilterHandler, FilterHandler>()
                         .AddScoped<IPipelineHandler, PipelineHandler>()
-                        .AddScoped<IOperation, JoinHandler>();
+                        .AddScoped<ICSVInputService, CSVInputService>()
+                        .AddScoped<ICSVOutputHandler, CSVOutputHandler>();
                 })
                 .ConfigureLogging(logging =>
                 {

@@ -9,6 +9,6 @@ namespace ETL_project_Team2.dao
 {
     public interface IDBAccessor
     {
-        int ExecuteNonQuery(string queryCommand, SqlConnection dbConnection);
+        int ExecuteNonQuery(string cancellationToken, string queryCommand, SqlConnection dbConnection);
     }
 }

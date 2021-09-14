@@ -46,6 +46,8 @@ namespace ETL_project_Team2.dao
 
         public void AddTableToRecords(SqlTable toBeAdded)
         {
+            if (TableNameDuplicate(toBeAdded.TableName))
+                throw new Exception($"A dataset named {toBeAdded.TableName} is already on database.");
             using (var connection = new SqlConnection(_dbConnectionString))
             {
                 string commandString = $"INSERT INTO {_tablesListRecordTable} (tableName, tableColumns)\n" +
@@ -59,6 +61,8 @@ namespace ETL_project_Team2.dao
 
         public void CreateTable(ref SqlTable toBeCreated)
         {
+            if (TableNameDuplicate(toBeCreated.TableName))
+                throw new Exception($"A dataset named {toBeCreated.TableName} is already on database.");
             using(var connection = new SqlConnection(_dbConnectionString))
             {
                 string tableColumns = "";
@@ -114,6 +118,19 @@ namespace ETL_project_Team2.dao
                 }
             }
             return result;
+        }
+
+        private bool TableNameDuplicate(string tableName)
+        {
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                string commandString = $"SELECT COUNT(*) FROM {_tablesListRecordTable} WHERE tableName='{tableName}';";
+                using (var sqlCommand = new SqlCommand(commandString, connection))
+                {
+                    connection.Open();
+                    return (int)sqlCommand.ExecuteScalar() > 0;
+                }
+            }
         }
     }
 }
