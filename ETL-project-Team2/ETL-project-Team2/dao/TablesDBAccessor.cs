@@ -10,13 +10,14 @@ namespace ETL_project_Team2.dao
 {
     public class TablesDBAccessor : ITablesDBAccessor
     {
-        private const string dbConnectionStringPattern = "Data Source=localhost;Initial Catalog=TheOnlyUserDB;Integrated Security=True";
-        private const string tablesListRecordTable = "TablesList";
+        private const string _dbConnectionString = "Data Source=localhost;Initial Catalog=TheOnlyUserDB;Integrated Security=True";
+        private const string _tablesListRecordTable = "TablesList";
 
+        [Obsolete]
         public void AddUserDataBase()
         {
             const string dbName = "master";
-            string connectionString = string.Format(dbConnectionStringPattern, dbName);
+            string connectionString = string.Format(_dbConnectionString, dbName);
             using (var connection = new SqlConnection(connectionString))
             {
                 const string command = "CREATE DATABASE @dataBaseName;";
@@ -28,13 +29,14 @@ namespace ETL_project_Team2.dao
             }
         }
 
+        [Obsolete]
         public void InitTableList()
         {
-            using (var connection = new SqlConnection(dbConnectionStringPattern))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
-                const string command = "CREATE TABE @tableName (@tableColumns);";
+                const string command = "CREATE TABLE @tableName (@tableColumns);";
                 var sqlCommand = new SqlCommand(command, connection);
-                sqlCommand.Parameters.AddWithValue("@tableName", tablesListRecordTable);
+                sqlCommand.Parameters.AddWithValue("@tableName", _tablesListRecordTable);
                 sqlCommand.Parameters.AddWithValue("@tableColumns", "tableName NVARCHAR(MAX), tableColumns NVARCHAR(MAX)");
 
                 connection.Open();
@@ -42,21 +44,38 @@ namespace ETL_project_Team2.dao
             }
         }
 
-        public void AddTable(SqlTable toBeAdded)
+        public void AddTableToRecords(SqlTable toBeAdded)
         {
-            using (var connection = new SqlConnection(dbConnectionStringPattern))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
                 const string commandString = "INSERT INTO @tablesListRecordName (tableName, tableColumns)\n" +
                     "VALUES (@tableName, @tableColumns);";
                 var sqlCommand = new SqlCommand(commandString, connection);
-                sqlCommand.Parameters.AddWithValue("@tablesListRecordName", tablesListRecordTable);
+                sqlCommand.Parameters.AddWithValue("@tablesListRecordName", _tablesListRecordTable);
                 sqlCommand.Parameters.AddWithValue("@tableName", toBeAdded.TableName);
                 sqlCommand.Parameters.AddWithValue("@tableColumns", JsonConvert.SerializeObject(toBeAdded.Coloumns));
-
+                
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
+        }
 
+        public void CreateTable(SqlTable toBeCreated)
+        {
+            using(var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "CRAETE TABLE @tableName (@tableColumns);";
+                string tableColumns = "";
+                foreach(var columnPair in toBeCreated.Coloumns)
+                    tableColumns += columnPair.Key + ' ' + columnPair.Value + " ,";
+                tableColumns = tableColumns.TrimEnd(' ', ',');
+
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", toBeCreated.TableName);
+                sqlCommand.Parameters.AddWithValue("@tableColumns", tableColumns);
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+            }
         }
 
         public SqlTable FindTable(string tableName)
@@ -64,10 +83,10 @@ namespace ETL_project_Team2.dao
             SqlTable resultTable = new SqlTable()
             {
                 TableName = tableName,
-                DBConnection = new SqlConnection(dbConnectionStringPattern)
+                DBConnection = new SqlConnection(_dbConnectionString)
             };
 
-            using (var connection = new SqlConnection(dbConnectionStringPattern))
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
                 const string commandString = "SELECT tableName FROM @tableName";
                 var command = new SqlCommand(commandString);
@@ -81,6 +100,25 @@ namespace ETL_project_Team2.dao
                 }
             }
             return resultTable;
+        }
+
+        public List<string> FetchDataSetsList()
+        {
+            var result = new List<string>();
+            using(var connection = new SqlConnection(_dbConnectionString))
+            {
+                const string commandString = "SELECT tableName FROM @tableName;";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                sqlCommand.Parameters.AddWithValue("@tableName", _tablesListRecordTable);
+                connection.Open();
+
+                using(var reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                        result.Add(reader["tableName"].ToString());
+                }
+            }
+            return result;
         }
     }
 }
