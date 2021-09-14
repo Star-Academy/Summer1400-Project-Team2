@@ -1,90 +1,79 @@
 .top_toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 2rem;
-
-  ._right {
     display: flex;
-
-    button {
-      margin: 0.5rem;
-      border-radius: var(--border-radius-3) !important;
-      background: var(--clr-primary) !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    ._right {
+        display: flex;
+        button {
+            margin: 0.5rem;
+            border-radius: var(--border-radius-3) !important;
+            background: var(--clr-primary) !important;
+        }
+        button[disabled='disabled'],
+        button:disabled {
+            background: transparent !important;
+        }
+        .custom-dropzone {
+            height: 5rem;
+            overflow: hidden;
+            margin: 0.5rem;
+            ngx-dropzone-label {
+                font-weight: bold;
+                padding: 1.5rem;
+            }
+        }
     }
-
-    button[disabled='disabled'],
-    button:disabled {
-      background: transparent !important;
-    }
-
-    .custom-dropzone {
-      height: 5rem;
-      overflow: hidden;
-      margin: 0.5rem;
-
-      ngx-dropzone-label {
-        font-weight: bold;
-        padding: 1.5rem;
-      }
-    }
-  }
 }
 
 .mat-icon {
-  vertical-align: middle;
-}
-
-mat-divider {
-  // margin-bottom: 2rem;
+    vertical-align: middle;
 }
 
 .demo-table {
-  width: 100%;
+    width: 100%;
 }
 
 .mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
 }
 
 .mat-row:hover .mat-cell {
-  background: var(--clr-red-61-5);
+    background: var(--clr-red-61-5);
 }
 
 .demo-row-is-clicked {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .mat-column-name {
-  width: 35%;
+    width: 35%;
 }
+
 .mat-column-connectionName {
-  width: 20%;
+    width: 20%;
 }
+
 .mat-column-created {
-  width: 20%;
+    width: 20%;
 }
+
 .mat-column-star {
-  width: 2%;
-}
-.header {
+    width: 2%;
 }
 
 @media only screen and (max-width: 600px) {
-  .top_toolbar {
-    display: flex;
-    flex-direction: column;
-
-    ._right {
-      flex-direction: column;
+    .top_toolbar {
+        display: flex;
+        flex-direction: column;
+        ._right {
+            flex-direction: column;
+        }
     }
-  }
 }
 
 .mat-elevation-z8 {
-  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 10%), 0px 8px 10px 1px rgb(0 0 0 / 7%),
-    0px 3px 14px 2px rgb(0 0 0 / 6%) !important;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.1), 0px 8px 10px 1px rgba(0, 0, 0, 0.07), 0px 3px 14px 2px rgba(0, 0, 0, 0.06) !important;
 }

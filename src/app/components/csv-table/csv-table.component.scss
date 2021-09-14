@@ -2,41 +2,41 @@
 $header-background: #eee;
 $hover-background: #eee;
 :host {
-  display: block;
-  border-radius: 2rem;
-  @include mat.elevation(6);
+    display: block;
+    border-radius: 2rem;
+    // @include mat.elevation(6);
 }
 
 // .table__box {
 //     clip-path: inset(0 0 0 0 round 2rem);
 // }
 .mat {
-  &-row {
-    &:hover {
-      //   background-color: $hover-background;
-      background-color: var(--clr-red-61-5);
-    }
-  }
-  &-header {
     &-row {
-      //   background-color: $header-background;
-      background-color: var(--clr-secondary);
+        &:hover {
+            //   background-color: $hover-background;
+            background-color: var(--clr-red-61-5);
+        }
     }
-    &-cell {
-      color: rgba(0, 0, 0, 0.6);
-      color: var(--clr-white);
-      font-weight: 700;
+    &-header {
+        &-row {
+            //   background-color: $header-background;
+            background-color: var(--clr-secondary);
+        }
+        &-cell {
+            color: rgba(0, 0, 0, 0.6);
+            color: var(--clr-white);
+            font-weight: 700;
+        }
     }
-  }
-  &-paginator {
-    position: sticky;
-    bottom: 0;
-    background-color: $header-background;
-  }
+    &-paginator {
+        position: sticky;
+        bottom: 0;
+        background-color: $header-background;
+    }
 }
 
 :host ::ng-deep {
-  .mat-paginator-page-size {
-    margin-left: auto !important;
-  }
+    .mat-paginator-page-size {
+        margin-left: auto !important;
+    }
 }
