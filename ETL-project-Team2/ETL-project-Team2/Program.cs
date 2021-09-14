@@ -36,6 +36,11 @@ namespace ETL_project_Team2
                         .AddTransient<IPipelineHandler, PipelineHandler>()
                         .AddTransient<IOperation, JoinHandler>();
                 })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                                    {
                                        webBuilder.UseStartup<Startup>();
