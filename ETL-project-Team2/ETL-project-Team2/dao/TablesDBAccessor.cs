@@ -48,12 +48,9 @@ namespace ETL_project_Team2.dao
         {
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                const string commandString = "INSERT INTO @tablesListRecordName (tableName, tableColumns)\n" +
-                    "VALUES (@tableName, @tableColumns);";
+                string commandString = $"INSERT INTO {_tablesListRecordTable} (tableName, tableColumns)\n" +
+                    $"VALUES ('{toBeAdded.TableName}', '{JsonConvert.SerializeObject(toBeAdded.Coloumns)}');";
                 var sqlCommand = new SqlCommand(commandString, connection);
-                sqlCommand.Parameters.AddWithValue("@tablesListRecordName", _tablesListRecordTable);
-                sqlCommand.Parameters.AddWithValue("@tableName", toBeAdded.TableName);
-                sqlCommand.Parameters.AddWithValue("@tableColumns", JsonConvert.SerializeObject(toBeAdded.Coloumns));
                 
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
@@ -64,15 +61,14 @@ namespace ETL_project_Team2.dao
         {
             using(var connection = new SqlConnection(_dbConnectionString))
             {
-                const string commandString = "CRAETE TABLE @tableName (@tableColumns);";
                 string tableColumns = "";
                 foreach(var columnPair in toBeCreated.Coloumns)
                     tableColumns += columnPair.Key + ' ' + columnPair.Value + " ,";
                 tableColumns = tableColumns.TrimEnd(' ', ',');
 
+                string commandString = $"CRAETE TABLE {toBeCreated.TableName} ({tableColumns});";
                 var sqlCommand = new SqlCommand(commandString, connection);
-                sqlCommand.Parameters.AddWithValue("@tableName", toBeCreated.TableName);
-                sqlCommand.Parameters.AddWithValue("@tableColumns", tableColumns);
+
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
@@ -88,9 +84,8 @@ namespace ETL_project_Team2.dao
 
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                const string commandString = "SELECT tableName FROM @tableName";
+                string commandString = $"SELECT tableName FROM {tableName}";
                 var command = new SqlCommand(commandString);
-                command.Parameters.AddWithValue("@tableName", tableName);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -107,9 +102,8 @@ namespace ETL_project_Team2.dao
             var result = new List<string>();
             using(var connection = new SqlConnection(_dbConnectionString))
             {
-                const string commandString = "SELECT tableName FROM @tableName;";
+                string commandString = $"SELECT tableName FROM {_tablesListRecordTable};";
                 var sqlCommand = new SqlCommand(commandString, connection);
-                sqlCommand.Parameters.AddWithValue("@tableName", _tablesListRecordTable);
                 connection.Open();
 
                 using(var reader = sqlCommand.ExecuteReader())

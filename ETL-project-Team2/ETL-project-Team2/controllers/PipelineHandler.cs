@@ -7,6 +7,8 @@ using ETL_project_Team2.models;
 using ETL_project_Team2.services;
 using ETL_project_Team2.dao;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace ETL_project_Team2.controllers
 {
@@ -30,7 +32,7 @@ namespace ETL_project_Team2.controllers
         public IActionResult CreateNewPipeline([FromBody] JObject content)
         {
             int modelId = pipelineDB.GetModelsCount();
-            pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), "",
+            pipelineDB.AddPipelineModel(modelId, content["name"].ToString(), string.Empty,
                 content["entryDB"].ToString(), content["finalDB"].ToString());
             return new OkObjectResult(modelId);
         }
