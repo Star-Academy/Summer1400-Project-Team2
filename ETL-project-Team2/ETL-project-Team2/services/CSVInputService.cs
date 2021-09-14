@@ -10,19 +10,11 @@ namespace ETL_project_Team2.services
 {
     class CSVInputService : ICSVInputService
     {
-        public static int TableId { get; set; }
-
-        public string ConnectionString { get; set; }
-
-        //  public List<string> ColoumnsNames { get; set; }
         public List<string[]> TableDatas { get; set; }
-        //    public string[] ColoumnsTypes { get; set; }
 
         public CSVInputService()
         {
-            // ColoumnsNames = new List<string>();
             TableDatas = new List<string[]>();
-            TableId += 1;
         }
 
         public Dictionary<string, string> GetDataTableFromCsvFile(string filePath, string delimeter)
@@ -56,27 +48,15 @@ namespace ETL_project_Team2.services
             return CreateDictionary(ColoumnsNames, ColoumnsTypes);
         }
 
-        public Dictionary<string, string> CreateDictionary(List<string> coloumnsNames, string[] coloumnsTypes)
-        {
-            Dictionary<string, string> coloumnsData = new Dictionary<string, string>();
-            for (var i = 0; i < coloumnsNames.Count; i++)
-            {
-                coloumnsData.Add(coloumnsNames[i], coloumnsTypes[i]);
-            }
-
-            return coloumnsData;
-        }
-
         public void ImportDataToSql(SqlTable table)
         {
             string sqlCommandStart = $"INSERT INTO {table.TableName} (";
 
-            for (var i = 0; i < ColoumnsNames.Count - 1; i++)
-            {
-                sqlCommandStart += ColoumnsNames[i].TrimEnd(new char[] {','}) + ",";
-            }
+            foreach (var columnPair in table.Coloumns)
+                sqlCommandStart += columnPair.Key + ", ";
+            sqlCommandStart = sqlCommandStart.TrimEnd(' ', ',');
 
-            sqlCommandStart += ColoumnsNames[ColoumnsNames.Count - 1] + ") VALUES (";
+            sqlCommandStart += ") VALUES (";
 
             foreach (var tableData in TableDatas)
             {
@@ -88,18 +68,29 @@ namespace ETL_project_Team2.services
                 }
 
                 sqlCommand += "'" + tableData[tableData.Length - 1] + "')";
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                using (table.DBConnection)
                 {
                     using (SqlCommand comm = new SqlCommand())
                     {
-                        comm.Connection = conn;
+                        comm.Connection = table.DBConnection;
                         comm.CommandText = sqlCommand;
 
-                        conn.Open();
+                        table.DBConnection.Open();
                         comm.ExecuteNonQuery();
                     }
                 }
             }
+        }
+
+        private Dictionary<string, string> CreateDictionary(List<string> coloumnsNames, string[] coloumnsTypes)
+        {
+            Dictionary<string, string> coloumnsData = new Dictionary<string, string>();
+            for (var i = 0; i < coloumnsNames.Count; i++)
+            {
+                coloumnsData.Add(coloumnsNames[i], coloumnsTypes[i]);
+            }
+
+            return coloumnsData;
         }
     }
 }
