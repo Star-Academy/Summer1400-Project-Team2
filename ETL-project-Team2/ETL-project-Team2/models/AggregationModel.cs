@@ -20,6 +20,11 @@ namespace ETL_project_Team2.models
         public string TargetColumn { get; set; }
         public AggregationEnum AggregationType { get; set; }
 
+        public AggregationModel()
+        {
+            
+        }
+
         public AggregationModel(SqlTable sqlTable, string aggregateQuery)
         {
 

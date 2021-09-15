@@ -11,11 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27fabf83-7829-42b3-913a-45bb51ec46dc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ETL-project-Team2/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/models/AggregationModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/models/AggregationModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +57,10 @@
       </RecentBranches>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4c6d67d78a9948c5b4d17c7b2515a798c9d78/A/ThrowHelper.Serialization.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ca8898b690a4181a32a9cf767cedb1ea9c28/de/9b0433ce/JObject.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1xRE2igYVio9NaS8WGisjmnKyzJ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -65,6 +68,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3502052" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />

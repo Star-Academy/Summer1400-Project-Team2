@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text.Json;
 using ETL_project_Team2.models;
 
 namespace ETL_project_Team2.services
@@ -43,7 +46,37 @@ namespace ETL_project_Team2.services
 
         public AggregationModel CreateModel(string jsonString)
         {
-            throw new System.NotImplementedException();
+            var temp = JsonSerializer.Deserialize<Temp1>(jsonString);
+            return new AggregationModel
+            {
+                Columns = new List<string>() { temp.Parameters.Column },
+                AggregationType = CreateAggregationType(temp.Parameters.AggregationType),
+                ResultColumn = temp.Parameters.ResultColumn,
+                TargetColumn = temp.Parameters.TargetColumn
+            };
+        }
+
+        private AggregationEnum CreateAggregationType(string type)
+        {
+            if (type == "sum") return AggregationEnum.Sum;
+            if (type == "min") return AggregationEnum.Min;
+            if (type == "max") return AggregationEnum.Max;
+            if (type == "average" || type == "avg") return AggregationEnum.Average;
+            return AggregationEnum.Count;
+        }
+        
+        internal class Temp1
+        {
+            public Temp2 Parameters { get; set; }
+        }
+
+        internal class Temp2
+        {
+            public string AggregationType{ get; set; }
+            public string Column{ get; set; }
+            public string groupByColumn{ get; set; }
+            public string ResultColumn{ get; set; }
+            public string TargetColumn{ get; set; }
         }
     }
 }

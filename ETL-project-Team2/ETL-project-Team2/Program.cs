@@ -20,7 +20,9 @@ namespace ETL_project_Team2
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var stringjson =
+                "{\n   \"Parameters\":\n    {\n        \"AggregationType\": \"sum\",\n        \"Column\": \"\",\n        \"groupByColumn\":\"\",\n        \"ResultColumn\": \"col1\",\n        \"TargetColumn\": \"col2\"\n    }\n}";
+            Console.WriteLine(stringjson);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -43,12 +45,9 @@ namespace ETL_project_Team2
                     logging.AddConsole();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
-                                   {
-                                       webBuilder.ConfigureKestrel(serverOptions =>
-                                       {
-                                           serverOptions.AllowSynchronousIO = true;
-                                       })
-                                       .UseStartup<Startup>();
-                                   });
+                {
+                    webBuilder.ConfigureKestrel(serverOptions => { serverOptions.AllowSynchronousIO = true; })
+                        .UseStartup<Startup>();
+                });
     }
 }
