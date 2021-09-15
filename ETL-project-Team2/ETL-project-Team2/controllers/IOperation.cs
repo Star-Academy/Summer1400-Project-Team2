@@ -1,6 +1,6 @@
-﻿using ETL_project_Team2.models;
+using Aggregation.Models;
 
-namespace ETL_project_Team2.controllers
+namespace Aggregation.Controllers
 {
     public interface IOperation
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-
-namespace ETL_project_Team2.models
+namespace Aggregation.Models
 {
     public class SqlTable
     {

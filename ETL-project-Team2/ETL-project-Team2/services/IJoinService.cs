@@ -10,5 +10,6 @@ namespace ETL_project_Team2.services
     {
         SqlTable MakeTargetTable(SqlTable lTable, SqlTable rTable);
         string JoinQuery(JoinModel joinModel);
+        JoinModel.Type GetJoinType(string type);
     }
 }

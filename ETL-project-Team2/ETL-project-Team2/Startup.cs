@@ -9,8 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+<<<<<<< HEAD
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Converters;
+>>>>>>> backend
 
 namespace Aggregation
 {
@@ -26,11 +33,15 @@ namespace Aggregation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+<<<<<<< HEAD
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aggregation", Version = "v1" });
             });
+=======
+            services.AddControllers().AddNewtonsoftJson();
+>>>>>>> backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,9 +50,18 @@ namespace Aggregation
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+<<<<<<< HEAD
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aggregation v1"));
+=======
             }
+            else
+            {
+                app.UseHsts();
+>>>>>>> backend
+            }
+            
+            app.UseExceptionHandler("/Exception/ExceptionThrown");
 
             app.UseHttpsRedirection();
 
@@ -49,7 +69,14 @@ namespace Aggregation
 
             app.UseAuthorization();
 
+<<<<<<< HEAD
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+=======
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+>>>>>>> backend
         }
     }
 }
