@@ -9,6 +9,7 @@ using ETL_project_Team2.dao;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace ETL_project_Team2.controllers
 {
@@ -41,14 +42,15 @@ namespace ETL_project_Team2.controllers
         [Route("pipeline/name/{modelId}")]
         public IActionResult GetPipelineName(int modelId)
         {
-            return new OkObjectResult(pipelineDB.FetchModelName(modelId));
+            string result = JsonConvert.SerializeObject(new { modelName = pipelineDB.FetchModelName(modelId) });
+            return new OkObjectResult(result);
         }
 
         [HttpPut]
         [Route("pipeline/editName/{modelId}")]
-        public IActionResult EditPipelineName(int modelId, [FromBody] string name)
+        public IActionResult EditPipelineName(int modelId, [FromBody] JObject content)
         {
-            pipelineDB.UpdateModelName(modelId, name);
+            pipelineDB.UpdateModelName(modelId, content["newName"].ToString());
             return new OkResult();
         }
 

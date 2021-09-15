@@ -13,7 +13,7 @@ namespace ETL_project_Team2.controllers
     {
         IActionResult CreateNewPipeline(JObject content);
         IActionResult GetPipelineName(int modelId);
-        IActionResult EditPipelineName(int modelId, string name);
+        IActionResult EditPipelineName(int modelId, JObject content);
         IActionResult OperatePipeline(int modelId);
         IActionResult SetNodeParams(int modelId, JObject content);
         IActionResult UpdatePipeline(int modelId, JObject content);
