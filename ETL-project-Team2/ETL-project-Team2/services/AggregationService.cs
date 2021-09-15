@@ -3,7 +3,7 @@ using ETL_project_Team2.models;
 
 namespace ETL_project_Team2.services
 {
-    public class AggregationService
+    public class AggregationService : IAggregateService
     {
 
         // void Aggregate(SqlConnection sqlConnection)
@@ -39,6 +39,11 @@ namespace ETL_project_Team2.services
                     return "SELECT MAX(" + aggregationModel.Columns +
                            ") FROM " + aggregationModel.SqlTable.TableName + " ;";
             }
+        }
+
+        public AggregationModel CreateModel(string jsonString)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -11,11 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27fabf83-7829-42b3-913a-45bb51ec46dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +35,7 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="backend-aggregation-temp" />
-                    <option name="lastUsedInstant" value="1631711313" />
+                    <option name="lastUsedInstant" value="1631712353" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="be/feature/Aggregation" />
