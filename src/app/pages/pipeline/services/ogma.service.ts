@@ -8,6 +8,13 @@ declare var require: any;
 export class OgmaService {
   constructor(private http: HttpClient) {}
   public ogma: any;
+  private pipelineId:number =0;
+  public setPipelineId(id:number){
+    this.pipelineId =id;
+  }
+  public getPipelineId(){
+    return this.pipelineId;
+  }
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
     this.ogma = new Ogma(configuration);
@@ -18,12 +25,14 @@ export class OgmaService {
     this.ogma.view.locateGraph();
   }
   public loadGraph(){
-    this.loadPipeline(0).subscribe(res => {
+    this.loadPipeline(this.pipelineId).subscribe(res => {
       console.log(res);
       this.ogma.setGraph(res);
       this.ogma.view.locateGraph();
       this.setGrid();
-    });
+    }),(error:any)=>{
+      console.log(error);
+    };
   }
   public async addNode(type: string) {
     const id = this.getNodeslength();
@@ -47,7 +56,7 @@ export class OgmaService {
     this.setGrid();
     const ogmaJson = await this.exportGraph();    
     console.log(ogmaJson);
-    this.sendPipeline(0,ogmaJson);
+    this.sendPipeline(this.pipelineId,ogmaJson);
     return id;
   }
   public async addLink(idSrc: number, idTarget: number) {
@@ -64,7 +73,7 @@ export class OgmaService {
     this.setGrid();
     const ogmaJson = await this.exportGraph();
     console.log(ogmaJson);
-    this.sendPipeline(0,ogmaJson);
+    this.sendPipeline(this.pipelineId,ogmaJson);
   }
 
   public addEdgeRule() {
@@ -144,7 +153,7 @@ export class OgmaService {
     });
     this.ogma.view.locateGraph();
   }
-  public async createFirstNode(pipelineId: number) {
+  public async createFirstNode() {
     this.addNode('source');
     this.ogma.addNode({
       id: this.getNodeslength(),
@@ -159,7 +168,7 @@ export class OgmaService {
     this.addLink(0, 2);
     this.setGrid();
     const ogmaJson = await this.exportGraph();    
-    this.sendPipeline(pipelineId,ogmaJson);
+    this.sendPipeline(this.pipelineId,ogmaJson);
   }
 
   public getSelectedEdge(nodeId: string) {
@@ -272,8 +281,9 @@ export class OgmaService {
       });
     }
     this.setGrid();
-    const ogmaJson = await this.exportGraph();    
-    this.sendPipeline(0,ogmaJson);
+    const ogmaJson = await this.exportGraph();  
+    console.log(this.pipelineId);
+    this.sendPipeline(this.pipelineId,ogmaJson);
   };
 
   async exportGraph() {
@@ -294,10 +304,12 @@ export class OgmaService {
       })
     };
 
-    this.http
+   return this.http
       .put('https://codestar.iran.liara.run/pipeline/' + id,pipelineBody,httpOptions)
       .subscribe(response => {
         console.log(response);
+      },error=>{
+        console.log(error);
       });
   }
 

@@ -17,6 +17,7 @@ export class PipelinePage implements OnInit {
     this.route.params.subscribe(
       (params:Params)=>{
         this.pipelineId = params['id'];
+        this.ogmaService.setPipelineId(this.pipelineId);
       }
     )
     this.onCreateFirstNode();
@@ -77,9 +78,8 @@ export class PipelinePage implements OnInit {
         this.ogmaService.loadGraph();
       }else{
         console.log('empty');        
-        this.ogmaService.createFirstNode(this.pipelineId);
-         this.ogmaService.exportGraph().then(ogmaJson=>{
-          console.log(ogmaJson);
+        this.ogmaService.createFirstNode();
+         this.ogmaService.exportGraph().then(ogmaJson=>{          
           this.ogmaService.sendPipeline(this.pipelineId,ogmaJson);
         });
       }
