@@ -17,6 +17,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {DashboardModule} from './pages/dashboard/dashboard.module';
 import {HttpClientModule} from "@angular/common/http";
 
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
@@ -30,11 +32,11 @@ import {HttpClientModule} from "@angular/common/http";
     RegisterModule,
     MatDialogModule,
     FormsModule,
-    DashboardModule,
-    PipelineModule,
+    DashboardModule,    
     MatButtonModule,
     MatIconModule,
-    HttpClientModule,
+    HttpClientModule,        
+    MatSnackBarModule
   ],
   providers: [MatDialog],
   bootstrap: [AppComponent]

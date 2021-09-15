@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 declare var require: any;
 
@@ -5,24 +6,28 @@ declare var require: any;
   providedIn: 'root'
 })
 export class OgmaService {
-  public ogma: any;  
+  constructor(private http: HttpClient) {}
+  public ogma: any;
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
     this.ogma = new Ogma(configuration);
-    // this.ogma.parse.jsonFromUrl('../../../assets/graph.json').then((graph: any) => {
-    //   this.ogma.setGraph(graph);
-    //   this.ogma.view.locateGraph();
-    //   console.log('import done');
-    // });
     this.addEdgeRule();
     this.addNodeRule();
     this.setHoverStyleNodes();
     this.setHoverStyleEdges();
     this.ogma.view.locateGraph();
   }
-  public addNode(type: string) {
+  public loadGraph(){
+    this.loadPipeline(0).subscribe(res => {
+      console.log(res);
+      this.ogma.setGraph(res);
+      this.ogma.view.locateGraph();
+      this.setGrid();
+    });
+  }
+  public async addNode(type: string) {
     const id = this.getNodeslength();
-    this.ogma.addNode({      
+    this.ogma.addNode({
       id: this.getNodeslength(),
       data: { type: type },
       attributes: {
@@ -33,27 +38,33 @@ export class OgmaService {
       }
     });
     this.setGrid();
-    this.ogma.addNode({      
+    this.ogma.addNode({
       id: this.getNodeslength(),
       data: {
         type: 'plus'
       }
     });
     this.setGrid();
+    const ogmaJson = await this.exportGraph();    
+    console.log(ogmaJson);
+    this.sendPipeline(0,ogmaJson);
     return id;
   }
-  public addLink(idSrc: number, idTarget: number) {    
-    this.ogma.addEdge({      
+  public async addLink(idSrc: number, idTarget: number) {
+    this.ogma.addEdge({
       id: idSrc + ',' + (idSrc + 1),
       source: idSrc,
-      target: (idSrc + 1)
+      target: idSrc + 1
     });
-    this.ogma.addEdge({      
-      id: (idSrc + 1) + ',' + idTarget,
-      source: (idSrc + 1),
+    this.ogma.addEdge({
+      id: idSrc + 1 + ',' + idTarget,
+      source: idSrc + 1,
       target: idTarget
-    });    
+    });
     this.setGrid();
+    const ogmaJson = await this.exportGraph();
+    console.log(ogmaJson);
+    this.sendPipeline(0,ogmaJson);
   }
 
   public addEdgeRule() {
@@ -133,9 +144,9 @@ export class OgmaService {
     });
     this.ogma.view.locateGraph();
   }
-  public createFirstNode() {
+  public async createFirstNode(pipelineId: number) {
     this.addNode('source');
-    this.ogma.addNode({      
+    this.ogma.addNode({
       id: this.getNodeslength(),
       data: { type: 'destination' },
       attributes: {
@@ -146,6 +157,9 @@ export class OgmaService {
       }
     });
     this.addLink(0, 2);
+    this.setGrid();
+    const ogmaJson = await this.exportGraph();    
+    this.sendPipeline(pipelineId,ogmaJson);
   }
 
   public getSelectedEdge(nodeId: string) {
@@ -158,10 +172,10 @@ export class OgmaService {
     return this.ogma.getEdge(selectedEdgeObj.getId()[0]);
   }
 
-  public onPluseNode(nodeId: string, processorType: string) {
+  public async onPluseNode(nodeId: string, processorType: string) {
     const selectedEdge = this.getSelectedEdge(nodeId);
     const selectedEdge_target = this.getEdgeTarget(selectedEdge);
-    const addedNodeId = this.addNode(processorType);    
+    const addedNodeId = await this.addNode(processorType);
     this.setEdgeTarget(selectedEdge, addedNodeId);
     this.addLink(addedNodeId, selectedEdge_target);
     this.setGrid();
@@ -221,7 +235,7 @@ export class OgmaService {
   public setZoomOut() {
     this.ogma.view.zoomOut().then((res: any) => {});
   }
-  public deleteNode = () => {
+  public  deleteNode = async() => {
     const selectedNodes = this.ogma.getSelectedNodes();
     if (selectedNodes) {
       const firstNode = selectedNodes.get(0);
@@ -250,26 +264,49 @@ export class OgmaService {
         });
       }
       this.ogma.removeNode(firstNode);
-      this.ogma.removeNode(secondNode);      
+      this.ogma.removeNode(secondNode);
       this.ogma.addEdge({
-        id: beginNodeId + ',' + thirdNodeId,        
+        id: beginNodeId + ',' + thirdNodeId,
         source: beginNodeId,
         target: thirdNodeId
-      });      
+      });
     }
     this.setGrid();
+    const ogmaJson = await this.exportGraph();    
+    this.sendPipeline(0,ogmaJson);
   };
 
-  exportGraph() {
-    this.ogma.export
+  async exportGraph() {
+    const res = await this.ogma.export
       .json({
         download: false,
         pretty: true,
         nodeAttributes: ['x', 'y', 'shape', 'text'],
         edgeAttributes: []
       })
-      .then((res: any) => {
-        console.log(res);
+      .then((res: any) => res);
+    return res;
+  }
+  sendPipeline(id: number, pipelineBody: any) {    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'        
+      })
+    };
+
+    this.http
+      .put('https://codestar.iran.liara.run/pipeline/' + id,pipelineBody,httpOptions)
+      .subscribe(response => {
+        console.log(response);
       });
+  }
+
+  loadPipeline(id: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'        
+      })
+    };
+    return this.http.get('https://codestar.iran.liara.run/pipeline/' + id,httpOptions);
   }
 }

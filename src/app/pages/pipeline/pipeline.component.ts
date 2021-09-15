@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ProcessorModalComponent } from './processor-modal/processor-modal.component';
 import { OgmaService } from './services/ogma.service';
 @Component({
@@ -8,13 +9,21 @@ import { OgmaService } from './services/ogma.service';
   styleUrls: ['./pipeline.component.scss']
 })
 export class PipelinePage implements OnInit {
-  constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
+  constructor(public dialog: MatDialog, private ogmaService: OgmaService,private route:ActivatedRoute) {}
   processor = '';
   deleteNode = false;
+  pipelineId =0;  
   ngOnInit() {
+    this.route.params.subscribe(
+      (params:Params)=>{
+        this.pipelineId = params['id'];
+      }
+    )
     this.onCreateFirstNode();
+    this.ogmaService.loadPipeline(this.pipelineId);
+    
   }
-  onCreateFirstNode() {
+  async onCreateFirstNode() {
     this.ogmaService.initConfig({
       container: 'graph-container',
       options: {
@@ -61,8 +70,21 @@ export class PipelinePage implements OnInit {
         this.ogmaService.clickOnEdge(edge);
       }
     });
+    this.ogmaService.loadPipeline(this.pipelineId).subscribe(res=>{
+      console.log(res);
+      if(Object.keys(res).length >0){
+        console.log('full');        
+        this.ogmaService.loadGraph();
+      }else{
+        console.log('empty');        
+        this.ogmaService.createFirstNode(this.pipelineId);
+         this.ogmaService.exportGraph().then(ogmaJson=>{
+          console.log(ogmaJson);
+          this.ogmaService.sendPipeline(this.pipelineId,ogmaJson);
+        });
+      }
+    });
 
-    this.ogmaService.createFirstNode();
   }
 
   onZoomInBtn() {
@@ -71,7 +93,12 @@ export class PipelinePage implements OnInit {
   onZoomOutBtn() {
     this.ogmaService.setZoomOut();
   }
-  onExportBtn() {
-    this.ogmaService.exportGraph();
+  async onExportBtn(){
+    const res = await this.ogmaService.exportGraph();
+   console.log(res);
+  }
+
+  onClearGraph(){
+    this.ogmaService.sendPipeline(this.pipelineId,{});
   }
 }

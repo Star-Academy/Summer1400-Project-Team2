@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-pipeline-header',
@@ -6,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pipeline-header.component.scss']
 })
 export class PipelineHeaderComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
+  @Input() pipelineId =0;
+  constructor(private http:HttpClient,private toast:ToastService) {}
+  ngOnInit(): void {
+    this.getPipelineName(this.pipelineId).subscribe((res:any)=>{
+      console.log(res,res.modelName);
+      this.pipelineName = res.modelName;
+      this.updatedName = res.modelName;      
+    })
+  }
   pipelineName ='نام پایپلاین';
   updatedName=this.pipelineName;
   hasEdited = false;
@@ -37,8 +46,13 @@ export class PipelineHeaderComponent implements OnInit {
   }
   onSubmitBtn() {
     this.hasEdited = false;
-    this.pipelineName = this.updatedName;
-    this.toggleEdit();
+    console.log(this.pipelineName,this.updatedName);
+    this.updatePipelineName(this.pipelineId,this.updatedName).subscribe(response=>{
+      console.log(response);
+      this.pipelineName = this.updatedName;
+      this.toast.openSnackBar("تغییر نام با موفقیت انجام شد","Codestar");
+      this.toggleEdit();
+    })
   }
   onBackBtn(){
     window.history.back();
@@ -55,5 +69,22 @@ export class PipelineHeaderComponent implements OnInit {
     }else{
       this.runImgSrc ='../../../assets/images/icons/play-button.svg';
     }
+  }
+  updatePipelineName(id:number,newName:string){
+    console.log(id,newName);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'        
+      })
+    };
+   return this.http.put(`https://codestar.iran.liara.run/pipeline/editName/${id}`,{newName:newName},httpOptions);
+  }
+  getPipelineName(id:number){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'        
+      })
+    };
+    return this.http.get(`https://codestar.iran.liara.run/pipeline/name/${id}`,httpOptions);
   }
 }
