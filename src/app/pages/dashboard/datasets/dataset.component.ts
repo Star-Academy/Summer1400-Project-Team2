@@ -1,36 +1,36 @@
-
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "../../../services/dashboard/dashboard.service";
-
-interface Data {
-  name: string,
-  modelId: number
-}
-
-let res: any;
-
-let DATA: Data[] = [
-  { name: 'فیک', modelId: 1},
-  { name: 'فیک2', modelId: 2},
-];
+import {tableData} from "../tableData";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-datasets',
   templateUrl: './dataset.component.html',
   styleUrls: ['./dataset.component.scss']
 })
-export class DatasetComponent implements AfterViewInit {
-  constructor(private dashboardService: DashboardService) {
-  }
-  ngAfterViewInit() {
-    res = this.dashboardService.tableData('datasets');
-    DATA = res;
+export class DatasetComponent implements OnInit {
+
+  constructor(private dashboardService: DashboardService, private router:Router) {
   }
 
-  rowClick(row: unknown): void {
-    console.log(row);
+  table: tableData[] = [{name:'1',id:'2'}];
+
+  ngOnInit() {
+    this.dashboardService.tableData1('dataset').subscribe(data => {
+      this.table = data;
+    })
   }
 
-  displayedColumns: string[] = ['modelId','name'];
-  dataSource = DATA;
+  rowClick(row: tableData): void {
+    // console.log(row);
+    this.router.navigateByUrl('/datasets/'+ row.id);
+
+  }
+
+  create(id: string, name: string, entryDB: string, finalDB: string): void {
+    this.dashboardService.create(id, name, entryDB, finalDB);
+  }
+
+  displayedColumns: string[] = ['id', 'name'];
+  dataSource = this.table;
 }
