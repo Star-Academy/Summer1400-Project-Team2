@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 declare var require: any;
 
@@ -5,6 +6,7 @@ declare var require: any;
   providedIn: 'root'
 })
 export class OgmaService {
+  constructor(private http:HttpClient){}
   public ogma: any;  
   public initConfig(configuration = {}) {
     const Ogma = require('../../../../assets/ogma.min.js');
@@ -260,16 +262,27 @@ export class OgmaService {
     this.setGrid();
   };
 
-  exportGraph() {
-    this.ogma.export
+ async exportGraph() {
+   const res =  await this.ogma.export
       .json({
         download: false,
         pretty: true,
         nodeAttributes: ['x', 'y', 'shape', 'text'],
         edgeAttributes: []
       })
-      .then((res: any) => {
-        console.log(res);
-      });
+      .then((res: any) =>res);      
+      return res;
+  }
+  sendPipeline(id:number,pipelineBody:any){
+    console.log(pipelineBody);
+    this.http.put('https://codestar.iran.liara.run/pipeline'+id,pipelineBody).subscribe(response=>{
+      console.log(response);
+    });
+  }
+
+  loadPipeline(id:number){
+    this.http.get('https://codestar.iran.liara.run/pipeline/'+id).subscribe(response=>{
+      console.log(response);
+    })
   }
 }

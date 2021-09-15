@@ -4,7 +4,7 @@ import { PipelinePage } from './pipeline.component';
 
 const routes: Routes = [
   {
-    path: ':pipelineId',
+    path: ':id',
     component: PipelinePage
   }
 ];

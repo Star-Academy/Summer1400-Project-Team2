@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'pipeline',
+    path: 'pipelines',
     loadChildren: () => import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
   }
 ];

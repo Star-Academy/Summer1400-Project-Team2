@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ProcessorModalComponent } from './processor-modal/processor-modal.component';
 import { OgmaService } from './services/ogma.service';
 @Component({
@@ -8,11 +9,19 @@ import { OgmaService } from './services/ogma.service';
   styleUrls: ['./pipeline.component.scss']
 })
 export class PipelinePage implements OnInit {
-  constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
+  constructor(public dialog: MatDialog, private ogmaService: OgmaService,private route:ActivatedRoute) {}
   processor = '';
   deleteNode = false;
+  pipelineId =0;
   ngOnInit() {
+    this.route.params.subscribe(
+      (params:Params)=>{
+        this.pipelineId = params['id'];
+      }
+    )
+    this.ogmaService.loadPipeline(this.pipelineId);
     this.onCreateFirstNode();
+    
   }
   onCreateFirstNode() {
 
@@ -73,7 +82,8 @@ export class PipelinePage implements OnInit {
   onZoomOutBtn() {
     this.ogmaService.setZoomOut();
   }
-  onExportBtn(){
-    this.ogmaService.exportGraph();
+  async onExportBtn(){
+    const res = await this.ogmaService.exportGraph();
+   console.log(res);
   }
 }
