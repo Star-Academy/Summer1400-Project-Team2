@@ -15,6 +15,6 @@ namespace ETL_project_Team2.dao
         void SaveParameters(int modelId, int nodeId, string parameters);
         string FetchNodeParameters(int modelId, int nodeId);
         public Tuple<string, string> FetchPipelineDBs(int modelId);
-        public List<string> FetchModelsList();
+        public List<Tuple<string, string>> FetchModelsList();
     }
 }

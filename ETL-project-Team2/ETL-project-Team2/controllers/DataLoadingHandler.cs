@@ -34,7 +34,7 @@ namespace ETL_project_Team2.controllers
         public IActionResult LoadListOfPipelines()
         {
             var modelNamesList = pipelineDB.FetchModelsList();
-            var processedList = modelNamesList.Select(x => new { name = x });
+            var processedList = modelNamesList.Select(x => new { name = x.Item1, id = x.Item2 });
             return new OkObjectResult(JsonConvert.SerializeObject(processedList));
         }
 

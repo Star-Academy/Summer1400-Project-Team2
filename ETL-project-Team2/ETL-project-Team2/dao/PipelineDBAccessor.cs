@@ -8,6 +8,7 @@ namespace ETL_project_Team2.dao
 {
     public class PipelineDBAccessor : IPipelineDBAcessor
     {
+        //private const string _dbConnectionString = "Data Source=localhost;Initial Catalog=ModelsDB;Integrated Security=True";
         private const string _dbConnectionString = "Data Source=etldb,1433;Initial Catalog=ModelsDB;User Id=sa;Password=whaRHhiagaexLz9gkv3QQH05;";
         private const string _pipelinesTableName = "PipelinesTable";
 
@@ -152,19 +153,20 @@ namespace ETL_project_Team2.dao
             return result;
         }
 
-        public List<string> FetchModelsList()
+        public List<Tuple<string, string>> FetchModelsList()
         {
-            var resultList = new List<string>();
+            var resultList = new List<Tuple<string, string>>();
             using(var connection = new SqlConnection(_dbConnectionString))
             {
-                string commandString = $"SELECT name FROM {_pipelinesTableName};";
+                string commandString = $"SELECT name, Id FROM {_pipelinesTableName};";
                 var sqlCommand = new SqlCommand(commandString, connection);
                 connection.Open();
 
                 using(var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
-                        resultList.Add(reader["name"].ToString());
+                        resultList.Add(new Tuple<string,string>
+                            (reader["name"].ToString(), reader["Id"].ToString()));
                 }
             }
             return resultList;
