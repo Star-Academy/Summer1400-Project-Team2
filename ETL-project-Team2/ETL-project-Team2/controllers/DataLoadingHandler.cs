@@ -60,18 +60,18 @@ namespace ETL_project_Team2.controllers
             //string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{fileName}.csv";
             var sqlTable = new SqlTable()
             {
-                TableName = $"userCSVFile#{DateTime.Now.ToString()}",
+                TableName = $"userCSVFile#{DateTime.Now.ToString()}".Replace(' ', '-'),
                 Coloumns = new Dictionary<string, string>(csvInputService.GetColumnTypesAndNames(HttpContext.Request.Body, ','))
             };
 
             string filePath = "F:\\test.csv";
             using (var fileStream = System.IO.File.Create(filePath))
             {
-                HttpContext.Request.Body.CopyToAsync(fileStream);
+                HttpContext.Request.Body.CopyTo(fileStream);
             }
 
-            tablesDB.AddTableToRecords(sqlTable);
             tablesDB.CreateTable(ref sqlTable);
+            tablesDB.AddTableToRecords(sqlTable);
 
             csvInputService.ImportDataToSql(sqlTable, filePath, ',', true);
             return new OkResult();

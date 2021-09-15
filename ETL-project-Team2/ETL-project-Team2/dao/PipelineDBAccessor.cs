@@ -8,7 +8,7 @@ namespace ETL_project_Team2.dao
 {
     public class PipelineDBAccessor : IPipelineDBAcessor
     {
-        private const string _dbConnectionString = "Data Source=etldb,1433;Initial Catalog = ModelsDB; User Id = sa; Password=whaRHhiagaexLz9gkv3QQH05;";
+        private const string _dbConnectionString = "Data Source=localhost;Initial Catalog=ModelsDB;Integrated Security=True";
         private const string _pipelinesTableName = "PipelinesTable";
 
         private const string _nodesTableName = "NodesTable";
@@ -159,6 +159,7 @@ namespace ETL_project_Team2.dao
             {
                 string commandString = $"SELECT name FROM {_pipelinesTableName};";
                 var sqlCommand = new SqlCommand(commandString, connection);
+                connection.Open();
 
                 using(var reader = sqlCommand.ExecuteReader())
                 {
