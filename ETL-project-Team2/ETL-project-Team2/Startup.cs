@@ -24,15 +24,12 @@ namespace ETL_project_Team2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
-            services.AddCors(options =>
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                options.AddPolicy(name: "codestar.iran.liara.run",
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("codestar.iran.liara.run",
-                                                          "https://codestar.iran.liara.run");
-                                  });
-            });
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +51,7 @@ namespace ETL_project_Team2
 
             app.UseRouting();
 
-            app.UseCors("codestar.iran.liara.run");
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
