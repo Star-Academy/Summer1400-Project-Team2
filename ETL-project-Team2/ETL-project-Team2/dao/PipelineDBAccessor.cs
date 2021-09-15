@@ -172,5 +172,23 @@ namespace ETL_project_Team2.dao
             }
             return resultList;
         }
+
+        public string FetchModelName(int modelId)
+        {
+            string result = null;
+            using(var connection = new SqlConnection(_dbConnectionString))
+            {
+                string commandString = $"SELECT name FROM {_pipelinesTableName};";
+                var sqlCommand = new SqlCommand(commandString, connection);
+                connection.Open();
+
+                using(var reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                        result = reader["name"].ToString();
+                }
+            }
+            return result;
+        }
     }
 }

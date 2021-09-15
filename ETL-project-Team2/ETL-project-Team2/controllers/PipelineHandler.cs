@@ -37,9 +37,16 @@ namespace ETL_project_Team2.controllers
             return new OkObjectResult(modelId);
         }
 
+        [HttpGet]
+        [Route("pipeline/name/{modelId}")]
+        public IActionResult GetPipelineName(int modelId)
+        {
+            return new OkObjectResult(pipelineDB.FetchModelName(modelId));
+        }
+
         [HttpPut]
-        [Route("pipeline/editName")]
-        public IActionResult EditPipelineName([FromQuery] int modelId, [FromQuery] string name)
+        [Route("pipeline/editName/{modelId}")]
+        public IActionResult EditPipelineName(int modelId, [FromBody] string name)
         {
             pipelineDB.UpdateModelName(modelId, name);
             return new OkResult();

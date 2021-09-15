@@ -12,6 +12,8 @@ namespace ETL_project_Team2.controllers
     public interface IPipelineHandler
     {
         IActionResult CreateNewPipeline(JObject content);
+        IActionResult GetPipelineName(int modelId);
+        IActionResult EditPipelineName(int modelId, string name);
         IActionResult OperatePipeline(int modelId);
         IActionResult SetNodeParams(int modelId, JObject content);
         IActionResult UpdatePipeline(int modelId, JObject content);
