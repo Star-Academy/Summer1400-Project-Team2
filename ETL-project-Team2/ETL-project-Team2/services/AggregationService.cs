@@ -5,7 +5,6 @@ namespace Aggregation.services
 {
     public class AggregationService
     {
-        private AggregationModel _aggregationModel;
 
         void Aggregate(SqlConnection sqlConnection)
         {
@@ -21,9 +20,9 @@ namespace Aggregation.services
             _dbService.ExecuteNonQuery(_aggregationModel.SqlTable.DBConnection, query);
         }
 
-        private string CreateQuery(SqlTable previousTable)
+        public string CreateQuery(SqlTable previousTable, AggregationModel aggregatitonModel)
         {
-            switch (_aggregationModel.AggregationType)
+            switch (aggregationModel.AggregationType)
             {
                 case Sum:
                     return "SELECT SUM(" +  _aggregationModel.Columns +
