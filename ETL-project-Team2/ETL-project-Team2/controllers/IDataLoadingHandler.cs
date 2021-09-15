@@ -12,7 +12,7 @@ namespace ETL_project_Team2.controllers
     {
         IActionResult LoadListOfPipelines();
         IActionResult LoadListtOfDataSets();
-        public IActionResult PutCSVFileOnDB(string dataSetName);
+        IActionResult PutCSVFileOnDB(string dataSetName);
         IActionResult GetDataSet(string tableName, char columnDelim, string newLineChar);
     }
 }

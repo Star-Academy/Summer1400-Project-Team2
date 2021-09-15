@@ -14,11 +14,12 @@ namespace ETL_project_Team2.dao
             new ConcurrentDictionary<string, SqlCommand>();
         public int ExecuteNonQuery(string cancellationToken, string queryCommand, SqlConnection dbConnection)
         {
+            if (dbConnection.State != System.Data.ConnectionState.Open)
+                dbConnection.Open();
             using (var sqlCommand = new SqlCommand(queryCommand, dbConnection))
             {
                 var keyValuePair = new KeyValuePair<string, SqlCommand>(cancellationToken, sqlCommand);
                 Commands.TryAdd(cancellationToken, sqlCommand);
-                dbConnection.Open();
                 var temp = sqlCommand.ExecuteNonQuery();
                 Commands.TryRemove(cancellationToken, out _);
                 return temp;

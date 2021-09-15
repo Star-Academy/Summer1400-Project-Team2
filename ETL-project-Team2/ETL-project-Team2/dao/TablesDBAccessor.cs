@@ -10,8 +10,8 @@ namespace ETL_project_Team2.dao
 {
     public class TablesDBAccessor : ITablesDBAccessor
     {
-        //private const string _dbConnectionString = "Data Source=localhost;Initial Catalog=TheOnlyUserDB;Integrated Security=True";
-        private const string _dbConnectionString = "Data Source=etldb,1433;Initial Catalog=TheOnlyUserDB;User Id=sa;Password=whaRHhiagaexLz9gkv3QQH05;";
+        private const string _dbConnectionString = "Data Source=localhost;Initial Catalog=TheOnlyUserDB;Integrated Security=True";
+        //private const string _dbConnectionString = "Data Source=etldb,1433;Initial Catalog=TheOnlyUserDB;User Id=sa;Password=whaRHhiagaexLz9gkv3QQH05;";
         private const string _tablesListRecordTable = "TablesList";
 
         [Obsolete]

@@ -11,18 +11,24 @@ namespace ETL_project_Team2.services
     public class JoinService : IJoinService
     {
         private readonly string query =
-            "SELECT {0}\n" +
-            "FROM {1}\n" +
-            "{2} JOIN {3}\n" +
-            "ON {4}";
+            "SELECT *" +
+            "FROM {0}\n" +
+            "{1} JOIN {2}\n" +
+            "ON {3}";
+
+        public string MakeTargetTableQuery(SqlTable targetTable)
+        {
+            return new SqlQueryUtil().CreateTable(targetTable);
+        }
 
         public string JoinQuery(JoinModel joinModel)
         {
             var queryUtil = new SqlQueryUtil();
-            string joinQuery = string.Format(query, queryUtil.SeperateColumnsByComma(joinModel.LTable),
-                                        joinModel.LTable.TableName, joinModel.Jointype.Value,
-                                        joinModel.RTable.TableName, MakeCondition(joinModel));
-            return queryUtil.InsertIntoTargetTable(joinQuery, joinModel.TargetTable);
+            return $"INSERT INTO {joinModel.TargetTable.TableName} ({queryUtil.SeperateColumnsByComma(joinModel.TargetTable)})"
+                + $"SELECT *\n"
+                + $"FROM {joinModel.LTable.TableName}\n"
+                + $"{joinModel.Jointype.Value} JOIN {joinModel.RTable.TableName}\n"
+                + $"ON {joinModel.LTable.TableName}.{joinModel.LTableColumn}={joinModel.RTable.TableName}.{joinModel.RTableColumn}";
         }
 
         public SqlTable MakeTargetTable(SqlTable lTable, SqlTable rTable)
@@ -37,9 +43,9 @@ namespace ETL_project_Team2.services
             };
 
             foreach (var column in lTable.Coloumns)
-                targetTable.Coloumns[lTable.TableName + '.' + column.Key] = column.Value;
+                targetTable.Coloumns[lTable.TableName + '_' + column.Key] = column.Value;
             foreach (var column in rTable.Coloumns)
-                targetTable.Coloumns[rTable.TableName + '.' + column.Key] = column.Value;
+                targetTable.Coloumns[rTable.TableName + '_' + column.Key] = column.Value;
             return targetTable;
         }
 

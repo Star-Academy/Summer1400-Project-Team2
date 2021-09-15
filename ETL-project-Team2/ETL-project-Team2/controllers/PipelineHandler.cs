@@ -20,11 +20,16 @@ namespace ETL_project_Team2.controllers
         private SqlTable _finalTable;
         private IPipelineDBAcessor pipelineDB;
         private ITablesDBAccessor tablesDB;
+        private IDBService dbService;
+        private IDBAccessor dbAccessor;
 
-        public PipelineHandler(IPipelineDBAcessor pipelineDBAcessor, ITablesDBAccessor tablesDBAccessor)
+        public PipelineHandler(IPipelineDBAcessor pipelineDBAcessor, ITablesDBAccessor tablesDBAccessor,
+            IDBService dbService, IDBAccessor dbAccessor)
         {
             pipelineDB = pipelineDBAcessor;
             tablesDB = tablesDBAccessor;
+            this.dbService = dbService;
+            this.dbAccessor = dbAccessor;
         }
 
 
@@ -74,9 +79,12 @@ namespace ETL_project_Team2.controllers
             SqlTable currentTable = _entryTable;
             foreach (var nodePair in _pipeline)
             {
-                currentTable = nodePair.Item2.Operate(currentTable);
+                SqlTable nextTable = nodePair.Item2.Operate(currentTable);
+                dbAccessor.ExecuteNonQuery("", dbService.DopTableQuery(currentTable), currentTable.DBConnection);
+                currentTable = nextTable;
             }
-            _finalTable = currentTable;
+            dbAccessor.ExecuteNonQuery("", dbService.CopyTableQuery(currentTable, _finalTable), _finalTable.DBConnection);
+            dbAccessor.ExecuteNonQuery("", dbService.DopTableQuery(currentTable), currentTable.DBConnection);
             return new OkResult();
         }
 
@@ -131,14 +139,13 @@ namespace ETL_project_Team2.controllers
                 Id = Int32.Parse(id.ToString())
             }).ToList();
 
-            _pipeline = new LinkedList<Tuple<Node, IOperation>>
-                (nodesList.Select(node => new Tuple<Node, IOperation>(node, null)));
-
             var rawOperationsList = parsedObj["nodes"].Select(x => x["data"]).Select(x => x["type"].ToString()).ToList();
             rawOperationsList.RemoveAll(x => { return x == "plus" || x == "source" || x == "destination"; });
             List<IOperation> operationsList = rawOperationsList.Select(operation => MakeOperation(operation)).ToList();
 
-            _pipeline.Zip(operationsList, (tuple, operation) => new Tuple<Node, IOperation>(tuple.Item1, operation));
+            _pipeline = new LinkedList<Tuple<Node, IOperation>>();
+            for (int i = 0; i < operationsList.Count(); i++)
+                _pipeline.AddLast(new Tuple<Node, IOperation>(nodesList[i], operationsList[i]));
 
             foreach (var nodePair in _pipeline)
             {
