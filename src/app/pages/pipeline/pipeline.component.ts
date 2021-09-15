@@ -13,17 +13,18 @@ export class PipelinePage implements OnInit {
   processor = '';
   deleteNode = false;
   pipelineId =0;
+  private firstCreation =false;
   ngOnInit() {
     this.route.params.subscribe(
       (params:Params)=>{
         this.pipelineId = params['id'];
       }
     )
-    this.ogmaService.loadPipeline(this.pipelineId);
     this.onCreateFirstNode();
+    this.ogmaService.loadPipeline(this.pipelineId);
     
   }
-  onCreateFirstNode() {
+  async onCreateFirstNode() {
 
     
     this.ogmaService.initConfig({
@@ -72,8 +73,22 @@ export class PipelinePage implements OnInit {
         this.ogmaService.clickOnEdge(edge);
       }
     });
+    this.ogmaService.loadPipeline(this.pipelineId).subscribe(res=>{
+      if(res){
+        console.log('full');
+        this.firstCreation = false;
+        this.ogmaService.loadGraph();
+      }else{
+        console.log('empty');
+        this.firstCreation = true;
+        this.ogmaService.createFirstNode(this.pipelineId);
+         this.ogmaService.exportGraph().then(ogmaJson=>{
+          console.log(ogmaJson);
+          this.ogmaService.sendPipeline(this.pipelineId,ogmaJson);
+        });
+      }
+    });
 
-    this.ogmaService.createFirstNode();
   }
 
   onZoomInBtn() {
