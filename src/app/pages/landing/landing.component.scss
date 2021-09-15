@@ -144,9 +144,19 @@
                 }
             }
         }
-        .bottom {
-            height: 10%;
-            background: var(--clr-red-61);
+    }
+    button {
+        font-family: vazir, sans-serif;
+        font-weight: bold;
+        width: fit-content;
+        padding: 2rem 6rem;
+        margin-right: auto;
+        background: var(--clr-red-61);
+        color: var(--clr-white);
+        font-size: var(--font-size-16);
+        border-radius: var(--border-radius-5);
+        &:hover {
+            background: var(--clr-red-59);
         }
     }
     .section-2 {
