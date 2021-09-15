@@ -46,6 +46,7 @@ export class OgmaService {
     });
     this.setGrid();
     const ogmaJson = await this.exportGraph();    
+    console.log(ogmaJson);
     this.sendPipeline(0,ogmaJson);
     return id;
   }
@@ -61,7 +62,8 @@ export class OgmaService {
       target: idTarget
     });
     this.setGrid();
-    const ogmaJson = await this.exportGraph();    
+    const ogmaJson = await this.exportGraph();
+    console.log(ogmaJson);
     this.sendPipeline(0,ogmaJson);
   }
 

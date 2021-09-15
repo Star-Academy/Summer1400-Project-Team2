@@ -12,8 +12,7 @@ export class PipelinePage implements OnInit {
   constructor(public dialog: MatDialog, private ogmaService: OgmaService,private route:ActivatedRoute) {}
   processor = '';
   deleteNode = false;
-  pipelineId =0;
-  private firstCreation =false;
+  pipelineId =0;  
   ngOnInit() {
     this.route.params.subscribe(
       (params:Params)=>{
@@ -25,8 +24,6 @@ export class PipelinePage implements OnInit {
     
   }
   async onCreateFirstNode() {
-
-    
     this.ogmaService.initConfig({
       container: 'graph-container',
       options: {
@@ -74,13 +71,12 @@ export class PipelinePage implements OnInit {
       }
     });
     this.ogmaService.loadPipeline(this.pipelineId).subscribe(res=>{
-      if(res){
-        console.log('full');
-        this.firstCreation = false;
+      console.log(res);
+      if(Object.keys(res).length >0){
+        console.log('full');        
         this.ogmaService.loadGraph();
       }else{
-        console.log('empty');
-        this.firstCreation = true;
+        console.log('empty');        
         this.ogmaService.createFirstNode(this.pipelineId);
          this.ogmaService.exportGraph().then(ogmaJson=>{
           console.log(ogmaJson);
@@ -100,5 +96,9 @@ export class PipelinePage implements OnInit {
   async onExportBtn(){
     const res = await this.ogmaService.exportGraph();
    console.log(res);
+  }
+
+  onClearGraph(){
+    this.ogmaService.sendPipeline(this.pipelineId,{});
   }
 }

@@ -8,6 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PipelineModule } from './pages/pipeline/pipeline.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     PipelineModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [MatDialog],
   bootstrap: [AppComponent]
