@@ -72,8 +72,8 @@ namespace ETL_project_Team2.controllers
         }
 
         [HttpPut]
-        [Route("pipeline")]
-        public IActionResult UpdatePipeline([FromQuery] int modelId, [FromBody] JObject content)
+        [Route("pipeline/{modelId}")]
+        public IActionResult UpdatePipeline(int modelId, [FromBody] JObject content)
         {
             pipelineDB.UpdateModel(modelId, content["content"].ToString());
             LoadPipeline(modelId);

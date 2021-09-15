@@ -70,7 +70,7 @@ namespace ETL_project_Team2.dao
                     tableColumns += columnPair.Key + ' ' + columnPair.Value + " ,";
                 tableColumns = tableColumns.TrimEnd(' ', ',');
 
-                string commandString = $"CREATE TABLE '{toBeCreated.TableName}' ({tableColumns});";
+                string commandString = $"CREATE TABLE {toBeCreated.TableName} ({tableColumns});";
                 var sqlCommand = new SqlCommand(commandString, connection);
 
                 connection.Open();

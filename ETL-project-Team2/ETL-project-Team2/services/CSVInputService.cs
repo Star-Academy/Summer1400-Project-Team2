@@ -15,7 +15,7 @@ namespace ETL_project_Team2.services
             var result = new Dictionary<string, string>();
             var fileReader = new StreamReader(inputStream);
             string headerLine = fileReader.ReadLine();
-            fileReader.Dispose();
+            fileReader.Close();
 
             string[] columnNames = headerLine.Split(delim);
 
@@ -28,7 +28,7 @@ namespace ETL_project_Team2.services
 
         public void ImportDataToSql(SqlTable table, string filePath, char delim, bool hasHeader)
         {
-            using(table.DBConnection)
+            using (table.DBConnection)
             {
                 var file = new StreamReader(filePath);
                 string commandString = $"INSERT INTO {table.TableName} ({SeperateColumns(table.Coloumns)})\n" +
@@ -36,20 +36,30 @@ namespace ETL_project_Team2.services
                 string line = string.Empty;
                 if (hasHeader)
                     file.ReadLine();
-                while((line = file.ReadLine()) != null)
+
+                table.DBConnection.Open();
+                while ((line = file.ReadLine()) != null)
                 {
-                    table.DBConnection.Open();
-                    string processedLine = line.Replace(delim, ',');
-                    processedLine = processedLine.Replace(",,", ",null ,");
+                    string[] rowValues = line.Split(',');
+                    string processedLine = string.Empty;
+                    foreach (string value in rowValues)
+                    {
+                        if (value != string.Empty)
+                            processedLine += '\'' + value + '\'' + ", ";
+                        else
+                            processedLine += "null, ";
+                    }
+                    processedLine = processedLine.TrimEnd(' ', ',');
                     using (var sqlCommand = new SqlCommand(string.Format(commandString, processedLine), table.DBConnection))
                     {
                         sqlCommand.ExecuteNonQuery();
                     }
                 }
+                file.Close();
             }
         }
 
-        private string SeperateColumns(Dictionary<string,string> columns)
+        private string SeperateColumns(Dictionary<string, string> columns)
         {
             var columnsNames = columns.Select(x => x.Key).ToList();
             string result = string.Empty;

@@ -50,21 +50,15 @@ namespace ETL_project_Team2.controllers
         [DisableRequestSizeLimit]
         [HttpPost]
         [Route("dataset")]
-        public IActionResult PutCSVFileOnDB()
+        public IActionResult PutCSVFileOnDB([FromQuery] string dataSetName)
         {
-            //string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
-            //fileName = fileName.Replace('\\', '-');
-            //fileName = fileName.Replace('/', '-');
-            //fileName = fileName.Replace(' ', '-');
-            //HttpContext.Request.EnableBuffering();
-            //string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{fileName}.csv";
             var sqlTable = new SqlTable()
             {
-                TableName = $"userCSVFile#{DateTime.Now.ToString()}".Replace(' ', '-'),
+                TableName = dataSetName,
                 Coloumns = new Dictionary<string, string>(csvInputService.GetColumnTypesAndNames(HttpContext.Request.Body, ','))
             };
 
-            string filePath = "F:\\test.csv";
+            string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{dataSetName}tempFile.csv";
             using (var fileStream = System.IO.File.Create(filePath))
             {
                 HttpContext.Request.Body.CopyTo(fileStream);
@@ -74,6 +68,7 @@ namespace ETL_project_Team2.controllers
             tablesDB.AddTableToRecords(sqlTable);
 
             csvInputService.ImportDataToSql(sqlTable, filePath, ',', true);
+            System.IO.File.Delete(filePath);
             return new OkResult();
         }
 
