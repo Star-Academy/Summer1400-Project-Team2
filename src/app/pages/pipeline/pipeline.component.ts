@@ -11,6 +11,8 @@ export class PipelinePage implements OnInit {
   constructor(public dialog: MatDialog, private ogmaService: OgmaService) {}
   processor = '';
   deleteNode = false;
+  showSidebar = true;
+
   ngOnInit() {
     this.onCreateFirstNode();
   }
@@ -29,7 +31,7 @@ export class PipelinePage implements OnInit {
         console.log('clicked on background at coordinates', event.x, event.y);
       } else if (event.target.isNode) {
         const nodeId = event.target.getId();
-        const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute('shape');        
+        const shape = this.ogmaService.ogma.getNode(nodeId).getAttribute('shape');
         if (nodeId === 0) {
           alert('دیتاست مبدا را انتخاب کنید.');
         }

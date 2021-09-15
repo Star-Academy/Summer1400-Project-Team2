@@ -9,13 +9,15 @@ import { ProcessorModalComponent } from './processor-modal/processor-modal.compo
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CsvTableModule } from '../../components/csv-table/csv-table.module';
 import { PreviewComponent } from './preview/preview.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     PipelinePage,
     PipelineHeaderComponent,
     ProcessorModalComponent,
-    PreviewComponent
+    PreviewComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,

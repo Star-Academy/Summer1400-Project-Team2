@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pipeline-header',
   templateUrl: './pipeline-header.component.html',
   styleUrls: ['./pipeline-header.component.scss']
 })
-export class PipelineHeaderComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
-  pipelineName ='نام پایپلاین';
-  updatedName=this.pipelineName;
+export class PipelineHeaderComponent {
+  @Output()
+  toggleDetail = new EventEmitter<void>();
+
+  pipelineName = 'نام پایپلاین';
+  updatedName = this.pipelineName;
   hasEdited = false;
-  isRunning=false;
-  runImgSrc='../../../assets/images/icons/play-button.svg';
+  isRunning = false;
+  runImgSrc = '../../../assets/images/icons/play-button.svg';
 
   onEditBtn() {
     this.hasEdited = true;
@@ -20,7 +21,9 @@ export class PipelineHeaderComponent implements OnInit {
   }
   toggleEdit() {
     const pipelineInfo = <HTMLElement>document.querySelector('.pipeline-info');
-    const changeContainer = <HTMLElement>document.querySelector('.change-pipeline__container');
+    const changeContainer = <HTMLElement>(
+      document.querySelector('.change-pipeline__container')
+    );
     if (this.hasEdited) {
       pipelineInfo.style.display = 'none';
       changeContainer.style.display = 'flex';
@@ -40,20 +43,20 @@ export class PipelineHeaderComponent implements OnInit {
     this.pipelineName = this.updatedName;
     this.toggleEdit();
   }
-  onBackBtn(){
+  onBackBtn() {
     window.history.back();
   }
 
-  onUpdatedName(event:Event){
+  onUpdatedName(event: Event) {
     this.updatedName = (<HTMLInputElement>event.target).value;
   }
 
-  onRunBtn(){
+  onRunBtn() {
     this.isRunning = !this.isRunning;
-    if(this.isRunning){
-      this.runImgSrc ='../../../assets/images/icons/stop-button.svg';
-    }else{
-      this.runImgSrc ='../../../assets/images/icons/play-button.svg';
+    if (this.isRunning) {
+      this.runImgSrc = '../../../assets/images/icons/stop-button.svg';
+    } else {
+      this.runImgSrc = '../../../assets/images/icons/play-button.svg';
     }
   }
 }
