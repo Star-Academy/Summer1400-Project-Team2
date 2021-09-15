@@ -4,9 +4,19 @@
     <projectFile>ETL-project-Team2/ETL-project-Team2.csproj</projectFile>
     <projectFile profileName="IIS Express">ETL-project-Team2/ETL-project-Team2.csproj</projectFile>
     <projectFile profileName="ETL_project_Team2">ETL-project-Team2/ETL-project-Team2.csproj</projectFile>
+    <projectFile profileName="Aggregation">ETL-project-Team2/ETL-project-Team2.csproj</projectFile>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27fabf83-7829-42b3-913a-45bb51ec46dc" name="Changes" comment="" />
+    <list default="true" id="27fabf83-7829-42b3-913a-45bb51ec46dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/AggregationHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/controllers/IAggregationHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/services/AggregationService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ETL-project-Team2/services/IAggregateService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ETL-project-Team2/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +33,14 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="backend-aggregation-temp" />
+                    <option name="lastUsedInstant" value="1631711313" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="be/feature/Aggregation" />
+                    <option name="lastUsedInstant" value="1631711274" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="be/feature/filter" />
                     <option name="lastUsedInstant" value="1630309450" />
@@ -50,6 +68,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.ETL-project-Team2: ETL_project_Team2">
