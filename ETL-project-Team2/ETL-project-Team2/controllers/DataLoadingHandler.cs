@@ -52,22 +52,23 @@ namespace ETL_project_Team2.controllers
         [Route("dataset")]
         public IActionResult PutCSVFileOnDB()
         {
-            string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
-            fileName = fileName.Replace('\\', '-');
-            fileName = fileName.Replace('/', '-');
-            fileName = fileName.Replace(' ', '-');
-            HttpContext.Request.EnableBuffering();
-            string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{fileName}.csv";
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                HttpContext.Request.Body.CopyTo(fileStream);
-            }
-
+            //string fileName = $"userCSVFile#{DateTime.Now.ToString()}";
+            //fileName = fileName.Replace('\\', '-');
+            //fileName = fileName.Replace('/', '-');
+            //fileName = fileName.Replace(' ', '-');
+            //HttpContext.Request.EnableBuffering();
+            //string filePath = $"{filesPath}{Path.DirectorySeparatorChar}{fileName}.csv";
             var sqlTable = new SqlTable()
             {
                 TableName = $"userCSVFile#{DateTime.Now.ToString()}",
-                Coloumns = new Dictionary<string, string>(csvInputService.GetColumnTypesAndNames(filePath, ','))
+                Coloumns = new Dictionary<string, string>(csvInputService.GetColumnTypesAndNames(HttpContext.Request.Body, ','))
             };
+
+            string filePath = "F:\\test.csv";
+            using (var fileStream = System.IO.File.Create(filePath))
+            {
+                HttpContext.Request.Body.CopyToAsync(fileStream);
+            }
 
             tablesDB.AddTableToRecords(sqlTable);
             tablesDB.CreateTable(ref sqlTable);

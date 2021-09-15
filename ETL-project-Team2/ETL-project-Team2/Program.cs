@@ -43,7 +43,11 @@ namespace ETL_project_Team2
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                                    {
-                                       webBuilder.UseStartup<Startup>();
+                                       webBuilder.ConfigureKestrel(serverOptions =>
+                                       {
+                                           serverOptions.AllowSynchronousIO = true;
+                                       })
+                                       .UseStartup<Startup>();
                                    });
     }
 }

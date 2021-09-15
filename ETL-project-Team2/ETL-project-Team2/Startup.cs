@@ -51,6 +51,7 @@ namespace ETL_project_Team2
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

@@ -4,15 +4,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.IO;
 using ETL_project_Team2.models;
+using System.Threading.Tasks;
 
 namespace ETL_project_Team2.services
 {
     class CSVInputService : ICSVInputService
     {
-        public Dictionary<string, string> GetColumnTypesAndNames(string filePath, char delim)
+        public Dictionary<string, string> GetColumnTypesAndNames(Stream inputStream, char delim)
         {
             var result = new Dictionary<string, string>();
-            var fileReader = new StreamReader(filePath);
+            var fileReader = new StreamReader(inputStream);
             string headerLine = fileReader.ReadLine();
             fileReader.Dispose();
 
