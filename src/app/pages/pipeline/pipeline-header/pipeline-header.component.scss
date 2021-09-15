@@ -17,9 +17,9 @@
     align-items: center;
     .pipeline-header__controls {
         width: 30%;
-        max-width: 280px;
+        max-width: 185px;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         img {
             display: block;
             width: 2rem;
@@ -33,11 +33,16 @@
         }
     }
     .pipeline-header__run {
-        width: 10%;
-        @include flex-evenly();
+        width: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
         img {
             width: 2rem;
             filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(153deg) brightness(104%) contrast(104%);
+        }
+        button {
+            margin-right: 1rem;
         }
     }
     .pipeline-header__details {
@@ -63,6 +68,7 @@
         .pipeline-name {
             padding: 0.2rem;
             margin-right: 1rem;
+            margin-bottom: 0 !important;
             max-width: 300px;
             white-space: nowrap;
             overflow: hidden;
