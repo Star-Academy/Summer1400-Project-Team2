@@ -5,7 +5,6 @@ namespace ETL_project_Team2.services
 {
     public class AggregationService
     {
-        private AggregationModel _aggregationModel;
 
         // void Aggregate(SqlConnection sqlConnection)
         // {
@@ -20,25 +19,25 @@ namespace ETL_project_Team2.services
         //     _dbService.ExecuteNonQuery(_aggregationModel.SqlTable.DBConnection, query);
         // }
 
-        private string CreateQuery(SqlTable previousTable)
+        public string CreateQuery(SqlTable previousTable, AggregationModel aggregationModel)
         {
-            switch (_aggregationModel.AggregationType)
+            switch (aggregationModel.AggregationType)
             {
                 case AggregationEnum.Sum:
-                    return "SELECT SUM(" + _aggregationModel.Columns +
-                           ") FROM " + _aggregationModel.SqlTable.TableName + " ;";
+                    return "SELECT SUM(" + aggregationModel.Columns +
+                           ") FROM " + aggregationModel.SqlTable.TableName + " ;";
                 case AggregationEnum.Count:
-                    return "SELECT COUNT(" + _aggregationModel.Columns +
-                           ") FROM " + _aggregationModel.SqlTable.TableName + " ;";
+                    return "SELECT COUNT(" + aggregationModel.Columns +
+                           ") FROM " + aggregationModel.SqlTable.TableName + " ;";
                 case AggregationEnum.Average:
-                    return "SELECT AVERAGE(" + _aggregationModel.Columns +
-                           ") FROM " + _aggregationModel.SqlTable.TableName + " ;";
+                    return "SELECT AVERAGE(" + aggregationModel.Columns +
+                           ") FROM " + aggregationModel.SqlTable.TableName + " ;";
                 case AggregationEnum.Min:
-                    return "SELECT MIN(" + _aggregationModel.Columns +
-                           ") FROM " + _aggregationModel.SqlTable.TableName + " ;";
+                    return "SELECT MIN(" + aggregationModel.Columns +
+                           ") FROM " + aggregationModel.SqlTable.TableName + " ;";
                 default:
-                    return "SELECT MAX(" + _aggregationModel.Columns +
-                           ") FROM " + _aggregationModel.SqlTable.TableName + " ;";
+                    return "SELECT MAX(" + aggregationModel.Columns +
+                           ") FROM " + aggregationModel.SqlTable.TableName + " ;";
             }
         }
     }
