@@ -3,14 +3,15 @@ import { Component, AfterViewInit } from '@angular/core';
 import {DashboardService} from "../../../services/dashboard/dashboard.service";
 
 interface Data {
-  name: string
+  name: string,
+  modelId: number
 }
 
 let res: any;
 
 let DATA: Data[] = [
-  { name: 'فیک'},
-  { name: 'فیک2'},
+  { name: 'فیک', modelId: 1},
+  { name: 'فیک2', modelId: 2},
 ];
 
 @Component({
@@ -30,6 +31,6 @@ export class DatasetComponent implements AfterViewInit {
     console.log(row);
   }
 
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['modelId','name'];
   dataSource = DATA;
 }
