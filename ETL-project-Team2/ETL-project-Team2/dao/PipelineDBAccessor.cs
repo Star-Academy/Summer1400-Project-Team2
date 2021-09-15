@@ -178,7 +178,7 @@ namespace ETL_project_Team2.dao
             string result = null;
             using(var connection = new SqlConnection(_dbConnectionString))
             {
-                string commandString = $"SELECT name FROM {_pipelinesTableName};";
+                string commandString = $"SELECT name FROM {_pipelinesTableName} WHERE Id='{modelId}';";
                 var sqlCommand = new SqlCommand(commandString, connection);
                 connection.Open();
 
