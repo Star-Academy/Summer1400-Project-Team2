@@ -72,16 +72,17 @@ export class PipelinePage implements OnInit {
       }
     });
     this.ogmaService.loadPipeline(this.pipelineId).subscribe(res=>{
+      console.log(this.pipelineId);
       console.log(res);
-      if(Object.keys(res).length >0){
-        console.log('full');        
-        this.ogmaService.loadGraph();
-      }else{
+      if(res ==null || Object.keys(res).length <1){
         console.log('empty');        
         this.ogmaService.createFirstNode();
          this.ogmaService.exportGraph().then(ogmaJson=>{          
           this.ogmaService.sendPipeline(this.pipelineId,ogmaJson);
         });
+      }else{
+        console.log('full');        
+        this.ogmaService.loadGraph();
       }
     });
 
