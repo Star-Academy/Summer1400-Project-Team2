@@ -76,7 +76,6 @@ namespace ETL_project_Team2.controllers
         public IActionResult UpdatePipeline(int modelId, [FromBody] JObject content)
         {
             pipelineDB.UpdateModel(modelId, content.ToString());
-            LoadPipeline(modelId);
             return new OkResult();
         }
 
