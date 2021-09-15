@@ -1,0 +1,17 @@
+.preview {
+  margin: 0 0.5rem;
+  width: 50%;
+  max-height: 30vh;
+
+  overflow: auto;
+
+  &::ng-deep > div {
+    min-width: 1920px;
+  }
+
+  &__container {
+    display: flex;
+
+    overflow: auto;
+  }
+}
