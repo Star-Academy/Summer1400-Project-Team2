@@ -90,8 +90,9 @@ namespace ETL_project_Team2.dao
 
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                string commandString = $"SELECT tableName FROM {tableName}";
+                string commandString = $"SELECT tableColumns FROM {_tablesListRecordTable} WHERE tableName='{tableName}';";
                 var command = new SqlCommand(commandString);
+                connection.Open();
 
                 using (var reader = command.ExecuteReader())
                 {

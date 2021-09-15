@@ -140,6 +140,7 @@ namespace ETL_project_Team2.dao
                 string commandString = $"SELECT entryDB, finalDB FROM {_pipelinesTableName} WHERE Id='{modelId}';";
                 var sqlCommand = new SqlCommand(commandString, connection);
 
+                connection.Open();
                 using (var reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.Read())
