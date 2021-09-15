@@ -111,7 +111,13 @@ namespace ETL_project_Team2.controllers
 
             string content = pipelineDB.FetchModel(modelId);
             var parsedObj = JObject.Parse(content);
-            var idsList = (JArray)parsedObj["nodes"]["id"];
+            var jsonNodesList = (JArray)parsedObj["nodes"];
+            var idsList = jsonNodesList.Select(x => x).
+                Where(x =>
+                {
+                    string type = x["data"]["type"].ToString();
+                    return type != "plus" && type != "destination" && type != "source";
+                }).Select(x => x["id"]).ToList();
             List<Node> nodesList = idsList.Select(id => new Node()
             {
                 Id = Int32.Parse(id.ToString())
@@ -120,16 +126,17 @@ namespace ETL_project_Team2.controllers
             _pipeline = new LinkedList<Tuple<Node, IOperation>>
                 (nodesList.Select(node => new Tuple<Node, IOperation>(node, null)));
 
-            var rawJsonOperationsList = (JArray)parsedObj["nodes"]["data"]["type"];
-            List<string> rawOperationsList = rawJsonOperationsList.Select(op => op.ToString()).ToList();
-            rawOperationsList.RemoveAll(x => { return x == "plus" || x == "source" || x == "target"; });
+            var rawOperationsList = parsedObj["nodes"].Select(x => x["data"]).Select(x => x["type"].ToString()).ToList();
+            rawOperationsList.RemoveAll(x => { return x == "plus" || x == "source" || x == "destination"; });
             List<IOperation> operationsList = rawOperationsList.Select(operation => MakeOperation(operation)).ToList();
 
             _pipeline.Zip(operationsList, (tuple, operation) => new Tuple<Node, IOperation>(tuple.Item1, operation));
 
             foreach (var nodePair in _pipeline)
             {
-                nodePair.Item2.SetParameters(pipelineDB.FetchNodeParameters(modelId, nodePair.Item1.Id));
+                string currentNodeParams = pipelineDB.FetchNodeParameters(modelId, nodePair.Item1.Id);
+                if (!string.IsNullOrEmpty(currentNodeParams))
+                    nodePair.Item2.SetParameters(currentNodeParams);
             }
         }
 
