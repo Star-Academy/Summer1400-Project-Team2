@@ -10,9 +10,28 @@ namespace ETL_project_Team2.services
 {
     public class CSVOutputHandler : ICSVOutputHandler
     {
+        public class NewLineChar
+        {
+            public NewLineChar(string type)
+            {
+                switch(type)
+                {
+                    case ("CRLF"):
+                        Value = "\r\n";
+                        break;
+                    case ("LF"):
+                        Value = "\n";
+                        break;
+                    default:
+                        throw new ArgumentException(type + "is not valid as a new line character type;");
+                }
+            }
+            public string Value { get; private set; }
+        }
+
         private const string tempFilePath = "F:";
 
-        public string MakeCSVFile(SqlTable table, char delim)
+        public string MakeCSVFile(SqlTable table, char delim, NewLineChar newLineChar)
         {
             string filePath = $"{tempFilePath}{Path.DirectorySeparatorChar}{table.TableName}TempFile.csv";
             var fileStream = File.CreateText(filePath);
@@ -32,7 +51,8 @@ namespace ETL_project_Team2.services
                         currentLine += reader[columnPair.Key].ToString() + delim + ' ';
                     }
                     currentLine = currentLine.TrimEnd(' ', delim);
-                    fileStream.WriteLine(currentLine);
+                    fileStream.Write(currentLine);
+                    fileStream.Write(newLineChar.Value);
                 }
 
                 sqlCommand.Dispose();

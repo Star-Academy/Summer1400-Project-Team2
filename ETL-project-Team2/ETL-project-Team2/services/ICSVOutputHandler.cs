@@ -8,6 +8,6 @@ namespace ETL_project_Team2.services
 {
     public interface ICSVOutputHandler
     {
-        string MakeCSVFile(SqlTable table, char delim);
+        string MakeCSVFile(SqlTable table, char delim, CSVOutputHandler.NewLineChar newLineChar);
     }
 }

@@ -78,8 +78,8 @@ namespace ETL_project_Team2.controllers
         public IActionResult GetDataSet(string tableName, [FromQuery] char columnDelim, [FromQuery] string newLineChar)
         {
             var table = tablesDB.FindTable(tableName);
-            string filePath = csvOutputHandler.MakeCSVFile(table, columnDelim);
-            return File(filePath, "text/csv");
+            string filePath = csvOutputHandler.MakeCSVFile(table, columnDelim, new CSVOutputHandler.NewLineChar(newLineChar));
+            return PhysicalFile(filePath, "text/csv");
         }
 
         public IActionResult CreateNewDataSet([FromBody] JObject content)
