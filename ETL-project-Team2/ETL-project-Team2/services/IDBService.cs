@@ -8,7 +8,8 @@ namespace ETL_project_Team2.services
 {
     public interface IDBService
     {
+        string CreateTableQuery(SqlTable table);
         string CopyTableQuery(SqlTable source, SqlTable dest);
-        string DopTableQuery(SqlTable table);
+        string DropTableQuery(SqlTable table);
     }
 }

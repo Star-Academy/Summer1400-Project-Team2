@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using ETL_project_Team2.services;
 using ETL_project_Team2.models;
+using Newtonsoft.Json.Linq;
 
 namespace ETL_project_Team2.controllers
 {
@@ -79,6 +80,21 @@ namespace ETL_project_Team2.controllers
             var table = tablesDB.FindTable(tableName);
             string filePath = csvOutputHandler.MakeCSVFile(table, columnDelim);
             return File(filePath, "text/csv");
+        }
+
+        public IActionResult CreateNewDataSet([FromBody] JObject content)
+        {
+            var newTable = new SqlTable()
+            {
+                TableName = content["name"].ToString(),
+                Coloumns = new Dictionary<string, string>()
+            };
+
+            foreach (var column in content["columns"])
+                newTable.Coloumns[column["columnName"].ToString()] = column["types"].ToString();
+            tablesDB.CreateTable(ref newTable);
+            tablesDB.AddTableToRecords(newTable);
+            return new OkResult();
         }
     }
 }

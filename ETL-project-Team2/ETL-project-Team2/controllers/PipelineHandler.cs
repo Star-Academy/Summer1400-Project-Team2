@@ -80,11 +80,11 @@ namespace ETL_project_Team2.controllers
             foreach (var nodePair in _pipeline)
             {
                 SqlTable nextTable = nodePair.Item2.Operate(currentTable);
-                dbAccessor.ExecuteNonQuery("", dbService.DopTableQuery(currentTable), currentTable.DBConnection);
+                dbAccessor.ExecuteNonQuery("", dbService.DropTableQuery(currentTable), currentTable.DBConnection);
                 currentTable = nextTable;
             }
             dbAccessor.ExecuteNonQuery("", dbService.CopyTableQuery(currentTable, _finalTable), _finalTable.DBConnection);
-            dbAccessor.ExecuteNonQuery("", dbService.DopTableQuery(currentTable), currentTable.DBConnection);
+            dbAccessor.ExecuteNonQuery("", dbService.DropTableQuery(currentTable), currentTable.DBConnection);
             return new OkResult();
         }
 
