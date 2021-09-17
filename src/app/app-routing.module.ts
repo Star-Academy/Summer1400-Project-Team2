@@ -22,7 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'pipelines',
-    loadChildren: () => import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
+    loadChildren: () =>
+      import('./pages/pipeline/pipeline.module').then(m => m.PipelineModule)
   },
   { path: 'datasets', component: DatasetsComponent },
   { path: 'login', component: LoginComponent },

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DashboardService} from "../../../services/dashboard/dashboard.service";
-import {tableData} from "../tableData";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard/dashboard.service';
+import { tableData } from '../tableData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-datasets',
@@ -9,22 +9,19 @@ import {Router} from "@angular/router";
   styleUrls: ['./dataset.component.scss']
 })
 export class DatasetComponent implements OnInit {
+  constructor(private dashboardService: DashboardService, private router: Router) {}
 
-  constructor(private dashboardService: DashboardService, private router:Router) {
-  }
-
-  table: tableData[] = [{name:'1',id:'2'}];
+  table: tableData[] = [{ name: '1', id: '2' }];
 
   ngOnInit() {
     this.dashboardService.tableData1('dataset').subscribe(data => {
       this.table = data;
-    })
+    });
   }
 
   rowClick(row: tableData): void {
     // console.log(row);
-    this.router.navigateByUrl('/datasets/'+ row.id);
-
+    this.router.navigateByUrl('/datasets');
   }
 
   create(id: string, name: string, entryDB: string, finalDB: string): void {
