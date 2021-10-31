@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <mat-icon class="menu_icon" aria-label="Menu icon">menu</mat-icon>
+  <span>سامانه تحلیل داده ستاره</span>
+  <span class="example-spacer"></span>
+
+  <span class="profile" [matMenuTriggerFor]="menu" dir="rtl">
+    پارسا <mat-icon class="menu_icon" aria-label="Menu icon">expand_more</mat-icon>
+  </span>
+  <mat-menu #menu="matMenu" dir="rtl">
+    <button mat-menu-item>
+      <mat-icon class="profile_menu_icon" aria-label="Menu icon">account_circle</mat-icon>
+      پروفایل
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="profile_menu_icon" aria-label="Menu icon">logout</mat-icon>
+      خروج
+    </button>
+  </mat-menu>
+</mat-toolbar>

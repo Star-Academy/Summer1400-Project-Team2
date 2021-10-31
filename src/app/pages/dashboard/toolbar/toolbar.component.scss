@@ -1,0 +1,38 @@
+.mat-icon {
+  vertical-align: middle;
+  color: var(--clr-gray-91);
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.menu_icon {
+  margin: 0 0.5rem 0 1rem;
+}
+
+.profile_menu_icon {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-menu-item .mat-icon {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+.profile {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+mat-toolbar {
+  background: var(--clr-primary);
+
+  span {
+    color: var(--clr-white);
+
+    font-size: var(--font-size-16);
+  }
+}
